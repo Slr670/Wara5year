@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Scheduled Function: Run on the 1st of every month at 9:00 AM
+[functions."monthly-alert-cron"]
+  schedule = "0 9 1 * *"
+
+# Route API requests to Netlify Serverless Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# CORS & Security headers
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS, HEAD"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
