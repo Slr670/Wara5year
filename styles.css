@@ -1330,7 +1330,7 @@ tbody tr.total {
   font-size: 13px;
   color: #334155;
   border-bottom: 2px solid #cbd5e1;
-  text-align: left;
+  vertical-align: middle;
   white-space: nowrap;
 }
 .site-budget-table td {
@@ -1338,15 +1338,53 @@ tbody tr.total {
   font-size: 13px;
   border-bottom: 1px solid #e2e8f0;
   vertical-align: middle;
+  text-align: left;
 }
 .site-budget-table tr:hover td {
   background-color: #f8fafc;
 }
+.site-budget-table th.col-center,
+.site-budget-table td.col-center {
+  text-align: center;
+}
+.site-budget-table th.col-left,
+.site-budget-table td.col-left {
+  text-align: left;
+}
+.site-budget-table th.col-right,
+.site-budget-table td.col-right {
+  text-align: right;
+}
+.site-village-cell {
+  text-align: left !important;
+}
+.site-village-cell * {
+  text-align: left !important;
+}
+.site-tower-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #4338ca;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 6px;
+  padding: 1px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.site-budget-input-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .site-budget-input {
-  width: 125px;
+  width: 120px;
   padding: 6px 10px;
   border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 13px;
   font-family: inherit;
   text-align: right;
@@ -1354,6 +1392,7 @@ tbody tr.total {
   color: #0f172a;
   background: #ffffff;
   transition: all 0.2s;
+  margin: 0 auto;
 }
 .site-budget-input:focus {
   outline: none;
@@ -1370,7 +1409,9 @@ tbody tr.total {
   font-weight: 800;
   color: #1e3a8a;
   text-align: right;
+  padding-right: 18px;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Tenure Interval Breakdown Section */
