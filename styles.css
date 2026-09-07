@@ -1469,6 +1469,16 @@ tbody tr.total {
   border-bottom: 1px solid #e2e8f0;
   color: #1e293b;
   white-space: nowrap;
+  vertical-align: middle;
+  text-align: left;
+}
+.interval-table th.col-center,
+.interval-table td.col-center {
+  text-align: center !important;
+}
+.interval-table th.col-right,
+.interval-table td.col-right {
+  text-align: right !important;
 }
 .interval-table tr:hover td {
   background-color: #f8fafc;
