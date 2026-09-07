@@ -491,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.0</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.1</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -673,7 +673,7 @@ export const StationBudgetDetailPDF = ({
 
   return (
     <Document title={`เอกสารเจาะลึกงบประมาณรายสถานี_${bracketKey}_${province}`}>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page, { paddingBottom: 24 }]}>
         {/* Header */}
         <View style={styles.headerSection}>
           <Image src="/images/logo.png" style={styles.logo} />
@@ -694,7 +694,7 @@ export const StationBudgetDetailPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={[styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }]}>
-              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.0</Text>
+              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.1</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
           </View>
@@ -781,23 +781,9 @@ export const StationBudgetDetailPDF = ({
           </View>
         </View>
 
-        {/* Dual Signatures Approval Section */}
-        <View style={styles.signatureSection} wrap={false}>
-          <View style={styles.signatureBox}>
-            <Text style={styles.sigName}>( ........................................................... )</Text>
-            <Text style={styles.sigRole}>ผู้จัดทำข้อมูล / วิศวกรโครงการ USO</Text>
-            <Text style={styles.sigDate}>วันที่: ...... / ...... / ..........</Text>
-          </View>
-          <View style={styles.signatureBox}>
-            <Text style={styles.sigName}>( ........................................................... )</Text>
-            <Text style={styles.sigRole}>ผู้ตรวจสอบ / ผู้มีอำนาจอนุมัติงบประมาณ</Text>
-            <Text style={styles.sigDate}>วันที่: ...... / ...... / ..........</Text>
-          </View>
-        </View>
-
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -913,7 +899,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>

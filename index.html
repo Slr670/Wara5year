@@ -461,7 +461,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.0</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.1</span>
         </div>
       </div>
 
@@ -834,13 +834,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.14.0</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.14.1</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.14.0";
+    const APP_VERSION = "v1.14.1";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3834,7 +3834,7 @@
         const styles = StyleSheet.create({
           page: {
             paddingTop: 18,
-            paddingBottom: 22,
+            paddingBottom: 24,
             paddingHorizontal: 22,
             fontFamily: 'THSarabunNew',
             fontSize: 8.5,
@@ -4012,47 +4012,14 @@
             paddingHorizontal: 4,
             alignItems: 'center'
           },
-          signatureSection: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 10,
-            paddingTop: 6,
-            paddingHorizontal: 20
-          },
-          signatureBox: {
-            width: '44%',
-            alignItems: 'center',
-            borderTopWidth: 1,
-            borderTopColor: '#94a3b8',
-            paddingTop: 5
-          },
-          sigName: {
-            fontSize: 8,
-            fontWeight: 'bold',
-            color: '#0f172a',
-            textAlign: 'center',
-            marginTop: 1
-          },
-          sigRole: {
-            fontSize: 7,
-            color: '#64748b',
-            marginTop: 1,
-            textAlign: 'center'
-          },
-          sigDate: {
-            fontSize: 7,
-            color: '#94a3b8',
-            marginTop: 1.5,
-            textAlign: 'center'
-          },
           footer: {
             borderTopWidth: 0.8,
             borderTopColor: '#e2e8f0',
-            paddingTop: 3,
-            marginTop: 5,
+            paddingTop: 4,
+            marginTop: 8,
             flexDirection: 'row',
             justifyContent: 'space-between',
-            fontSize: 7,
+            fontSize: 7.5,
             color: '#94a3b8'
           }
         });
@@ -4107,7 +4074,7 @@
               ),
               h(View, { style: styles.headerRight },
                 h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
-                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.0')
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.1')
                 ),
                 h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
               )
@@ -4160,22 +4127,9 @@
                 )
               )
             ),
-            // Signatures Section
-            h(View, { style: styles.signatureSection, wrap: false },
-              h(View, { style: styles.signatureBox },
-                h(Text, { style: styles.sigName }, '( ........................................................... )'),
-                h(Text, { style: styles.sigRole }, 'ผู้จัดทำข้อมูล / วิศวกรโครงการ USO'),
-                h(Text, { style: styles.sigDate }, 'วันที่: ...... / ...... / ..........')
-              ),
-              h(View, { style: styles.signatureBox },
-                h(Text, { style: styles.sigName }, '( ........................................................... )'),
-                h(Text, { style: styles.sigRole }, 'ผู้ตรวจสอบ / ผู้มีอำนาจอนุมัติงบประมาณ'),
-                h(Text, { style: styles.sigDate }, 'วันที่: ...... / ...... / ..........')
-              )
-            ),
             // Fixed Footer on all pages
             h(View, { style: styles.footer, fixed: true },
-              h(Text, {}, `Wara Dashboard v1.14.0 — Forth Corporation Public Company Limited`),
+              h(Text, {}, `Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited`),
               h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
             )
           )
