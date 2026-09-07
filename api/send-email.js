@@ -149,7 +149,7 @@ module.exports = async (req, res) => {
               <table style="width: 100%; min-width: 480px; border-collapse: collapse; background: #ffffff;">
                 <thead>
                   <tr style="background: #f8fafc; text-align: left; font-size: 12px; color: #475569; border-bottom: 2px solid #cbd5e1;">
-                    <th style="padding: 10px; text-align: center;">ลำดับ</th>
+                    <th style="padding: 10px; text-align: center;">ลำดับ TOR</th>
                     <th style="padding: 10px;">ชื่อหมู่บ้าน / ที่ตั้ง</th>
                     <th style="padding: 10px; text-align: center;">วาระคงเหลือ</th>
                     <th style="padding: 10px; text-align: center;">เบอร์ติดต่อ</th>
@@ -169,7 +169,7 @@ module.exports = async (req, res) => {
               <ol style="margin: 0; padding-left: 20px; font-size: 13px; color: #1e40af; line-height: 1.6;">
                 <li>ตรวจสอบและยืนยันสถานะการดำรงตำแหน่งปัจจุบันของเจ้าหน้าที่รัฐในหมู่บ้านดังกล่าว</li>
                 <li>ประสานงานผู้นำชุมชน / ผู้ใหญ่บ้าน หรือ อปท. ตามเบอร์โทรศัพท์ที่ระบุเพื่อเตรียมข้อมูลต่อวาระหรือผู้รับหน้าที่แทน</li>
-                <li>ตรวจสอบความพร้อมของเสาอากาศความสูงและจุดติดตั้งในพื้นที่ผ่านระบบ Wara Dashboard</li>
+                <li>ตรวจสอบความพร้อมของเสาอากาศความสูงและสถานีในพื้นที่ผ่านระบบ Wara Dashboard</li>
               </ol>
             </div>
             

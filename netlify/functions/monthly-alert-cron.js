@@ -238,7 +238,7 @@ const handler = async (event, context) => {
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
               <thead>
                 <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
-                  <th style="padding: 10px; font-size: 12px; font-weight: 800; color: #475569; text-align: center;">ลำดับ</th>
+                  <th style="padding: 10px; font-size: 12px; font-weight: 800; color: #475569; text-align: center;">ลำดับ TOR</th>
                   <th style="padding: 10px; font-size: 12px; font-weight: 800; color: #475569;">หมู่บ้าน / ที่ตั้ง</th>
                   <th style="padding: 10px; font-size: 12px; font-weight: 800; color: #475569; text-align: center;">วาระคงเหลือ</th>
                   <th style="padding: 10px; font-size: 12px; font-weight: 800; color: #475569; text-align: center;">ความสูง / รูปแบบเสา</th>
@@ -268,7 +268,7 @@ const handler = async (event, context) => {
 
         <!-- Footer -->
         <div style="background: #f1f5f9; padding: 14px 30px; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0;">
-          Wara Dashboard • ระบบแจ้งเตือนวาระอัตโนมัติรอบประจำเดือน (Scheduled Cron Alert v1.13.4)
+          Wara Dashboard • ระบบแจ้งเตือนวาระอัตโนมัติรอบประจำเดือน (Scheduled Cron Alert v1.13.5)
         </div>
       </div>
     `;

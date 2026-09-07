@@ -103,12 +103,12 @@ $bodyHtml = @"
     <p>ระบบตรวจสอบวาระประจำเดือนได้รันงานเมื่อ <b>$nowStr</b> และพบข้อมูลเจ้าหน้าที่รัฐในพื้นที่รับผิดชอบที่วาระคงเหลือตรงเงื่อนไข <b>1 เดือน (0 ปี 1 เดือน)</b> ดังต่อไปนี้:</p>
     <table style="width: 100%; border-collapse: collapse; margin: 18px 0; border: 1px solid #cbd5e1; border-radius: 8px;">
       <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1; font-size: 12px; color: #475569;">
-        <th style="padding: 10px;">ID</th>
+        <th style="padding: 10px;">ลำดับ TOR</th>
         <th style="padding: 10px; text-align: left;">หมู่บ้าน / ที่ตั้ง</th>
         <th style="padding: 10px;">วาระคงเหลือ</th>
         <th style="padding: 10px;">ความสูง / รูปแบบเสา</th>
         <th style="padding: 10px;">เบอร์ติดต่อ</th>
-        <th style="padding: 10px;">แผนที่</th>
+        <th style="padding: 10px;">พิกัดแผนที่</th>
       </tr>
       $rowsHtml
     </table>
@@ -117,7 +117,7 @@ $bodyHtml = @"
     </div>
   </div>
   <div style="background: #f1f5f9; padding: 12px; font-size: 11px; color: #94a3b8; text-align: center;">
-    Wara Dashboard • Scheduled Monthly Cron Alert v1.13.4
+    Wara Dashboard • Scheduled Monthly Cron Alert v1.13.5
   </div>
 </div>
 "@
