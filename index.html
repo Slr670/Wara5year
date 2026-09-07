@@ -447,7 +447,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11px;">v1.13.6</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11px;">v1.13.7</span>
         </div>
       </div>
 
@@ -820,13 +820,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.13.6</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.13.7</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.13.6";
+    const APP_VERSION = "v1.13.7";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3387,7 +3387,7 @@
             borderBottomWidth: 1.5,
             borderBottomColor: '#cbd5e1',
             paddingVertical: 4,
-            paddingHorizontal: 5
+            paddingHorizontal: 3.5
           },
           thText: {
             fontSize: 7.5,
@@ -3399,7 +3399,7 @@
             borderBottomWidth: 0.8,
             borderBottomColor: '#e2e8f0',
             paddingVertical: 3,
-            paddingHorizontal: 5,
+            paddingHorizontal: 3.5,
             alignItems: 'center'
           },
           tableRowAlt: {
@@ -3407,7 +3407,7 @@
             borderBottomWidth: 0.8,
             borderBottomColor: '#e2e8f0',
             paddingVertical: 3,
-            paddingHorizontal: 5,
+            paddingHorizontal: 3.5,
             alignItems: 'center',
             backgroundColor: '#f8fafc'
           },
@@ -3423,7 +3423,7 @@
             borderBottomWidth: 0.8,
             borderBottomColor: '#cbd5e1',
             paddingVertical: 3.5,
-            paddingHorizontal: 5,
+            paddingHorizontal: 3.5,
             alignItems: 'center'
           },
           grandTotalRow: {
@@ -3432,7 +3432,7 @@
             borderTopWidth: 1.5,
             borderTopColor: '#93c5fd',
             paddingVertical: 4,
-            paddingHorizontal: 5,
+            paddingHorizontal: 3.5,
             alignItems: 'center'
           },
           footer: {
@@ -3447,14 +3447,14 @@
           }
         });
 
-        // Column widths for Budget Table
-        const colB1 = { width: '22%' };
-        const colB2 = { width: '13%', textAlign: 'center' };
-        const colB3 = { width: '11%', textAlign: 'right' };
-        const colB4 = { width: '9%', textAlign: 'right' };
-        const colB5 = { width: '14%', textAlign: 'right' };
-        const colB6 = { width: '14%', textAlign: 'right' };
-        const colB7 = { width: '17%', textAlign: 'right' };
+        // Column widths for Budget Table (optimized to prevent text truncation)
+        const colB1 = { width: '24%' };
+        const colB2 = { width: '14%', textAlign: 'center' };
+        const colB3 = { width: '12%', textAlign: 'right' };
+        const colB4 = { width: '8%', textAlign: 'right' };
+        const colB5 = { width: '13%', textAlign: 'right' };
+        const colB6 = { width: '13%', textAlign: 'right' };
+        const colB7 = { width: '16%', textAlign: 'right' };
 
         // Column widths for Provincial Table
         const colPName = { width: '23%' };
@@ -3477,7 +3477,7 @@
           return h(View, { style: i % 2 === 0 ? styles.tableRow : styles.tableRowAlt, key: `b_${nameStr}_${i}` },
             h(Text, { style: { ...styles.cellText, ...colB1, fontWeight: 'bold' } }, nameStr),
             h(View, { style: { ...colB2, alignItems: 'center' } },
-              h(Text, { style: { fontSize: 7, color: priCol, backgroundColor: priB, paddingVertical: 1, paddingHorizontal: 4, borderRadius: 2 } }, priStr)
+              h(Text, { style: { fontSize: 6.8, color: priCol, backgroundColor: priB, paddingVertical: 1, paddingHorizontal: 2.5, borderRadius: 2 } }, priStr)
             ),
             h(Text, { style: { ...styles.cellText, ...colB3, fontWeight: 'bold' } }, `${countVal} สถานี`),
             h(Text, { style: { ...styles.cellText, ...colB4, color: '#475569' } }, `${pctVal}%`),
@@ -3511,8 +3511,9 @@
             h(View, { style: styles.headerSection },
               h(Image, { src: '/images/logo.png', style: styles.logo }),
               h(View, { style: { flex: 1, justifyContent: 'center' } },
-                h(Text, { style: styles.companyTh, wrap: false }, 'บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)'),
-                h(Text, { style: { fontSize: 11, color: '#5b9bd5', fontWeight: 'bold' } }, 'FORTH CORPORATION PUBLIC COMPANY LIMITED')
+                h(Text, { style: styles.companyTh }, 'บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)'),
+                h(Text, { style: { fontSize: 10, color: '#0284c7', fontWeight: 'bold' } }, 'FORTH CORPORATION PUBLIC COMPANY LIMITED'),
+                h(Text, { style: { fontSize: 7.5, color: '#64748b', marginTop: 1.5 } }, '1053/1 ถนนพหลโยธิน แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 โทรศัพท์ : 02-265-6700')
               )
             ),
 
@@ -3569,18 +3570,18 @@
                   ...safeBudgetRows,
                   // Priority Subtotal Row
                   h(View, { style: styles.subtotalRow },
-                    h(Text, { style: { ...styles.cellText, width: '35%', fontWeight: 'bold', color: '#991b1b' } }, 'รวมเฉพาะกลุ่มวาระเร่งด่วน (≤ 4 ปี)'),
+                    h(Text, { style: { ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#991b1b' } }, 'รวมเฉพาะกลุ่มวาระเร่งด่วน (≤ 4 ปี)'),
                     h(Text, { style: { ...styles.cellText, ...colB3, fontWeight: 'bold', color: '#991b1b' } }, `${prioritySitesSum || 0} สถานี`),
                     h(Text, { style: { ...styles.cellText, ...colB4, color: '#991b1b' } }, `${priorityPct}%`),
-                    h(Text, { style: { ...styles.cellText, width: '28%', textAlign: 'right', fontSize: 7, color: '#64748b', paddingRight: 4 } }, 'รวมงบหลัก + งานเพิ่มเติมกลุ่ม'),
+                    h(Text, { style: { ...styles.cellText, width: '26%', textAlign: 'right', fontSize: 7, color: '#64748b', paddingRight: 4 } }, 'รวมงบหลัก + งานเพิ่มเติมกลุ่ม'),
                     h(Text, { style: { ...styles.cellText, ...colB7, fontWeight: 'bold', color: '#b91c1c' } }, formatThb(priorityBudgetSum || 0))
                   ),
                   // Grand Total Row
                   h(View, { style: styles.grandTotalRow },
-                    h(Text, { style: { ...styles.cellText, width: '35%', fontWeight: 'bold', color: '#1e3a8a' } }, 'ยอดรวมงบประมาณทั้งสิ้น (Grand Total)'),
+                    h(Text, { style: { ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#1e3a8a' } }, 'ยอดรวมงบประมาณทั้งสิ้น (Grand Total)'),
                     h(Text, { style: { ...styles.cellText, ...colB3, fontWeight: 'bold', color: '#1e3a8a' } }, `${grandSitesSum || 0} สถานี`),
                     h(Text, { style: { ...styles.cellText, ...colB4, color: '#1e3a8a' } }, '100%'),
-                    h(Text, { style: { ...styles.cellText, width: '28%', textAlign: 'right', fontSize: 7, color: '#475569', paddingRight: 4 } }, 'รวมทุกช่วงวาระ'),
+                    h(Text, { style: { ...styles.cellText, width: '26%', textAlign: 'right', fontSize: 7, color: '#475569', paddingRight: 4 } }, 'รวมทุกช่วงวาระ'),
                     h(Text, { style: { ...styles.cellText, ...colB7, fontWeight: 'bold', color: '#1d4ed8' } }, formatThb(grandBudgetSum || 0))
                   )
                 )

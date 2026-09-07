@@ -170,6 +170,11 @@ const styles = StyleSheet.create({
     color: '#0284c7',
     fontWeight: 'bold'
   },
+  companyAddress: {
+    fontSize: 7.5,
+    color: '#64748b',
+    marginTop: 1.5
+  },
   headerBanner: {
     borderBottomWidth: 1.5,
     borderBottomColor: '#2563eb',
@@ -274,7 +279,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.5,
     borderBottomColor: '#cbd5e1',
     paddingVertical: 4,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center'
   },
   thText: {
@@ -287,7 +292,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.8,
     borderBottomColor: '#e2e8f0',
     paddingVertical: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center'
   },
   tableRowAlt: {
@@ -295,7 +300,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.8,
     borderBottomColor: '#e2e8f0',
     paddingVertical: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center',
     backgroundColor: '#f8fafc'
   },
@@ -321,7 +326,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.8,
     borderBottomColor: '#cbd5e1',
     paddingVertical: 3.5,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center'
   },
   grandTotalRow: {
@@ -330,7 +335,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1.5,
     borderTopColor: '#93c5fd',
     paddingVertical: 4,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center'
   },
   summaryRow: {
@@ -339,7 +344,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1.2,
     borderTopColor: '#93c5fd',
     paddingVertical: 3.5,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     alignItems: 'center'
   },
 
@@ -414,14 +419,14 @@ export const WaraSummaryReportPDF = ({
 
   const metrics = calculateWaraBudgetMetrics(stations, siteBudgets, budgetMap, additionalBudgetMap);
 
-  // Column Widths for Table 1 (Budget Breakdown Table)
-  const colB1 = { width: '22%' };
-  const colB2 = { width: '13%', textAlign: 'center' };
-  const colB3 = { width: '11%', textAlign: 'right' };
-  const colB4 = { width: '9%', textAlign: 'right' };
-  const colB5 = { width: '14%', textAlign: 'right' };
-  const colB6 = { width: '14%', textAlign: 'right' };
-  const colB7 = { width: '17%', textAlign: 'right' };
+  // Column Widths for Table 1 (Budget Breakdown Table - optimized against text truncation)
+  const colB1 = { width: '24%' };
+  const colB2 = { width: '14%', textAlign: 'center' };
+  const colB3 = { width: '12%', textAlign: 'right' };
+  const colB4 = { width: '8%', textAlign: 'right' };
+  const colB5 = { width: '13%', textAlign: 'right' };
+  const colB6 = { width: '13%', textAlign: 'right' };
+  const colB7 = { width: '16%', textAlign: 'right' };
 
   // Column Widths for Table 2 (Provincial Summary Table)
   const colPName = { width: '23%' };
@@ -446,6 +451,7 @@ export const WaraSummaryReportPDF = ({
           <View style={styles.companyDetails}>
             <Text style={styles.companyTh}>บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)</Text>
             <Text style={styles.companyEn}>FORTH CORPORATION PUBLIC COMPANY LIMITED</Text>
+            <Text style={styles.companyAddress}>1053/1 ถนนพหลโยธิน แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 โทรศัพท์ : 02-265-6700</Text>
           </View>
         </View>
 
@@ -456,7 +462,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.6</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.7</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -505,7 +511,7 @@ export const WaraSummaryReportPDF = ({
               <View key={`r_${r.key}_${i}`} style={i % 2 === 0 ? styles.tableRow : styles.tableRowAlt}>
                 <Text style={{ ...styles.cellText, ...colB1, fontWeight: 'bold' }}>{r.name}</Text>
                 <View style={{ ...colB2, alignItems: 'center' }}>
-                  <Text style={{ fontSize: 7, color: r.priColor, backgroundColor: r.priBg, paddingVertical: 1, paddingHorizontal: 4, borderRadius: 2 }}>
+                  <Text style={{ fontSize: 6.8, color: r.priColor, backgroundColor: r.priBg, paddingVertical: 1, paddingHorizontal: 2.5, borderRadius: 2 }}>
                     {r.priority}
                   </Text>
                 </View>
@@ -519,19 +525,19 @@ export const WaraSummaryReportPDF = ({
 
             {/* Subtotal Row */}
             <View style={styles.subtotalRow}>
-              <Text style={{ ...styles.cellText, width: '35%', fontWeight: 'bold', color: '#991b1b' }}>รวมเฉพาะกลุ่มวาระเร่งด่วน (≤ 4 ปี)</Text>
+              <Text style={{ ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#991b1b' }}>รวมเฉพาะกลุ่มวาระเร่งด่วน (≤ 4 ปี)</Text>
               <Text style={{ ...styles.cellText, ...colB3, fontWeight: 'bold', color: '#991b1b' }}>{metrics.priorityStationsSum.toLocaleString('th-TH')} สถานี</Text>
               <Text style={{ ...styles.cellText, ...colB4, color: '#991b1b' }}>{metrics.priorityPct}%</Text>
-              <Text style={{ ...styles.cellText, width: '28%', textAlign: 'right', fontSize: 7, color: '#64748b', paddingRight: 4 }}>รวมงบหลัก + งานเพิ่มเติมกลุ่ม</Text>
+              <Text style={{ ...styles.cellText, width: '26%', textAlign: 'right', fontSize: 7, color: '#64748b', paddingRight: 4 }}>รวมงบหลัก + งานเพิ่มเติมกลุ่ม</Text>
               <Text style={{ ...styles.cellText, ...colB7, fontWeight: 'bold', color: '#b91c1c' }}>{formatThb(metrics.priorityBudgetSum)}</Text>
             </View>
 
             {/* Grand Total Row */}
             <View style={styles.grandTotalRow}>
-              <Text style={{ ...styles.cellText, width: '35%', fontWeight: 'bold', color: '#1e3a8a' }}>ยอดรวมงบประมาณทั้งสิ้น (Grand Total)</Text>
+              <Text style={{ ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#1e3a8a' }}>ยอดรวมงบประมาณทั้งสิ้น (Grand Total)</Text>
               <Text style={{ ...styles.cellText, ...colB3, fontWeight: 'bold', color: '#1e3a8a' }}>{metrics.totalStations.toLocaleString('th-TH')} สถานี</Text>
               <Text style={{ ...styles.cellText, ...colB4, color: '#1e3a8a' }}>100%</Text>
-              <Text style={{ ...styles.cellText, width: '28%', textAlign: 'right', fontSize: 7, color: '#475569', paddingRight: 4 }}>รวมทุกช่วงวาระ</Text>
+              <Text style={{ ...styles.cellText, width: '26%', textAlign: 'right', fontSize: 7, color: '#475569', paddingRight: 4 }}>รวมทุกช่วงวาระ</Text>
               <Text style={{ ...styles.cellText, ...colB7, fontWeight: 'bold', color: '#1d4ed8' }}>{formatThb(metrics.grandBudgetSum)}</Text>
             </View>
           </View>
@@ -581,7 +587,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -645,6 +651,7 @@ export const StationBudgetDetailPDF = ({
           <View style={styles.companyDetails}>
             <Text style={styles.companyTh}>บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)</Text>
             <Text style={styles.companyEn}>FORTH CORPORATION PUBLIC COMPANY LIMITED</Text>
+            <Text style={styles.companyAddress}>1053/1 ถนนพหลโยธิน แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 โทรศัพท์ : 02-265-6700</Text>
           </View>
         </View>
 
@@ -761,7 +768,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -803,6 +810,7 @@ export const TenureIntervalAnalysisPDF = ({
           <View style={styles.companyDetails}>
             <Text style={styles.companyTh}>บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)</Text>
             <Text style={styles.companyEn}>FORTH CORPORATION PUBLIC COMPANY LIMITED</Text>
+            <Text style={styles.companyAddress}>1053/1 ถนนพหลโยธิน แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 โทรศัพท์ : 02-265-6700</Text>
           </View>
         </View>
 
@@ -876,7 +884,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
