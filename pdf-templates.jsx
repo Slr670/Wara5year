@@ -491,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.13</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.14</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.13 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.14 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -728,7 +728,7 @@ export const StationBudgetDetailPDF = ({
         <View style={styles.table}>
           <View style={styles.tableHead}>
             <Text style={{ ...styles.thText, ...colS1 }}>ลำดับ TOR</Text>
-            <Text style={{ ...styles.thText, ...colS2 }}>ชื่อหมู่บ้าน / ที่ตั้ง</Text>
+            <Text style={{ ...styles.thText, ...colS2 }}>รายชื่อ</Text>
             <Text style={{ ...styles.thText, ...colS3 }}>วาระคงเหลือ</Text>
             <Text style={{ ...styles.thText, ...colS4 }}>ประเภทเสา</Text>
             <Text style={{ ...styles.thText, ...colS5 }}>งบหลัก/สถานี</Text>
@@ -797,7 +797,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.13 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.14 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -913,7 +913,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.13 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.14 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
