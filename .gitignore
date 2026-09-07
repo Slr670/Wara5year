@@ -25,3 +25,6 @@ yarn-error.log*
 Thumbs.db
 [Dd]esktop.ini
 .DS_Store
+
+# Generated PDF Exports
+*.pdf
