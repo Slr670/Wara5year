@@ -447,7 +447,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11px;">v1.13.8</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11px;">v1.13.9</span>
         </div>
       </div>
 
@@ -820,13 +820,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.13.8</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.13.9</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.13.8";
+    const APP_VERSION = "v1.13.9";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3196,10 +3196,21 @@
           Font.registerHyphenationCallback(word => [word]);
         }
         Font.register({
+          family: 'THSarabunNew',
+          fonts: [
+            { src: '/fonts/THSarabunNew.ttf', fontWeight: 'normal', fontStyle: 'normal' },
+            { src: '/fonts/THSarabunNew%20Bold.ttf', fontWeight: 'bold', fontStyle: 'normal' },
+            { src: '/fonts/THSarabunNew%20Italic.ttf', fontWeight: 'normal', fontStyle: 'italic' },
+            { src: '/fonts/THSarabunNew%20BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' }
+          ]
+        });
+        Font.register({
           family: 'Sarabun',
           fonts: [
-            { src: 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sarabun/Sarabun-Regular.ttf', fontWeight: 400 },
-            { src: 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sarabun/Sarabun-Bold.ttf', fontWeight: 700 }
+            { src: '/fonts/THSarabunNew.ttf', fontWeight: 'normal', fontStyle: 'normal' },
+            { src: '/fonts/THSarabunNew%20Bold.ttf', fontWeight: 'bold', fontStyle: 'normal' },
+            { src: '/fonts/THSarabunNew%20Italic.ttf', fontWeight: 'normal', fontStyle: 'italic' },
+            { src: '/fonts/THSarabunNew%20BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' }
           ]
         });
         reactPdfFontRegistered = true;
@@ -3288,7 +3299,7 @@
             paddingTop: 18,
             paddingBottom: 18,
             paddingHorizontal: 24,
-            fontFamily: 'Sarabun',
+            fontFamily: 'THSarabunNew',
             fontSize: 8.5,
             color: '#0f172a',
             backgroundColor: '#ffffff'
@@ -3308,7 +3319,7 @@
             objectFit: 'contain'
           },
           companyTh: {
-            fontFamily: 'Sarabun',
+            fontFamily: 'THSarabunNew',
             fontSize: 13,
             fontWeight: 'bold',
             color: '#0f172a',

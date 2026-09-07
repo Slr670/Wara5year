@@ -4,6 +4,14 @@ import { Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/
 // ==============================================================================
 // 1. Thai Font Registration (THSarabunNew & Sarabun) with Hyphenation Control
 // ==============================================================================
+const isNodeEnv = typeof window === 'undefined' && typeof process !== 'undefined';
+const resolveFontSrc = (fileName) => {
+  if (isNodeEnv) {
+    return `./fonts/${fileName}`;
+  }
+  return `/fonts/${encodeURIComponent(fileName)}`;
+};
+
 try {
   if (typeof Font.registerHyphenationCallback === 'function') {
     Font.registerHyphenationCallback(word => [word]);
@@ -11,8 +19,19 @@ try {
   Font.register({
     family: 'THSarabunNew',
     fonts: [
-      { src: 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sarabun/Sarabun-Regular.ttf', fontWeight: 400 },
-      { src: 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sarabun/Sarabun-Bold.ttf', fontWeight: 700 }
+      { src: resolveFontSrc('THSarabunNew.ttf'), fontWeight: 'normal', fontStyle: 'normal' },
+      { src: resolveFontSrc('THSarabunNew Bold.ttf'), fontWeight: 'bold', fontStyle: 'normal' },
+      { src: resolveFontSrc('THSarabunNew Italic.ttf'), fontWeight: 'normal', fontStyle: 'italic' },
+      { src: resolveFontSrc('THSarabunNew BoldItalic.ttf'), fontWeight: 'bold', fontStyle: 'italic' }
+    ]
+  });
+  Font.register({
+    family: 'Sarabun',
+    fonts: [
+      { src: resolveFontSrc('THSarabunNew.ttf'), fontWeight: 'normal', fontStyle: 'normal' },
+      { src: resolveFontSrc('THSarabunNew Bold.ttf'), fontWeight: 'bold', fontStyle: 'normal' },
+      { src: resolveFontSrc('THSarabunNew Italic.ttf'), fontWeight: 'normal', fontStyle: 'italic' },
+      { src: resolveFontSrc('THSarabunNew BoldItalic.ttf'), fontWeight: 'bold', fontStyle: 'italic' }
     ]
   });
 } catch (e) {
@@ -472,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.8</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.9</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -597,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.9 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -778,7 +797,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.9 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -894,7 +913,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.9 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>

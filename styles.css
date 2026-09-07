@@ -1,5 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Prompt:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap');
 
+/* Local TH Sarabun New Fonts */
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('/fonts/THSarabunNew.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('/fonts/THSarabunNew%20Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('/fonts/THSarabunNew%20Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url('/fonts/THSarabunNew%20BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
 :root {
   --bg-card: rgba(255, 255, 255, 0.85);
   --bg-card-solid: #ffffff;
@@ -18,7 +44,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: 'Prompt', 'Sarabun', 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+body { font-family: 'Prompt', 'THSarabunNew', 'Sarabun', 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
 /* React Bits: Aurora Animated Background */
 .aurora-container {

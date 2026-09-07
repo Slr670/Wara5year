@@ -1,6 +1,6 @@
 {
   "name": "wara-dashboard",
-  "version": "1.13.8",
+  "version": "1.13.9",
   "description": "Government Official Tenure Tracking Dashboard with Automated Email Alerts and @react-pdf/renderer PDF Export",
   "main": "index.html",
   "scripts": {

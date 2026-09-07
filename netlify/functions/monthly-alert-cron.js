@@ -268,7 +268,7 @@ const handler = async (event, context) => {
 
         <!-- Footer -->
         <div style="background: #f1f5f9; padding: 14px 30px; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0;">
-          Wara Dashboard • ระบบแจ้งเตือนวาระอัตโนมัติรอบประจำเดือน (Scheduled Cron Alert v1.13.8)
+          Wara Dashboard • ระบบแจ้งเตือนวาระอัตโนมัติรอบประจำเดือน (Scheduled Cron Alert v1.13.9)
         </div>
       </div>
     `;

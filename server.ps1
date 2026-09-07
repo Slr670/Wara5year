@@ -205,7 +205,8 @@ while ($listener.IsListening) {
         }
 
         # Static File Serving
-        $filePath = if ($urlPath -eq "/" -or $urlPath -eq "") { "index.html" } else { $urlPath.TrimStart('/') }
+        $rawPath = [System.Uri]::UnescapeDataString($urlPath)
+        $filePath = if ($rawPath -eq "/" -or $rawPath -eq "") { "index.html" } else { $rawPath.TrimStart('/') }
         $fullPath = Join-Path $PSScriptRoot $filePath
 
         if (Test-Path $fullPath -PathType Leaf) {
@@ -218,6 +219,9 @@ while ($listener.IsListening) {
                 ".csv"  { "text/csv; charset=utf-8" }
                 ".png"  { "image/png" }
                 ".svg"  { "image/svg+xml" }
+                ".ttf"  { "font/ttf" }
+                ".woff" { "font/woff" }
+                ".woff2"{ "font/woff2" }
                 default { "application/octet-stream" }
             }
             $response.ContentType = $contentType
