@@ -398,6 +398,17 @@
               </svg>
               <span>คืนค่าตั้งต้นช่วงนี้</span>
             </button>
+            <button id="exportBracketSitesPdfBtn" type="button" class="specular-button"
+              style="background:#dc2626; color:#fff; font-size:11.5px; padding:5px 12px; font-weight:700; border:1px solid #b91c1c;"
+              title="ส่งออกเอกสารรายงาน PDF เจาะลึกงบประมาณและรายชื่อสถานีในช่วงนี้">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span id="exportBracketSitesPdfBtnText">ส่งออก PDF ช่วงนี้</span>
+            </button>
             <button id="exportBracketSitesCsvBtn" type="button" class="specular-button"
               style="background:#0f172a; color:#fff; font-size:11.5px; padding:5px 12px; font-weight:700;">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -450,7 +461,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.13.15</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.0</span>
         </div>
       </div>
 
@@ -788,7 +799,7 @@
               <th class="col-center" style="min-width:170px; text-align:center; padding:10px 14px;">ความสูงเสา (9m / 18m / 30m)</th>
               <th class="col-center" style="min-width:140px; text-align:center; padding:10px 14px;">รูปแบบเสา (Type)</th>
               <th style="min-width:150px; text-align:right;">ประมาณการงบรวม</th>
-              <th style="min-width:200px; text-align:center;">การสกัดข้อมูล (Extract Actions)</th>
+              <th style="min-width:240px; text-align:center;">การสกัดข้อมูล (Extract Actions)</th>
             </tr>
           </thead>
           <tbody id="intervalTableBody"></tbody>
@@ -823,13 +834,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.13.15</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.14.0</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.13.15";
+    const APP_VERSION = "v1.14.0";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -2569,6 +2580,7 @@
       const searchInput = document.getElementById('siteBudgetSearchInput');
       const resetBracketBtn = document.getElementById('resetBracketSitesBtn');
       const exportBracketBtn = document.getElementById('exportBracketSitesCsvBtn');
+      const exportBracketPdfBtn = document.getElementById('exportBracketSitesPdfBtn');
 
       if (closeBtn) closeBtn.addEventListener('click', closeSiteBudgetModal);
       if (closeFooterBtn) closeFooterBtn.addEventListener('click', closeSiteBudgetModal);
@@ -2596,6 +2608,12 @@
       if (exportBracketBtn) {
         exportBracketBtn.addEventListener('click', () => {
           exportBracketSitesCsv(activeSiteBudgetBracket);
+        });
+      }
+
+      if (exportBracketPdfBtn) {
+        exportBracketPdfBtn.addEventListener('click', () => {
+          exportBracketSitesPdf(activeSiteBudgetBracket);
         });
       }
     }
@@ -2861,6 +2879,17 @@
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>ส่งออก CSV</span>
+            </button>
+            <button 
+              type="button" 
+              class="specular-button" 
+              onclick="exportIntervalPdf('${item.bucket.id}')"
+              style="padding:4px 9px; font-size:11px; background:#dc2626; color:#fff; font-weight:600; border:1px solid #b91c1c;"
+              title="ส่งออกรายงาน PDF เจาะลึกสำหรับช่วง ${item.bucket.label}"
+              ${item.count === 0 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              <span>ส่งออก PDF</span>
             </button>
             <button 
               type="button" 
@@ -3685,6 +3714,514 @@
         setButtonsLoading(false);
       }
     }
+
+    // ==============================================================================
+    // Tenure-Specific PDF Export: Detailed Station & Budget Breakdown Slip
+    // Powered by @react-pdf/renderer Native Vector Engine
+    // Supports multi-page pagination, Thai font shaping, and custom station budgets
+    // ==============================================================================
+    async function generateTenureIntervalPdf({ bracketKey, bucketId, buttonEl } = {}) {
+      const originalBtnHtml = buttonEl ? buttonEl.innerHTML : '';
+      if (buttonEl) {
+        buttonEl.disabled = true;
+        buttonEl.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
+          <span>กำลังสร้าง PDF...</span>
+        `;
+      }
+
+      try {
+        const sel = document.getElementById('province');
+        const curProv = (activeBudgetScopeStats && activeBudgetScopeStats.province) || (sel ? sel.value : 'รวม');
+        const scopeVillages = curProv === 'รวม' ? Object.values(VILLAGES).flat() : (VILLAGES[curProv] || []);
+        const scopeLabel = curProv === 'รวม' ? 'ภาพรวมทั้งประเทศ (181 สถานี)' : `จังหวัด${curProv} (${scopeVillages.length} สถานี)`;
+
+        let targetStations = [];
+        let intervalLabel = '';
+        let intervalKey = '';
+        let intervalPriority = 'ปกติ / ทั่วไป';
+
+        const budgetMap = getBudgetMap();
+        const additionalBudgetMap = getAdditionalBudgetMap();
+        const siteBudgets = getSiteBudgetMap();
+
+        if (bracketKey) {
+          const cfg = BRACKET_CONFIG.find(c => c.key === bracketKey) || BRACKET_CONFIG[0];
+          intervalKey = cfg.key;
+          intervalLabel = cfg.name;
+          intervalPriority = cfg.priority;
+          targetStations = scopeVillages.filter(v => v.termKey === bracketKey);
+        } else if (bucketId) {
+          const buckets = getIntervalBuckets(activeIntervalMode, customIntervalSettings);
+          const b = buckets.find(item => item.id === bucketId) || buckets[0];
+          intervalKey = b.id;
+          intervalLabel = b.label;
+          intervalPriority = `เกณฑ์ ${b.minYears} ถึง ${b.maxYears === 999 ? '∞' : b.maxYears} ปี`;
+          targetStations = scopeVillages.filter(v => {
+            const parsed = parseTenureValue(v.term || v.termRaw);
+            return parsed.totalYears >= b.minYears && parsed.totalYears < b.maxYears;
+          });
+        }
+
+        if (targetStations.length === 0) {
+          alert('ไม่พบข้อมูลสถานีในช่วงเวลานี้สำหรับการส่งออก PDF');
+          return;
+        }
+
+        const defaultBase = (budgetMap[intervalKey] !== undefined ? budgetMap[intervalKey] : DEFAULT_BUDGET_MAP[intervalKey]) || 20000;
+        const defaultExtra = (additionalBudgetMap[intervalKey] !== undefined ? additionalBudgetMap[intervalKey] : DEFAULT_ADDITIONAL_BUDGET_MAP[intervalKey]) || 0;
+
+        let totalBracketBudget = 0;
+        let customCount = 0;
+
+        const processedStations = targetStations.map(s => {
+          const custom = siteBudgets[s.id];
+          const isBaseCustom = custom && custom.base !== undefined && custom.base !== null && !isNaN(custom.base);
+          const isExtraCustom = custom && custom.extra !== undefined && custom.extra !== null && !isNaN(custom.extra);
+          const isCustom = isBaseCustom || isExtraCustom;
+          if (isCustom) customCount++;
+
+          const siteDefaultBase = budgetMap[s.termKey] !== undefined ? budgetMap[s.termKey] : (DEFAULT_BUDGET_MAP[s.termKey] || defaultBase);
+          const siteDefaultExtra = additionalBudgetMap[s.termKey] !== undefined ? additionalBudgetMap[s.termKey] : (DEFAULT_ADDITIONAL_BUDGET_MAP[s.termKey] || defaultExtra);
+
+          const base = isBaseCustom ? parseFloat(custom.base) : siteDefaultBase;
+          const extra = isExtraCustom ? parseFloat(custom.extra) : siteDefaultExtra;
+          const total = base + extra;
+          totalBracketBudget += total;
+
+          return {
+            ...s,
+            base,
+            extra,
+            total,
+            isCustom
+          };
+        });
+
+        // Load @react-pdf/renderer
+        const { React, ReactPDF } = await getReactPdfRenderer();
+        const rpdf = ReactPDF.default || ReactPDF;
+        const Document = rpdf.Document || ReactPDF.Document || 'DOCUMENT';
+        const Page = rpdf.Page || ReactPDF.Page || 'PAGE';
+        const View = rpdf.View || ReactPDF.View || 'VIEW';
+        const Text = rpdf.Text || ReactPDF.Text || 'TEXT';
+        const Image = rpdf.Image || ReactPDF.Image || 'IMAGE';
+        const StyleSheet = rpdf.StyleSheet || ReactPDF.StyleSheet;
+        const Font = rpdf.Font || ReactPDF.Font;
+        const pdf = rpdf.pdf || ReactPDF.pdf;
+
+        registerThaiFont(Font);
+
+        const rawCreateElement = React.createElement;
+        const normalizeThai = (node) => {
+          if (node === null || node === undefined) return '';
+          if (typeof node === 'string') return node.replace(/\u0E33/g, '\u0E4D\u0E32');
+          if (typeof node === 'number') return String(node);
+          if (Array.isArray(node)) return node.map(normalizeThai);
+          return node;
+        };
+        const h = (type, props, ...children) => {
+          if (type === Text) {
+            return rawCreateElement(Text, props, ...children.map(normalizeThai));
+          }
+          return rawCreateElement(type, props, ...children);
+        };
+
+        const now = new Date();
+        const thaiMonths = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+        const printDate = `${now.getDate()} ${thaiMonths[now.getMonth()]} ${now.getFullYear() + 543} เวลา ${now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })} น.`;
+
+        const styles = StyleSheet.create({
+          page: {
+            paddingTop: 18,
+            paddingBottom: 22,
+            paddingHorizontal: 22,
+            fontFamily: 'THSarabunNew',
+            fontSize: 8.5,
+            color: '#0f172a',
+            backgroundColor: '#ffffff'
+          },
+          headerSection: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingBottom: 6,
+            marginBottom: 6,
+            borderBottomWidth: 1,
+            borderBottomColor: '#e2e8f0'
+          },
+          logo: {
+            width: 34,
+            height: 34,
+            marginRight: 10,
+            objectFit: 'contain'
+          },
+          companyDetails: {
+            flex: 1
+          },
+          companyTh: {
+            fontSize: 12.5,
+            fontWeight: 'bold',
+            color: '#0f172a'
+          },
+          companyEn: {
+            fontSize: 7.5,
+            color: '#475569',
+            fontWeight: 'bold'
+          },
+          companyAddress: {
+            fontSize: 7,
+            color: '#64748b',
+            marginTop: 1
+          },
+          headerBanner: {
+            borderBottomWidth: 1.5,
+            borderBottomColor: '#2563eb',
+            paddingBottom: 5,
+            marginBottom: 7,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          },
+          headerLeft: {
+            flex: 1,
+            paddingRight: 10
+          },
+          headerRight: {
+            width: 170,
+            alignItems: 'flex-end',
+            justifyContent: 'center'
+          },
+          docBadge: {
+            backgroundColor: '#eff6ff',
+            borderWidth: 1,
+            borderColor: '#bfdbfe',
+            borderRadius: 3,
+            paddingVertical: 1.5,
+            paddingHorizontal: 6,
+            marginBottom: 2
+          },
+          docBadgeText: {
+            fontSize: 7,
+            fontWeight: 'bold',
+            color: '#1d4ed8'
+          },
+          title: {
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#0f172a'
+          },
+          subTitle: {
+            fontSize: 8,
+            color: '#475569',
+            marginTop: 1
+          },
+          metaText: {
+            fontSize: 7.5,
+            color: '#64748b'
+          },
+          // KPI
+          kpiRow: {
+            flexDirection: 'row',
+            gap: 5,
+            marginBottom: 8
+          },
+          kpiBox: {
+            flex: 1,
+            backgroundColor: '#f8fafc',
+            borderWidth: 1,
+            borderColor: '#e2e8f0',
+            borderLeftWidth: 3,
+            borderRadius: 4,
+            padding: 5
+          },
+          kpiTitle: {
+            fontSize: 6.5,
+            color: '#64748b',
+            fontWeight: 'bold',
+            marginBottom: 1.5
+          },
+          kpiValue: {
+            fontSize: 11,
+            fontWeight: 'bold',
+            marginBottom: 1
+          },
+          kpiSub: {
+            fontSize: 6.5,
+            color: '#64748b'
+          },
+          // Table
+          table: {
+            width: '100%',
+            borderWidth: 1,
+            borderColor: '#cbd5e1',
+            borderRadius: 4,
+            marginBottom: 8,
+            overflow: 'hidden'
+          },
+          tableHead: {
+            flexDirection: 'row',
+            backgroundColor: '#f1f5f9',
+            borderBottomWidth: 1.5,
+            borderBottomColor: '#cbd5e1',
+            paddingVertical: 4,
+            paddingHorizontal: 4,
+            alignItems: 'center'
+          },
+          thText: {
+            fontSize: 7.5,
+            fontWeight: 'bold',
+            color: '#334155'
+          },
+          tableRow: {
+            flexDirection: 'row',
+            borderBottomWidth: 0.6,
+            borderBottomColor: '#e2e8f0',
+            paddingVertical: 3,
+            paddingHorizontal: 4,
+            alignItems: 'center'
+          },
+          tableRowAlt: {
+            flexDirection: 'row',
+            borderBottomWidth: 0.6,
+            borderBottomColor: '#e2e8f0',
+            paddingVertical: 3,
+            paddingHorizontal: 4,
+            alignItems: 'center',
+            backgroundColor: '#f8fafc'
+          },
+          cellText: {
+            fontSize: 7.5,
+            color: '#1e293b'
+          },
+          cellTextCenter: {
+            fontSize: 7.5,
+            color: '#1e293b',
+            textAlign: 'center'
+          },
+          cellTextRight: {
+            fontSize: 7.5,
+            color: '#1e293b',
+            textAlign: 'right'
+          },
+          grandTotalRow: {
+            flexDirection: 'row',
+            backgroundColor: '#dbeafe',
+            borderTopWidth: 1.5,
+            borderTopColor: '#93c5fd',
+            paddingVertical: 4,
+            paddingHorizontal: 4,
+            alignItems: 'center'
+          },
+          signatureSection: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 10,
+            paddingTop: 6,
+            paddingHorizontal: 20
+          },
+          signatureBox: {
+            width: '44%',
+            alignItems: 'center',
+            borderTopWidth: 1,
+            borderTopColor: '#94a3b8',
+            paddingTop: 5
+          },
+          sigName: {
+            fontSize: 8,
+            fontWeight: 'bold',
+            color: '#0f172a',
+            textAlign: 'center',
+            marginTop: 1
+          },
+          sigRole: {
+            fontSize: 7,
+            color: '#64748b',
+            marginTop: 1,
+            textAlign: 'center'
+          },
+          sigDate: {
+            fontSize: 7,
+            color: '#94a3b8',
+            marginTop: 1.5,
+            textAlign: 'center'
+          },
+          footer: {
+            borderTopWidth: 0.8,
+            borderTopColor: '#e2e8f0',
+            paddingTop: 3,
+            marginTop: 5,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            fontSize: 7,
+            color: '#94a3b8'
+          }
+        });
+
+        const colS1 = { width: '8%', textAlign: 'center' };
+        const colS2 = { width: '28%' };
+        const colS3 = { width: '12%', textAlign: 'center' };
+        const colS4 = { width: '14%', textAlign: 'center' };
+        const colS5 = { width: '12%', textAlign: 'right' };
+        const colS6 = { width: '12%', textAlign: 'right' };
+        const colS7 = { width: '14%', textAlign: 'right' };
+
+        const stationRows = processedStations.map((s, idx) => {
+          const loc = `${s.subdistrict ? `ต.${s.subdistrict} ` : ''}${s.district ? `อ.${s.district} ` : ''}จ.${s.province}`;
+          return h(View, { key: `s_${s.id}_${idx}`, style: idx % 2 === 0 ? styles.tableRow : styles.tableRowAlt, wrap: false },
+            h(Text, { style: { ...styles.cellTextCenter, ...colS1, fontWeight: 'bold' } }, String(s.id)),
+            h(View, { style: colS2 },
+              h(Text, { style: { ...styles.cellText, fontWeight: 'bold' } },
+                s.isCustom ? `${s.village} (ปรับเฉพาะ)` : s.village
+              ),
+              h(Text, { style: { fontSize: 6.5, color: '#64748b' } }, loc)
+            ),
+            h(Text, { style: { ...styles.cellTextCenter, ...colS3, color: '#dc2626', fontWeight: 'bold' } }, s.remaining || '-'),
+            h(View, { style: colS4 },
+              h(Text, { style: { fontSize: 7, fontWeight: 'bold', color: '#0f766e', textAlign: 'center' } }, `เสา ${s.towerHeight || s.height || '9'} ม.`),
+              s.typicalType ? h(Text, { style: { fontSize: 6.5, color: '#6366f1', textAlign: 'center' } }, s.typicalType) : null
+            ),
+            h(Text, { style: { ...styles.cellTextRight, ...colS5 } }, formatThb(s.base)),
+            h(Text, { style: { ...styles.cellTextRight, ...colS6, color: '#2563eb', fontWeight: 'bold' } }, formatThb(s.extra)),
+            h(Text, { style: { ...styles.cellTextRight, ...colS7, color: '#1e40af', fontWeight: 'bold' } }, formatThb(s.total))
+          );
+        });
+
+        const docTitle = `เอกสารเจาะลึกงบประมาณรายสถานี_${intervalLabel.replace(/[/\\?%*:|"<>]/g, '-')}_${curProv}`;
+
+        const reportDoc = h(Document, { title: docTitle },
+          h(Page, { size: 'A4', style: styles.page },
+            // Company Header
+            h(View, { style: styles.headerSection },
+              h(Image, { src: '/images/logo.png', style: styles.logo }),
+              h(View, { style: styles.companyDetails },
+                h(Text, { style: styles.companyTh }, 'บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)'),
+                h(Text, { style: styles.companyEn }, 'FORTH CORPORATION PUBLIC COMPANY LIMITED'),
+                h(Text, { style: styles.companyAddress }, '1053/1 ถนนพหลโยธิน แขวงพญาไท เขตพญาไท กรุงเทพมหานคร 10400 โทรศัพท์ : 02-265-6700')
+              )
+            ),
+            // Header Banner
+            h(View, { style: styles.headerBanner },
+              h(View, { style: styles.headerLeft },
+                h(Text, { style: styles.title }, 'เอกสารเจาะลึกงบประมาณรายสถานี'),
+                h(Text, { style: styles.subTitle }, `ช่วงวาระ: ${intervalLabel} (${intervalPriority}) • ขอบเขต: ${scopeLabel}`)
+              ),
+              h(View, { style: styles.headerRight },
+                h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.0')
+                ),
+                h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
+              )
+            ),
+            // KPIs Row
+            h(View, { style: styles.kpiRow },
+              h(View, { style: [styles.kpiBox, { borderLeftColor: '#2563eb' }] },
+                h(Text, { style: styles.kpiTitle }, 'จำนวนสถานีในกลุ่มนี้'),
+                h(Text, { style: [styles.kpiValue, { color: '#1e40af' }] }, `${processedStations.length.toLocaleString('th-TH')} สถานี`),
+                h(Text, { style: styles.kpiSub }, `ปรับแก้เฉพาะสถานี ${customCount} แห่ง`)
+              ),
+              h(View, { style: [styles.kpiBox, { borderLeftColor: '#16a34a' }] },
+                h(Text, { style: styles.kpiTitle }, 'งบหลักต่อสถานี (มาตรฐาน)'),
+                h(Text, { style: [styles.kpiValue, { color: '#15803d' }] }, formatThb(defaultBase)),
+                h(Text, { style: styles.kpiSub }, 'เกณฑ์มาตรฐานของช่วง')
+              ),
+              h(View, { style: [styles.kpiBox, { borderLeftColor: '#ea580c' }] },
+                h(Text, { style: styles.kpiTitle }, 'งบเพิ่มเติมต่อสถานี (มาตรฐาน)'),
+                h(Text, { style: [styles.kpiValue, { color: '#c2410c' }] }, formatThb(defaultExtra)),
+                h(Text, { style: styles.kpiSub }, 'เกณฑ์มาตรฐานของช่วง')
+              ),
+              h(View, { style: [styles.kpiBox, { borderLeftColor: '#7c3aed' }] },
+                h(Text, { style: styles.kpiTitle }, 'รวมงบประมาณกลุ่มนี้'),
+                h(Text, { style: [styles.kpiValue, { color: '#6d28d9' }] }, formatThb(totalBracketBudget)),
+                h(Text, { style: styles.kpiSub }, 'รวมทุกสถานีในกลุ่ม')
+              )
+            ),
+            // Table
+            h(View, { style: styles.table },
+              h(View, { style: styles.tableHead },
+                h(Text, { style: { ...styles.thText, ...colS1 } }, 'ลำดับ TOR'),
+                h(Text, { style: { ...styles.thText, ...colS2 } }, 'รายชื่อ'),
+                h(Text, { style: { ...styles.thText, ...colS3 } }, 'วาระคงเหลือ'),
+                h(Text, { style: { ...styles.thText, ...colS4 } }, 'ประเภทเสา'),
+                h(Text, { style: { ...styles.thText, ...colS5 } }, 'งบหลัก/สถานี'),
+                h(Text, { style: { ...styles.thText, ...colS6 } }, 'งานเพิ่ม/สถานี'),
+                h(Text, { style: { ...styles.thText, ...colS7 } }, 'รวมสุทธิ')
+              ),
+              ...stationRows,
+              // Total Row
+              h(View, { style: styles.grandTotalRow, wrap: false },
+                h(Text, { style: { ...styles.cellText, width: '48%', fontWeight: 'bold', color: '#1e3a8a' } },
+                  `รวมงบประมาณทั้งสิ้นในกลุ่มนี้ (${processedStations.length} สถานี)`
+                ),
+                h(Text, { style: { ...styles.cellText, width: '14%' } }, ''),
+                h(Text, { style: { ...styles.cellText, ...colS5, textAlign: 'right', fontWeight: 'bold', color: '#1e3a8a' } }, ''),
+                h(Text, { style: { ...styles.cellText, ...colS6, textAlign: 'right', fontWeight: 'bold', color: '#1e3a8a' } }, ''),
+                h(Text, { style: { ...styles.cellTextRight, ...colS7, fontWeight: 'bold', color: '#1d4ed8' } },
+                  formatThb(totalBracketBudget)
+                )
+              )
+            ),
+            // Signatures Section
+            h(View, { style: styles.signatureSection, wrap: false },
+              h(View, { style: styles.signatureBox },
+                h(Text, { style: styles.sigName }, '( ........................................................... )'),
+                h(Text, { style: styles.sigRole }, 'ผู้จัดทำข้อมูล / วิศวกรโครงการ USO'),
+                h(Text, { style: styles.sigDate }, 'วันที่: ...... / ...... / ..........')
+              ),
+              h(View, { style: styles.signatureBox },
+                h(Text, { style: styles.sigName }, '( ........................................................... )'),
+                h(Text, { style: styles.sigRole }, 'ผู้ตรวจสอบ / ผู้มีอำนาจอนุมัติงบประมาณ'),
+                h(Text, { style: styles.sigDate }, 'วันที่: ...... / ...... / ..........')
+              )
+            ),
+            // Fixed Footer on all pages
+            h(View, { style: styles.footer, fixed: true },
+              h(Text, {}, `Wara Dashboard v1.14.0 — Forth Corporation Public Company Limited`),
+              h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
+            )
+          )
+        );
+
+        const sanitizedInterval = intervalLabel.replace(/[/\\?%*:|"<> ]/g, '_');
+        const sanitizedScope = curProv === 'รวม' ? 'ภาพรวมทั้งหมด' : `จ.${curProv}`;
+        const fileName = `รายงานเจาะลึกงบประมาณ_${sanitizedInterval}_${sanitizedScope}_${now.getFullYear() + 543}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}.pdf`;
+
+        const blob = await pdf(reportDoc).toBlob();
+        const blobUrl = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = blobUrl;
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+        }, 3000);
+
+      } catch (err) {
+        console.error('Tenure PDF export error (@react-pdf/renderer):', err);
+        alert(`เกิดข้อผิดพลาดในการสร้าง PDF รายช่วงด้วย @react-pdf/renderer: ${err.message || err.toString()}`);
+      } finally {
+        if (buttonEl) {
+          buttonEl.disabled = false;
+          buttonEl.innerHTML = originalBtnHtml;
+        }
+      }
+    }
+
+    function exportBracketSitesPdf(bracketKey) {
+      const btn = document.getElementById('exportBracketSitesPdfBtn');
+      generateTenureIntervalPdf({ bracketKey: bracketKey || activeSiteBudgetBracket, buttonEl: btn });
+    }
+
+    function exportIntervalPdf(bucketId) {
+      const btn = (typeof event !== 'undefined' && event && event.currentTarget) ? event.currentTarget : null;
+      generateTenureIntervalPdf({ bucketId: bucketId, buttonEl: btn });
+    }
+
+    window.generateTenureIntervalPdf = generateTenureIntervalPdf;
+    window.exportBracketSitesPdf = exportBracketSitesPdf;
+    window.exportIntervalPdf = exportIntervalPdf;
 
     function initPdfExportControls() {
       const topBtn = document.getElementById('exportPdfTopBtn');
