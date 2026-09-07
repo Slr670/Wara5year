@@ -1,13 +1,14 @@
 {
   "name": "wara-dashboard",
-  "version": "1.13.7",
+  "version": "1.13.8",
   "description": "Government Official Tenure Tracking Dashboard with Automated Email Alerts and @react-pdf/renderer PDF Export",
   "main": "index.html",
   "scripts": {
     "start": "powershell -ExecutionPolicy Bypass -File server.ps1"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.9.0",
     "nodemailer": "^6.9.16",
-    "@react-pdf/renderer": "^4.9.0"
+    "react": "^18.3.1"
   }
 }

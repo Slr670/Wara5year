@@ -54,6 +54,16 @@ export function formatThb(val) {
   return `฿ ${num.toLocaleString('th-TH')}`;
 }
 
+// Pre-normalize Thai text (U+0E33 ำ -> U+0E4D ํ + U+0E32 า) to eliminate
+// @react-pdf/renderer string length desync bug (#3295) that truncates trailing characters
+export function normalizeThai(node) {
+  if (node === null || node === undefined) return '';
+  if (typeof node === 'string') return node.replace(/\u0E33/g, '\u0E4D\u0E32');
+  if (typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(normalizeThai);
+  return node;
+}
+
 // ==============================================================================
 // 3. Custom Budget & Metrics Calculation Engine
 // ==============================================================================
@@ -462,7 +472,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.7</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.8</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -587,7 +597,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -768,7 +778,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -884,7 +894,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.7 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.8 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
