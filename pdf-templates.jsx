@@ -491,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.10</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.13.11</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.10 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.11 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -797,7 +797,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.10 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.11 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -913,7 +913,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.13.10 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.13.11 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
