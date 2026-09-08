@@ -117,7 +117,7 @@ $bodyHtml = @"
     </div>
   </div>
   <div style="background: #f1f5f9; padding: 12px; font-size: 11px; color: #94a3b8; text-align: center;">
-    Wara Dashboard • Scheduled Monthly Cron Alert v1.14.5
+    Wara Dashboard • Scheduled Monthly Cron Alert v1.14.6
   </div>
 </div>
 "@

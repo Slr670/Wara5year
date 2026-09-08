@@ -461,7 +461,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.5</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.6</span>
         </div>
       </div>
 
@@ -834,13 +834,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.14.5</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.14.6</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.14.5";
+    const APP_VERSION = "v1.14.6";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3255,52 +3255,6 @@
       }
     }
 
-    function calculateTowerTypeMetrics(stationList) {
-      const list = stationList || [];
-      const rows = [
-        { key: 'TypeA', name: 'Typical Type A', m9: 0, m18: 0, m30: 0, total: 0 },
-        { key: 'TypeB', name: 'Typical Type B', m9: 0, m18: 0, m30: 0, total: 0 },
-        { key: 'TypeC', name: 'Typical Type C', m9: 0, m18: 0, m30: 0, total: 0 },
-        { key: 'Other', name: 'เสาโครงสร้างพิเศษ / อื่นๆ', m9: 0, m18: 0, m30: 0, total: 0 }
-      ];
-
-      list.forEach(s => {
-        const typ = String(s.typicalType || '').trim();
-        let r = rows[3];
-        if (/Type\s*A/i.test(typ)) r = rows[0];
-        else if (/Type\s*B/i.test(typ)) r = rows[1];
-        else if (/Type\s*C/i.test(typ)) r = rows[2];
-
-        const h = String(s.towerHeight || s.height || '').trim();
-        if (h === '30' || h.includes('30')) {
-          r.m30++;
-        } else if (h === '18' || h.includes('18')) {
-          r.m18++;
-        } else {
-          r.m9++;
-        }
-        r.total++;
-      });
-
-      const grandTotal = list.length;
-      rows.forEach(r => {
-        r.pct = grandTotal > 0 ? ((r.total / grandTotal) * 100).toFixed(1) : '0.0';
-      });
-
-      const tot9 = rows.reduce((acc, r) => acc + r.m9, 0);
-      const tot18 = rows.reduce((acc, r) => acc + r.m18, 0);
-      const tot30 = rows.reduce((acc, r) => acc + r.m30, 0);
-
-      return {
-        rows,
-        tot9,
-        tot18,
-        tot30,
-        grandTotal,
-        grandPct: grandTotal > 0 ? '100.0' : '0.0'
-      };
-    }
-
     async function generateSummaryReportPdf() {
       const topBtn = document.getElementById('exportPdfTopBtn');
       const budgetBtn = document.getElementById('exportBudgetPdfBtn');
@@ -3376,13 +3330,11 @@
         const grandBudgetSum = budgetMetrics.grandBudgetSum;
         const avgPerSite = budgetMetrics.avgPerSite;
 
-        const towerMetrics = calculateTowerTypeMetrics(scopeVillages);
-
         // Define @react-pdf/renderer StyleSheet
         const styles = StyleSheet.create({
           page: {
-            paddingTop: 16,
-            paddingBottom: 16,
+            paddingTop: 18,
+            paddingBottom: 20,
             paddingHorizontal: 22,
             fontFamily: 'THSarabunNew',
             fontSize: 8.5,
@@ -3568,14 +3520,6 @@
         const colB6 = { width: '13%', textAlign: 'right' };
         const colB7 = { width: '16%', textAlign: 'right' };
 
-        // Column widths for Tower Type Table
-        const colT1 = { width: '28%' };
-        const colT2 = { width: '14%', textAlign: 'center' };
-        const colT3 = { width: '14%', textAlign: 'center' };
-        const colT4 = { width: '14%', textAlign: 'center' };
-        const colT5 = { width: '15%', textAlign: 'right' };
-        const colT6 = { width: '15%', textAlign: 'right' };
-
         // Column widths for Provincial Table
         const colPName = { width: '23%' };
         const colPStat = { width: '11%', textAlign: 'right' };
@@ -3622,21 +3566,9 @@
           );
         }).filter(Boolean);
 
-        // Build Sanitized Tower Type Rows
-        const safeTowerRows = (towerMetrics.rows || []).map((r, i) => {
-          return h(View, { style: i % 2 === 0 ? styles.tableRow : styles.tableRowAlt, key: `t_${r.key}_${i}` },
-            h(Text, { style: { ...styles.cellText, ...colT1, fontWeight: 'bold' } }, r.name),
-            h(Text, { style: { ...styles.cellText, ...colT2 } }, String(r.m9)),
-            h(Text, { style: { ...styles.cellText, ...colT3 } }, String(r.m18)),
-            h(Text, { style: { ...styles.cellText, ...colT4 } }, String(r.m30)),
-            h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold' } }, `${r.total.toLocaleString('th-TH')} สถานี`),
-            h(Text, { style: { ...styles.cellText, ...colT6, color: '#475569' } }, `${r.pct}%`)
-          );
-        });
-
         // Build the Summary Report using @react-pdf/renderer primitive components:
         // <Document>, <Page>, <View>, <Text>
-        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.5` },
+        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.6` },
           h(Page, { size: 'A4', style: styles.page },
 
             // Header (Company Branding & Logo)
@@ -3685,7 +3617,7 @@
               ),
 
               // Table 1: Budget Summary Breakdown Table (<View>, <Text>)
-              h(View, { style: { marginBottom: 8 } },
+              h(View, { style: { marginBottom: 12 } },
                 h(Text, { style: styles.sectionTitle }, '• ตารางแสดงงบประมาณตามช่วงวาระคงเหลือ'),
                 h(View, { style: styles.table },
                   // Table Head
@@ -3719,35 +3651,8 @@
                 )
               ),
 
-              // Table 2: Tower Type Summary Breakdown Table (<View>, <Text>)
+              // Table 2: Provincial Status Overview Table (<View>, <Text>)
               h(View, { style: { marginBottom: 8 } },
-                h(Text, { style: styles.sectionTitle }, '• ตารางสรุปประเภทเสา'),
-                h(View, { style: styles.table },
-                  // Table Head
-                  h(View, { style: styles.tableHead },
-                    h(Text, { style: { ...styles.thText, ...colT1 } }, 'รูปแบบเสา'),
-                    h(Text, { style: { ...styles.thText, ...colT2 } }, 'เสา 9 เมตร'),
-                    h(Text, { style: { ...styles.thText, ...colT3 } }, 'เสา 18 เมตร'),
-                    h(Text, { style: { ...styles.thText, ...colT4 } }, 'เสา 30 เมตร'),
-                    h(Text, { style: { ...styles.thText, ...colT5 } }, 'รวมจำนวน'),
-                    h(Text, { style: { ...styles.thText, ...colT6 } }, 'สัดส่วน (%)')
-                  ),
-                  // Tower Data Rows
-                  ...safeTowerRows,
-                  // Tower Summary Row
-                  h(View, { style: { ...styles.tableRow, backgroundColor: '#eff6ff', borderTopWidth: 1.2, borderTopColor: '#93c5fd' } },
-                    h(Text, { style: { ...styles.cellText, ...colT1, fontWeight: 'bold', color: '#1e40af' } }, 'รวมทั้งสิ้น (TOTAL)'),
-                    h(Text, { style: { ...styles.cellText, ...colT2, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot9)),
-                    h(Text, { style: { ...styles.cellText, ...colT3, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot18)),
-                    h(Text, { style: { ...styles.cellText, ...colT4, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot30)),
-                    h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold', color: '#1e40af' } }, `${towerMetrics.grandTotal.toLocaleString('th-TH')} สถานี`),
-                    h(Text, { style: { ...styles.cellText, ...colT6, fontWeight: 'bold', color: '#1e40af' } }, `${towerMetrics.grandPct}%`)
-                  )
-                )
-              ),
-
-              // Table 3: Provincial Status Overview Table (<View>, <Text>)
-              h(View, { style: { marginBottom: 6 } },
                 h(Text, { style: styles.sectionTitle }, '• ตารางสรุปข้อมูล'),
                 h(View, { style: styles.table },
                   // Table Head
@@ -3779,7 +3684,7 @@
 
               // Footer (<View>, <Text>)
               h(View, { style: styles.footer, fixed: true },
-                h(Text, {}, 'Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited'),
+                h(Text, {}, 'Wara Dashboard v1.14.6 — Forth Corporation Public Company Limited'),
                 h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
               )
 
@@ -4171,7 +4076,7 @@
               ),
               h(View, { style: styles.headerRight },
                 h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
-                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.5')
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.6')
                 ),
                 h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
               )
@@ -4226,7 +4131,7 @@
             ),
             // Fixed Footer on all pages
             h(View, { style: styles.footer, fixed: true },
-              h(Text, {}, `Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited`),
+              h(Text, {}, `Wara Dashboard v1.14.6 — Forth Corporation Public Company Limited`),
               h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
             )
           )
