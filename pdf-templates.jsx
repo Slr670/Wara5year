@@ -472,7 +472,7 @@ export const WaraSummaryReportPDF = ({
   };
 
   return (
-    <Document title={`รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.6`}>
+    <Document title={`รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.7`}>
       <Page size="A4" style={styles.page}>
         {/* Header (Company Branding & Logo) */}
         <View style={styles.headerSection}>
@@ -491,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.6</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.7</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -506,7 +506,7 @@ export const WaraSummaryReportPDF = ({
             <Text style={styles.kpiSub}>ใน {scopeLabel}</Text>
           </View>
           <View style={[styles.kpiBox, { borderLeftColor: '#dc2626' }]}>
-            <Text style={styles.kpiTitle}>กลุ่มวาระเร่งด่วน (≤ 4 ปี)</Text>
+            <Text style={styles.kpiTitle}>กลุ่มวาระเร่งด่วน (≤ 5 ปี)</Text>
             <Text style={[styles.kpiValue, { color: '#b91c1c' }]}>{metrics.priorityStationsSum.toLocaleString('th-TH')} สถานี</Text>
             <Text style={styles.kpiSub}>คิดเป็น {metrics.priorityPct}% ของพื้นที่</Text>
           </View>
@@ -554,7 +554,7 @@ export const WaraSummaryReportPDF = ({
 
             {/* Subtotal Row */}
             <View style={styles.subtotalRow}>
-              <Text style={{ ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#991b1b' }}>รวมเฉพาะกลุ่มวาระเร่งด่วน (≤ 4 ปี)</Text>
+              <Text style={{ ...styles.cellText, width: '38%', fontWeight: 'bold', color: '#991b1b' }}>รวมเฉพาะกลุ่มวาระเร่งด่วน (< 1 ถึง 5 ปี)</Text>
               <Text style={{ ...styles.cellText, ...colB3, fontWeight: 'bold', color: '#991b1b' }}>{metrics.priorityStationsSum.toLocaleString('th-TH')} สถานี</Text>
               <Text style={{ ...styles.cellText, ...colB4, color: '#991b1b' }}>{metrics.priorityPct}%</Text>
               <Text style={{ ...styles.cellText, width: '26%', textAlign: 'right', fontSize: 7, color: '#64748b', paddingRight: 4 }}>รวมงบหลัก + งานเพิ่มเติมกลุ่ม</Text>
@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -694,7 +694,7 @@ export const StationBudgetDetailPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={[styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }]}>
-              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.6</Text>
+              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.7</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
           </View>
@@ -783,7 +783,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -899,7 +899,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.6 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.7 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
