@@ -28,3 +28,6 @@ Thumbs.db
 
 # Generated PDF Exports
 *.pdf
+
+# Temporary agent/probe files
+ag-stop-probe.json
