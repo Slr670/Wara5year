@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Dashboard วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง • รวม 181 สถานี</title>
   <!-- Leaflet Map CSS & JS (Interactive Google Maps Tiles) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -77,10 +77,12 @@
           </svg>
           <span>ตั้งค่าชีต</span>
         </button>
-        <div id="clockNow"
-          style="font-weight:700; font-size:14.5px; font-family:'Plus Jakarta Sans','Prompt',sans-serif; color:#0f172a;">--:--:--
-          น.</div>
-        <span style="font-size:12.5px; color:#64748b;" id="clockDate">-- --- ----</span>
+        <div class="topbar-clock-group">
+          <div id="clockNow"
+            style="font-weight:700; font-size:14.5px; font-family:'Plus Jakarta Sans','Prompt',sans-serif; color:#0f172a;">--:--:--
+            น.</div>
+          <span style="font-size:12.5px; color:#64748b;" id="clockDate">-- --- ----</span>
+        </div>
       </div>
     </header>
 
@@ -461,7 +463,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.8</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.15.0</span>
         </div>
       </div>
 
@@ -509,7 +511,7 @@
             Street / Satellite</div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <div class="map-controls-group" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           <div class="filters-pill" style="padding:4px 8px; font-size:12px;">
             <button id="mapLayerRoad" class="map-layer-btn active" type="button">ถนน (Street)</button>
             <button id="mapLayerSat" class="map-layer-btn" type="button">ดาวเทียม (Satellite)</button>
@@ -607,7 +609,7 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <div class="budget-header-actions">
           <button id="presetStandardBudgetBtn" class="specular-button" type="button"
             style="background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; font-size:12px; padding:6px 12px; border-radius:8px; display:inline-flex; align-items:center; gap:4px;">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -644,7 +646,7 @@
       </div>
 
       <!-- Quick Metric Cards for Budget Overview -->
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin: 16px 0;">
+      <div class="budget-kpis-grid">
         <div class="budget-kpi-card" style="border-left: 4px solid #2563eb;">
           <div class="b-title">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2">
@@ -724,7 +726,7 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <div class="interval-header-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           <button id="exportAllIntervalsCsvBtn" class="specular-button" type="button"
             style="background:#0f172a; color:#ffffff; font-size:12px; padding:6px 13px; border-radius:8px; display:inline-flex; align-items:center; gap:5px; font-weight:700;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -834,13 +836,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.14.8</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.15.0</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.14.8";
+    const APP_VERSION = "v1.15.0";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3568,7 +3570,7 @@
 
         // Build the Summary Report using @react-pdf/renderer primitive components:
         // <Document>, <Page>, <View>, <Text>
-        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.8` },
+        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.15.0` },
           h(Page, { size: 'A4', style: styles.page },
 
             // Header (Company Branding & Logo)
@@ -3684,7 +3686,7 @@
 
               // Footer (<View>, <Text>)
               h(View, { style: styles.footer, fixed: true },
-                h(Text, {}, 'Wara Dashboard v1.14.8 — Forth Corporation Public Company Limited'),
+                h(Text, {}, 'Wara Dashboard v1.15.0 — Forth Corporation Public Company Limited'),
                 h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
               )
 
@@ -4076,7 +4078,7 @@
               ),
               h(View, { style: styles.headerRight },
                 h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
-                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.8')
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.15.0')
                 ),
                 h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
               )
@@ -4131,7 +4133,7 @@
             ),
             // Fixed Footer on all pages
             h(View, { style: styles.footer, fixed: true },
-              h(Text, {}, `Wara Dashboard v1.14.8 — Forth Corporation Public Company Limited`),
+              h(Text, {}, `Wara Dashboard v1.15.0 — Forth Corporation Public Company Limited`),
               h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
             )
           )
