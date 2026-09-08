@@ -43,10 +43,10 @@ try {
 // ==============================================================================
 export const BRACKET_CONFIG = [
   { key: 'lt1', name: '< 1 ปี', priority: 'เร่งด่วนระดับ 1 (วิกฤต)', priColor: '#dc2626', priBg: '#fef2f2', minYears: 0, maxYears: 1 },
-  { key: 'y1', name: '1 ปี ถึง < 2 ปี', priority: 'เร่งด่วนระดับ 2', priColor: '#ea580c', priBg: '#fff7ed', minYears: 1, maxYears: 2 },
-  { key: 'y2', name: '2 ปี ถึง < 3 ปี', priority: 'เร่งด่วนระดับ 3', priColor: '#d97706', priBg: '#fffbeb', minYears: 2, maxYears: 3 },
-  { key: 'y3', name: '3 ปี ถึง < 4 ปี', priority: 'เฝ้าระวังระดับ 1', priColor: '#16a34a', priBg: '#f0fdf4', minYears: 3, maxYears: 4 },
-  { key: 'y4', name: '4 ปี ถึง < 5 ปี', priority: 'เฝ้าระวังระดับ 2', priColor: '#2563eb', priBg: '#eff6ff', minYears: 4, maxYears: 5 },
+  { key: 'y1', name: '1 - 2 ปี', priority: 'เร่งด่วนระดับ 2', priColor: '#ea580c', priBg: '#fff7ed', minYears: 1, maxYears: 2 },
+  { key: 'y2', name: '2 - 3 ปี', priority: 'เร่งด่วนระดับ 3', priColor: '#d97706', priBg: '#fffbeb', minYears: 2, maxYears: 3 },
+  { key: 'y3', name: '3 - 4 ปี', priority: 'เฝ้าระวังระดับ 1', priColor: '#16a34a', priBg: '#f0fdf4', minYears: 3, maxYears: 4 },
+  { key: 'y4', name: '4 - 5 ปี', priority: 'เฝ้าระวังระดับ 2', priColor: '#2563eb', priBg: '#eff6ff', minYears: 4, maxYears: 5 },
   { key: 'gt5', name: '> 5 ปี', priority: 'ปกติ / ระยะยาว', priColor: '#7c3aed', priBg: '#f5f3ff', minYears: 5, maxYears: 999 }
 ];
 
@@ -491,7 +491,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.1</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.2</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.2 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -694,7 +694,7 @@ export const StationBudgetDetailPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={[styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }]}>
-              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.1</Text>
+              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.2</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
           </View>
@@ -783,7 +783,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.2 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -899,7 +899,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.1 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.2 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
