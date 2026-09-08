@@ -1,5 +1,6 @@
 [build]
-  publish = "."
+  command = "npm run build"
+  publish = "dist"
   functions = "netlify/functions"
 
 # Scheduled Function: Run on the 1st of every month at 9:00 AM
@@ -10,6 +11,12 @@
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA client-side fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 # CORS & Security headers
