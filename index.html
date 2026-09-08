@@ -461,7 +461,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.7</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.8</span>
         </div>
       </div>
 
@@ -816,14 +816,14 @@
         <table>
           <thead>
             <tr>
-              <th>จังหวัด</th>
-              <th>ทั้งหมด</th>
-              <th>&lt; 1 ปี</th>
-              <th>1 ปี</th>
-              <th>2 ปี</th>
-              <th>3 ปี</th>
-              <th>4 ปี</th>
-              <th>&gt; 5 ปี</th>
+              <th style="width:23%; text-align:left;">จังหวัด</th>
+              <th style="width:11%; text-align:center;">ทั้งหมด</th>
+              <th style="width:11%; text-align:center;">&lt; 1 ปี</th>
+              <th style="width:11%; text-align:center;">1 - 2 ปี</th>
+              <th style="width:11%; text-align:center;">2 - 3 ปี</th>
+              <th style="width:11%; text-align:center;">3 - 4 ปี</th>
+              <th style="width:11%; text-align:center;">4 - 5 ปี</th>
+              <th style="width:11%; text-align:center;">&gt; 5 ปี</th>
             </tr>
           </thead>
           <tbody id="tbody"></tbody>
@@ -834,13 +834,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.14.7</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.14.8</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.14.7";
+    const APP_VERSION = "v1.14.8";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3568,7 +3568,7 @@
 
         // Build the Summary Report using @react-pdf/renderer primitive components:
         // <Document>, <Page>, <View>, <Text>
-        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.7` },
+        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.8` },
           h(Page, { size: 'A4', style: styles.page },
 
             // Header (Company Branding & Logo)
@@ -3658,13 +3658,13 @@
                   // Table Head
                   h(View, { style: styles.tableHead },
                     h(Text, { style: { ...styles.thText, ...colPName } }, 'จังหวัด'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, 'ทั้งหมด'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '< 1 ปี'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '1 ปี'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '2 ปี'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '3 ปี'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '4 ปี'),
-                    h(Text, { style: { ...styles.thText, ...colPStat } }, '> 5 ปี')
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, 'ทั้งหมด'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '< 1 ปี'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '1 - 2 ปี'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '2 - 3 ปี'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '3 - 4 ปี'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '4 - 5 ปี'),
+                    h(Text, { style: { ...styles.thText, ...colPStat, textAlign: 'center' } }, '> 5 ปี')
                   ),
                   // Provincial Data Rows
                   ...safeProvRows,
@@ -3684,7 +3684,7 @@
 
               // Footer (<View>, <Text>)
               h(View, { style: styles.footer, fixed: true },
-                h(Text, {}, 'Wara Dashboard v1.14.7 — Forth Corporation Public Company Limited'),
+                h(Text, {}, 'Wara Dashboard v1.14.8 — Forth Corporation Public Company Limited'),
                 h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
               )
 
@@ -4076,7 +4076,7 @@
               ),
               h(View, { style: styles.headerRight },
                 h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
-                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.7')
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.8')
                 ),
                 h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
               )
@@ -4131,7 +4131,7 @@
             ),
             // Fixed Footer on all pages
             h(View, { style: styles.footer, fixed: true },
-              h(Text, {}, `Wara Dashboard v1.14.7 — Forth Corporation Public Company Limited`),
+              h(Text, {}, `Wara Dashboard v1.14.8 — Forth Corporation Public Company Limited`),
               h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
             )
           )
