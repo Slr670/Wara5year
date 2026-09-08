@@ -461,7 +461,7 @@
         <h1 class="shiny-text">วาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง</h1>
         <div class="sub" id="headerSub">แหล่งข้อมูล: ชีต1 (Google Sheet) • พิกัด (Lat/Lng) • ความสูงเสา Col J & รูปแบบ
           Col K • <span id="appVersionBadge"
-            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.4</span>
+            style="font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:11.5px;">v1.14.5</span>
         </div>
       </div>
 
@@ -834,13 +834,13 @@
     <div
       style="text-align:center; padding:24px 0 12px; font-size:12.5px; color:#94a3b8; border-top:1px solid var(--line); margin-top:30px;">
       Dashboard ติดตามวาระเจ้าหน้าที่รัฐและแผนที่เสาอากาศ • แจ้งเตือน Email อัตโนมัติ (Gmail SMTP) • เวอร์ชัน <b
-        class="app-version-display" style="color:#2563eb;">v1.14.4</b> • 181 สถานี
+        class="app-version-display" style="color:#2563eb;">v1.14.5</b> • 181 สถานี
     </div>
   </div>
 
   <script>
     // Authoritative Application Version (Single Source of Truth)
-    const APP_VERSION = "v1.14.4";
+    const APP_VERSION = "v1.14.5";
 
     const EMBEDDED_COORDS = {
       1: [14.601033, 99.615861, "9", "28/1"],
@@ -3358,7 +3358,7 @@
         registerThaiFont(Font);
 
         const sel = document.getElementById('province');
-        const curProv = sel ? sel.value : 'รวม';
+        const curProv = (activeBudgetScopeStats && activeBudgetScopeStats.province) || (sel ? sel.value : 'รวม');
         const x = (curProv === 'รวม' ? TOTAL : DATA.find(d => d.province === curProv) || TOTAL);
         const scopeLabel = x.province === 'รวม' ? 'ภาพรวมทั้งประเทศ (181 สถานี)' : `จังหวัด${x.province} (${x.total} สถานี)`;
         const scopeVillages = curProv === 'รวม' ? Object.values(VILLAGES).flat() : (VILLAGES[curProv] || []);
@@ -3626,17 +3626,17 @@
         const safeTowerRows = (towerMetrics.rows || []).map((r, i) => {
           return h(View, { style: i % 2 === 0 ? styles.tableRow : styles.tableRowAlt, key: `t_${r.key}_${i}` },
             h(Text, { style: { ...styles.cellText, ...colT1, fontWeight: 'bold' } }, r.name),
-            h(Text, { style: { ...styles.cellText, ...colT2 } }, r.m9 > 0 ? `${r.m9} สถานี` : '-'),
-            h(Text, { style: { ...styles.cellText, ...colT3 } }, r.m18 > 0 ? `${r.m18} สถานี` : '-'),
-            h(Text, { style: { ...styles.cellText, ...colT4 } }, r.m30 > 0 ? `${r.m30} สถานี` : '-'),
-            h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold' } }, `${r.total} สถานี`),
+            h(Text, { style: { ...styles.cellText, ...colT2 } }, String(r.m9)),
+            h(Text, { style: { ...styles.cellText, ...colT3 } }, String(r.m18)),
+            h(Text, { style: { ...styles.cellText, ...colT4 } }, String(r.m30)),
+            h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold' } }, `${r.total.toLocaleString('th-TH')} สถานี`),
             h(Text, { style: { ...styles.cellText, ...colT6, color: '#475569' } }, `${r.pct}%`)
           );
         });
 
         // Build the Summary Report using @react-pdf/renderer primitive components:
         // <Document>, <Page>, <View>, <Text>
-        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.4` },
+        const reportDoc = h(Document, { title: `รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.5` },
           h(Page, { size: 'A4', style: styles.page },
 
             // Header (Company Branding & Logo)
@@ -3737,10 +3737,10 @@
                   // Tower Summary Row
                   h(View, { style: { ...styles.tableRow, backgroundColor: '#eff6ff', borderTopWidth: 1.2, borderTopColor: '#93c5fd' } },
                     h(Text, { style: { ...styles.cellText, ...colT1, fontWeight: 'bold', color: '#1e40af' } }, 'รวมทั้งสิ้น (TOTAL)'),
-                    h(Text, { style: { ...styles.cellText, ...colT2, fontWeight: 'bold', color: '#1e40af' } }, towerMetrics.tot9 > 0 ? `${towerMetrics.tot9} สถานี` : '-'),
-                    h(Text, { style: { ...styles.cellText, ...colT3, fontWeight: 'bold', color: '#1e40af' } }, towerMetrics.tot18 > 0 ? `${towerMetrics.tot18} สถานี` : '-'),
-                    h(Text, { style: { ...styles.cellText, ...colT4, fontWeight: 'bold', color: '#1e40af' } }, towerMetrics.tot30 > 0 ? `${towerMetrics.tot30} สถานี` : '-'),
-                    h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold', color: '#1e40af' } }, `${towerMetrics.grandTotal} สถานี`),
+                    h(Text, { style: { ...styles.cellText, ...colT2, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot9)),
+                    h(Text, { style: { ...styles.cellText, ...colT3, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot18)),
+                    h(Text, { style: { ...styles.cellText, ...colT4, fontWeight: 'bold', color: '#1e40af' } }, String(towerMetrics.tot30)),
+                    h(Text, { style: { ...styles.cellText, ...colT5, fontWeight: 'bold', color: '#1e40af' } }, `${towerMetrics.grandTotal.toLocaleString('th-TH')} สถานี`),
                     h(Text, { style: { ...styles.cellText, ...colT6, fontWeight: 'bold', color: '#1e40af' } }, `${towerMetrics.grandPct}%`)
                   )
                 )
@@ -3779,7 +3779,7 @@
 
               // Footer (<View>, <Text>)
               h(View, { style: styles.footer, fixed: true },
-                h(Text, {}, 'Wara Dashboard v1.14.4 — Forth Corporation Public Company Limited'),
+                h(Text, {}, 'Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited'),
                 h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
               )
 
@@ -4171,7 +4171,7 @@
               ),
               h(View, { style: styles.headerRight },
                 h(View, { style: [styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }] },
-                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.4')
+                  h(Text, { style: [styles.docBadgeText, { color: '#dc2626' }] }, 'STATION BUDGET SLIP • v1.14.5')
                 ),
                 h(Text, { style: styles.metaText }, `วันที่พิมพ์: ${printDate}`)
               )
@@ -4226,7 +4226,7 @@
             ),
             // Fixed Footer on all pages
             h(View, { style: styles.footer, fixed: true },
-              h(Text, {}, `Wara Dashboard v1.14.4 — Forth Corporation Public Company Limited`),
+              h(Text, {}, `Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited`),
               h(Text, { render: ({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}` })
             )
           )

@@ -528,7 +528,7 @@ export const WaraSummaryReportPDF = ({
   };
 
   return (
-    <Document title={`รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.4`}>
+    <Document title={`รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง (${scopeLabel}) v1.14.5`}>
       <Page size="A4" style={styles.page}>
         {/* Header (Company Branding & Logo) */}
         <View style={styles.headerSection}>
@@ -547,7 +547,7 @@ export const WaraSummaryReportPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
-              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.4</Text>
+              <Text style={styles.docBadgeText}>OFFICIAL REPORT • v1.14.5</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
             <Text style={styles.scopeBadge}>ขอบเขต: {scopeLabel}</Text>
@@ -644,10 +644,10 @@ export const WaraSummaryReportPDF = ({
             {towerMetrics.rows.map((r, i) => (
               <View key={`t_${r.key}_${i}`} style={i % 2 === 0 ? styles.tableRow : styles.tableRowAlt}>
                 <Text style={{ ...styles.cellText, ...colT1, fontWeight: 'bold' }}>{r.name}</Text>
-                <Text style={{ ...styles.cellText, ...colT2 }}>{r.m9 > 0 ? `${r.m9} สถานี` : '-'}</Text>
-                <Text style={{ ...styles.cellText, ...colT3 }}>{r.m18 > 0 ? `${r.m18} สถานี` : '-'}</Text>
-                <Text style={{ ...styles.cellText, ...colT4 }}>{r.m30 > 0 ? `${r.m30} สถานี` : '-'}</Text>
-                <Text style={{ ...styles.cellText, ...colT5, fontWeight: 'bold' }}>{r.total} สถานี</Text>
+                <Text style={{ ...styles.cellText, ...colT2 }}>{String(r.m9)}</Text>
+                <Text style={{ ...styles.cellText, ...colT3 }}>{String(r.m18)}</Text>
+                <Text style={{ ...styles.cellText, ...colT4 }}>{String(r.m30)}</Text>
+                <Text style={{ ...styles.cellText, ...colT5, fontWeight: 'bold' }}>{r.total.toLocaleString('th-TH')} สถานี</Text>
                 <Text style={{ ...styles.cellText, ...colT6, color: '#475569' }}>{r.pct}%</Text>
               </View>
             ))}
@@ -655,10 +655,10 @@ export const WaraSummaryReportPDF = ({
             {/* Tower Summary Row */}
             <View style={styles.summaryRow}>
               <Text style={{ ...styles.cellText, ...colT1, fontWeight: 'bold', color: '#1e40af' }}>รวมทั้งสิ้น (TOTAL)</Text>
-              <Text style={{ ...styles.cellText, ...colT2, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.tot9 > 0 ? `${towerMetrics.tot9} สถานี` : '-'}</Text>
-              <Text style={{ ...styles.cellText, ...colT3, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.tot18 > 0 ? `${towerMetrics.tot18} สถานี` : '-'}</Text>
-              <Text style={{ ...styles.cellText, ...colT4, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.tot30 > 0 ? `${towerMetrics.tot30} สถานี` : '-'}</Text>
-              <Text style={{ ...styles.cellText, ...colT5, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.grandTotal} สถานี</Text>
+              <Text style={{ ...styles.cellText, ...colT2, fontWeight: 'bold', color: '#1e40af' }}>{String(towerMetrics.tot9)}</Text>
+              <Text style={{ ...styles.cellText, ...colT3, fontWeight: 'bold', color: '#1e40af' }}>{String(towerMetrics.tot18)}</Text>
+              <Text style={{ ...styles.cellText, ...colT4, fontWeight: 'bold', color: '#1e40af' }}>{String(towerMetrics.tot30)}</Text>
+              <Text style={{ ...styles.cellText, ...colT5, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.grandTotal.toLocaleString('th-TH')} สถานี</Text>
               <Text style={{ ...styles.cellText, ...colT6, fontWeight: 'bold', color: '#1e40af' }}>{towerMetrics.grandPct}%</Text>
             </View>
           </View>
@@ -708,7 +708,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.4 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -786,7 +786,7 @@ export const StationBudgetDetailPDF = ({
           </View>
           <View style={styles.headerRight}>
             <View style={[styles.docBadge, { borderColor: '#fca5a5', backgroundColor: '#fef2f2' }]}>
-              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.4</Text>
+              <Text style={[styles.docBadgeText, { color: '#dc2626' }]}>STATION BUDGET SLIP • v1.14.5</Text>
             </View>
             <Text style={styles.metaText}>วันที่พิมพ์: {printDate}</Text>
           </View>
@@ -875,7 +875,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.4 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -991,7 +991,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.14.4 — Forth Corporation Public Company Limited</Text>
+          <Text>Wara Dashboard v1.14.5 — Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
