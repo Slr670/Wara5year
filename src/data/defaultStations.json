@@ -205,7 +205,7 @@
     "lat": 14.359956,
     "lng": 99.67207,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 17,
@@ -465,7 +465,7 @@
     "lat": 15.92749,
     "lng": 99.42296,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 37,
@@ -738,7 +738,7 @@
     "lat": 17.010202,
     "lng": 102.761785,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 58,
@@ -959,7 +959,7 @@
     "lat": 13.097761,
     "lng": 102.024679,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 75,
@@ -1063,7 +1063,7 @@
     "lat": 13.004387,
     "lng": 102.073627,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 83,
@@ -1271,7 +1271,7 @@
     "lat": 7.61294,
     "lng": 99.73635,
     "towerHeight": "30",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 99,
@@ -1284,7 +1284,7 @@
     "lat": 7.59123,
     "lng": 99.73319,
     "towerHeight": "30",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 100,
@@ -1375,7 +1375,7 @@
     "lat": 7.438369,
     "lng": 99.768198,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 107,
@@ -1544,7 +1544,7 @@
     "lat": 14.546567,
     "lng": 101.721562,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 120,
@@ -1609,7 +1609,7 @@
     "lat": 14.421233,
     "lng": 101.70012,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 125,
@@ -2272,7 +2272,7 @@
     "lat": 15.974875,
     "lng": 100.871084,
     "towerHeight": "18",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   },
   {
     "id": 176,
@@ -2350,6 +2350,6 @@
     "lat": 15.977772,
     "lng": 100.8967,
     "towerHeight": "30",
-    "typicalType": ""
+    "typicalType": "อื่นๆ"
   }
 ]

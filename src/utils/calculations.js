@@ -85,16 +85,25 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
 
     matched.forEach(s => {
       const hStr = String(s.towerHeight || '').trim();
-      if (hStr.includes('9')) h9++;
-      else if (hStr.includes('18')) h18++;
-      else if (hStr.includes('30')) h30++;
-      else h9++; // default fallback
+      const is18 = hStr.includes('18');
+      const is30 = hStr.includes('30');
 
-      const tStr = String(s.typicalType || '').toLowerCase().trim();
-      if (tStr.includes('type a') || tStr.includes('แบบ a')) typeA++;
-      else if (tStr.includes('type b') || tStr.includes('แบบ b')) typeB++;
-      else if (tStr.includes('type c') || tStr.includes('แบบ c')) typeC++;
-      else typeOther++; // unassigned / empty / special (e.g. 18m, 30m)
+      if (is18) h18++;
+      else if (is30) h30++;
+      else h9++; // default 9m fallback
+
+      // Tower Classification Rule:
+      // All 18m (9 stations) and 30m (3 stations) towers must strictly belong to 'อื่นๆ' (Others / Special Structures).
+      // Only 9m towers can be classified under TYPE A, TYPE B, or TYPE C.
+      if (is18 || is30) {
+        typeOther++;
+      } else {
+        const tStr = String(s.typicalType || '').toLowerCase().trim();
+        if (tStr.includes('type a') || tStr.includes('แบบ a')) typeA++;
+        else if (tStr.includes('type b') || tStr.includes('แบบ b')) typeB++;
+        else if (tStr.includes('type c') || tStr.includes('แบบ c')) typeC++;
+        else typeOther++;
+      }
     });
 
     const baseCost = budgetMap[bucket.termKey] !== undefined ? budgetMap[bucket.termKey] : 20000;

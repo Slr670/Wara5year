@@ -86,6 +86,10 @@ export async function fetchGoogleSheetStations(customUrl = null) {
 
         // Tower lookup
         const towerInfo = villageTowerMap[id] || {};
+        const towerHeight = (row[9] || '').trim() || towerInfo.towerHeight || '9';
+        const isSpecialTower = towerHeight.includes('18') || towerHeight.includes('30');
+        const rawType = (row[10] || '').trim() || towerInfo.typicalType;
+        const typicalType = isSpecialTower ? 'อื่นๆ' : (rawType || 'Typical Type C');
 
         stations.push({
           id,
@@ -97,8 +101,8 @@ export async function fetchGoogleSheetStations(customUrl = null) {
           term,
           lat,
           lng,
-          towerHeight: (row[9] || '').trim() || towerInfo.towerHeight || '9',
-          typicalType: (row[10] || '').trim() || towerInfo.typicalType || 'Typical Type C',
+          towerHeight,
+          typicalType,
           termKey: getTermKey(term)
         });
       }
@@ -112,8 +116,12 @@ export async function fetchGoogleSheetStations(customUrl = null) {
   }
 
   // Fallback to default bundled stations
-  return defaultStations.map(s => ({
-    ...s,
-    termKey: getTermKey(s.term)
-  }));
+  return defaultStations.map(s => {
+    const isSpecialTower = String(s.towerHeight).includes('18') || String(s.towerHeight).includes('30');
+    return {
+      ...s,
+      typicalType: isSpecialTower ? 'อื่นๆ' : (s.typicalType || 'Typical Type C'),
+      termKey: getTermKey(s.term)
+    };
+  });
 }

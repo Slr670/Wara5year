@@ -51,7 +51,7 @@ export function VillageCard({ station, onSelect }) {
             เสา {station.towerHeight || '9'} ม.
           </span>
           <span className="bg-slate-800/80 text-slate-300 border border-slate-700/60 px-2 py-0.5 rounded text-[11px]">
-            {station.typicalType || 'Type C'}
+            {station.typicalType || (['18', '30'].includes(String(station.towerHeight)) ? 'อื่นๆ' : 'Type C')}
           </span>
         </div>
 

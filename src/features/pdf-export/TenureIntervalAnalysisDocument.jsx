@@ -96,16 +96,22 @@ export const TenureIntervalAnalysisDocument = ({
 
           {/* Grand Total Row */}
           <View style={styles.grandTotalRow} wrap={false}>
-            <Text style={{ ...styles.cellText, width: '25%', fontWeight: 'bold', color: '#1e3a8a' }}>
-              รวมทุกช่วงเวลาที่ประมวลผล
+            <Text style={{ ...styles.cellText, ...colT1, fontWeight: 'bold', color: '#1e3a8a' }}>
+              รวมทุกช่วงเวลา
             </Text>
+            <Text style={{ ...styles.cellTextCenter, ...colT2 }}>-</Text>
             <Text style={{ ...styles.cellTextRight, ...colT3, fontWeight: 'bold', color: '#1e3a8a' }}>
-              {Number(totalStations).toLocaleString('th-TH')} สถานี
+              {Number(totalStations).toLocaleString('th-TH')}
             </Text>
             <Text style={{ ...styles.cellTextRight, ...colT4, fontWeight: 'bold', color: '#1e3a8a' }}>100%</Text>
-            <Text style={{ ...styles.cellText, width: '48%', fontSize: 7, color: '#475569', paddingLeft: 8 }}>
-              วิเคราะห์ครอบคลุมเสาทุกความสูง (9m, 18m, 30m) และโครงสร้าง Typical Type A, B, C และ อื่นๆ/พิเศษ
-            </Text>
+            <Text style={{ ...styles.cellTextCenter, ...colT5 }}>-</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT6, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.heights?.h9 || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT7, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.heights?.h18 || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT8, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.heights?.h30 || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT9, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.types?.typeA || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT10, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.types?.typeB || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT11, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.types?.typeC || 0), 0)}</Text>
+            <Text style={{ ...styles.cellTextRight, ...colT12, fontWeight: 'bold' }}>{intervalsData.reduce((acc, i) => acc + (i.types?.typeOther || i.types?.other || 0), 0)}</Text>
             <Text style={{ ...styles.cellTextRight, ...colT13, fontWeight: 'bold', color: '#1d4ed8' }}>
               {formatThb(totalBudget)}
             </Text>

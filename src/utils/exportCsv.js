@@ -71,6 +71,15 @@ export function exportAllIntervalsCsv(intervalsData, totalStations, grandTotalBu
     item.estBudget
   ].join(','));
 
+  // Column sums
+  const sumH9 = intervalsData.reduce((acc, i) => acc + (i.heights?.h9 || 0), 0);
+  const sumH18 = intervalsData.reduce((acc, i) => acc + (i.heights?.h18 || 0), 0);
+  const sumH30 = intervalsData.reduce((acc, i) => acc + (i.heights?.h30 || 0), 0);
+  const sumTypeA = intervalsData.reduce((acc, i) => acc + (i.types?.typeA || 0), 0);
+  const sumTypeB = intervalsData.reduce((acc, i) => acc + (i.types?.typeB || 0), 0);
+  const sumTypeC = intervalsData.reduce((acc, i) => acc + (i.types?.typeC || 0), 0);
+  const sumTypeOther = intervalsData.reduce((acc, i) => acc + (i.types?.typeOther || i.types?.other || 0), 0);
+
   // Summary row
   rows.push([
     '"รวมทุกช่วงเวลา"',
@@ -78,13 +87,13 @@ export function exportAllIntervalsCsv(intervalsData, totalStations, grandTotalBu
     totalStations,
     '100.0',
     '-',
-    '-',
-    '-',
-    '-',
-    '-',
-    '-',
-    '-',
-    '-',
+    sumH9,
+    sumH18,
+    sumH30,
+    sumTypeA,
+    sumTypeB,
+    sumTypeC,
+    sumTypeOther,
     grandTotalBudget
   ].join(','));
 
