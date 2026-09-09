@@ -42,6 +42,8 @@ export interface BudgetMetrics {
     bracketGrandTotal: number;
   }>;
   totalStations: number;
+  grandBaseTotal: number;
+  grandAddTotal: number;
   grandBudgetSum: number;
   priorityStationsSum: number;
   priorityBudgetSum: number;

@@ -19,9 +19,11 @@ export function SiteBudgetModal({
   bracket,
   stations = [],
   siteBudgets = {},
+  siteBaseBudgets = {},
   baseBudget = 20000,
   additionalBudget = 0,
   onUpdateSiteBudget,
+  onUpdateSiteBaseBudget,
   onResetBracketSites
 }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,8 +44,9 @@ export function SiteBudgetModal({
   });
 
   const totalBracketCost = bracketStations.reduce((sum, s) => {
-    const siteAdd = Number(siteBudgets[s.id]) || 0;
-    return sum + baseBudget + additionalBudget + siteAdd;
+    const sBase = siteBaseBudgets[s.id] !== undefined && siteBaseBudgets[s.id] !== '' ? Number(siteBaseBudgets[s.id]) : baseBudget;
+    const sAdd = siteBudgets[s.id] !== undefined && siteBudgets[s.id] !== '' ? Number(siteBudgets[s.id]) : additionalBudget;
+    return sum + sBase + sAdd;
   }, 0);
 
   const handleExportCsv = () => {
@@ -53,7 +56,8 @@ export function SiteBudgetModal({
       bracketStations,
       siteBudgets,
       baseBudget,
-      additionalBudget
+      additionalBudget,
+      siteBaseBudgets
     );
   };
 
@@ -118,8 +122,9 @@ export function SiteBudgetModal({
             </thead>
             <tbody className="divide-y divide-slate-800/60">
               {filtered.map(station => {
-                const siteAdd = siteBudgets[station.id] !== undefined ? siteBudgets[station.id] : 0;
-                const net = baseBudget + additionalBudget + Number(siteAdd);
+                const stationBase = siteBaseBudgets[station.id] !== undefined ? siteBaseBudgets[station.id] : baseBudget;
+                const stationAdd = siteBudgets[station.id] !== undefined ? siteBudgets[station.id] : additionalBudget;
+                const net = (Number(stationBase) || 0) + (Number(stationAdd) || 0);
 
                 return (
                   <tr key={station.id} className="hover:bg-slate-800/40">
@@ -131,16 +136,23 @@ export function SiteBudgetModal({
                     <td className="p-2.5 text-center font-semibold" style={{ color: bracket.color }}>
                       {station.term}
                     </td>
-                    <td className="p-2.5 text-right text-slate-300 font-mono">
-                      {formatThb(baseBudget + additionalBudget)}
+                    <td className="p-2.5 text-right">
+                      <input
+                        type="number"
+                        min="0"
+                        step="1000"
+                        value={stationBase}
+                        onChange={(e) => onUpdateSiteBaseBudget && onUpdateSiteBaseBudget(station.id, e.target.value)}
+                        className="w-28 text-right px-2 py-1 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-100 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                      />
                     </td>
                     <td className="p-2.5 text-right">
                       <input
                         type="number"
                         min="0"
                         step="1000"
-                        value={siteAdd}
-                        onChange={(e) => onUpdateSiteBudget(station.id, e.target.value)}
+                        value={stationAdd}
+                        onChange={(e) => onUpdateSiteBudget && onUpdateSiteBudget(station.id, e.target.value)}
                         className="w-28 text-right px-2 py-1 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-100 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none"
                       />
                     </td>

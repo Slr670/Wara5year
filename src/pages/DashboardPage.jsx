@@ -46,17 +46,19 @@ export function DashboardPage() {
     budgetMap,
     additionalBudgetMap,
     siteBudgets,
+    siteBaseBudgets,
     metrics: budgetMetrics,
     updateBaseBudget,
     updateAdditionalBudget,
     updateSiteBudget,
+    updateSiteBaseBudget,
     resetBracketSiteBudgets
   } = useBudgetMetrics(provinceStations);
 
   const {
     intervalsData,
     totalIntervalBudget
-  } = useIntervalMetrics(provinceStations, budgetMap);
+  } = useIntervalMetrics(provinceStations, budgetMap, siteBaseBudgets, siteBudgets, additionalBudgetMap);
 
   // Modals state
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -112,11 +114,11 @@ export function DashboardPage() {
           metrics={budgetMetrics}
           stations={provinceStations}
           siteBudgets={siteBudgets}
+          siteBaseBudgets={siteBaseBudgets}
           budgetMap={budgetMap}
           additionalBudgetMap={additionalBudgetMap}
-          onUpdateBaseBudget={updateBaseBudget}
-          onUpdateAdditionalBudget={updateAdditionalBudget}
           onUpdateSiteBudget={updateSiteBudget}
+          onUpdateSiteBaseBudget={updateSiteBaseBudget}
           onResetBracketSites={resetBracketSiteBudgets}
         />
 

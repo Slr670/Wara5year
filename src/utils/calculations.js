@@ -61,7 +61,13 @@ export function getIntervalBuckets() {
 /**
  * Aggregates stations by tenure interval and tower dimensions (heights & typical types)
  */
-export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDGET_MAP) {
+export function aggregateDataByIntervals(
+  stations = [],
+  budgetMap = DEFAULT_BUDGET_MAP,
+  siteBaseBudgets = {},
+  siteBudgets = {},
+  additionalBudgetMap = DEFAULT_ADDITIONAL_BUDGET_MAP
+) {
   const buckets = getIntervalBuckets();
   const total = stations.length || 1;
 
@@ -82,6 +88,10 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
     let typeB = 0;
     let typeC = 0;
     let typeOther = 0;
+    let estBudget = 0;
+
+    const defaultBase = budgetMap[bucket.termKey] !== undefined ? Number(budgetMap[bucket.termKey]) : 20000;
+    const defaultAdd = additionalBudgetMap[bucket.termKey] !== undefined ? Number(additionalBudgetMap[bucket.termKey]) : 0;
 
     matched.forEach(s => {
       const hStr = String(s.towerHeight || '').trim();
@@ -104,10 +114,11 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
         else if (tStr.includes('type c') || tStr.includes('แบบ c')) typeC++;
         else typeOther++;
       }
-    });
 
-    const baseCost = budgetMap[bucket.termKey] !== undefined ? budgetMap[bucket.termKey] : 20000;
-    const estBudget = count * baseCost;
+      const sBase = siteBaseBudgets[s.id] !== undefined && siteBaseBudgets[s.id] !== '' ? Number(siteBaseBudgets[s.id]) : defaultBase;
+      const sAdd = siteBudgets[s.id] !== undefined && siteBudgets[s.id] !== '' ? Number(siteBudgets[s.id]) : defaultAdd;
+      estBudget += (sBase + sAdd);
+    });
 
     return {
       bucket,
@@ -128,13 +139,16 @@ export function calculateBudgetMetrics(
   stations = [],
   siteBudgets = {},
   budgetMap = DEFAULT_BUDGET_MAP,
-  additionalBudgetMap = DEFAULT_ADDITIONAL_BUDGET_MAP
+  additionalBudgetMap = DEFAULT_ADDITIONAL_BUDGET_MAP,
+  siteBaseBudgets = {}
 ) {
   const totalStations = stations.length;
   const bMap = { ...DEFAULT_BUDGET_MAP, ...budgetMap };
   const aMap = { ...DEFAULT_ADDITIONAL_BUDGET_MAP, ...additionalBudgetMap };
 
   let grandBudgetSum = 0;
+  let grandBaseTotal = 0;
+  let grandAddTotal = 0;
   let priorityBudgetSum = 0;
   let priorityStationsSum = 0;
 
@@ -146,20 +160,27 @@ export function calculateBudgetMetrics(
     const count = matched.length;
     const sharePct = totalStations > 0 ? ((count / totalStations) * 100).toFixed(1) : '0.0';
 
-    const basePerStation = bMap[bracket.key] !== undefined ? Number(bMap[bracket.key]) : 20000;
-    const baseTotal = count * basePerStation;
+    const defaultBasePerStation = bMap[bracket.key] !== undefined ? Number(bMap[bracket.key]) : 20000;
+    const defaultAddPerStation = aMap[bracket.key] !== undefined ? Number(aMap[bracket.key]) : 0;
 
-    const addPerStation = aMap[bracket.key] !== undefined ? Number(aMap[bracket.key]) : 0;
-    const addTotal = count * addPerStation;
+    let baseTotal = 0;
+    let addTotal = 0;
 
-    let siteAddSum = 0;
     matched.forEach(s => {
-      if (siteBudgets[s.id] !== undefined) {
-        siteAddSum += Number(siteBudgets[s.id]) || 0;
-      }
+      const sBase = siteBaseBudgets[s.id] !== undefined && siteBaseBudgets[s.id] !== ''
+        ? Number(siteBaseBudgets[s.id])
+        : defaultBasePerStation;
+      const sAdd = siteBudgets[s.id] !== undefined && siteBudgets[s.id] !== ''
+        ? Number(siteBudgets[s.id])
+        : defaultAddPerStation;
+
+      baseTotal += sBase;
+      addTotal += sAdd;
     });
 
-    const bracketGrandTotal = baseTotal + addTotal + siteAddSum;
+    const bracketGrandTotal = baseTotal + addTotal;
+    grandBaseTotal += baseTotal;
+    grandAddTotal += addTotal;
     grandBudgetSum += bracketGrandTotal;
 
     // Urgent group threshold: <= 5 years (< 1 ปี ถึง 4 - 5 ปี)
@@ -172,11 +193,11 @@ export function calculateBudgetMetrics(
       bracket,
       count,
       sharePct,
-      basePerStation,
+      basePerStation: count > 0 ? Math.round(baseTotal / count) : defaultBasePerStation,
       baseTotal,
-      addPerStation,
+      addPerStation: count > 0 ? Math.round(addTotal / count) : defaultAddPerStation,
       addTotal,
-      siteAddSum,
+      siteAddSum: addTotal,
       bracketGrandTotal
     };
   });
@@ -184,6 +205,8 @@ export function calculateBudgetMetrics(
   return {
     rows,
     totalStations,
+    grandBaseTotal,
+    grandAddTotal,
     grandBudgetSum,
     priorityStationsSum,
     priorityBudgetSum

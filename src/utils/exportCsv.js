@@ -14,11 +14,30 @@ export function downloadCsvFile(csvContent, filename) {
   URL.revokeObjectURL(url);
 }
 
-export function exportBracketSitesCsv(bracketKey, bracketName, stations, siteBudgets, baseCost, addCost) {
-  const headers = ['รหัสสถานี', 'หมู่บ้าน / ชุมชน', 'ตำบล', 'อำเภอ', 'จังหวัด', 'วาระคงเหลือ', 'งบประมาณพื้นฐาน (บาท)', 'งบส่วนกลางปรับเพิ่ม (บาท)', 'งบเฉพาะไซต์ (บาท)', 'งบรวมสุทธิ (บาท)'];
+export function exportBracketSitesCsv(
+  bracketKey,
+  bracketName,
+  stations,
+  siteBudgets = {},
+  baseCost = 20000,
+  addCost = 0,
+  siteBaseBudgets = {}
+) {
+  const headers = [
+    'ลำดับ TOR',
+    'หมู่บ้าน / ชุมชน',
+    'ตำบล',
+    'อำเภอ',
+    'จังหวัด',
+    'วาระคงเหลือ',
+    'งบตั้งต้น/สถานี (บาท)',
+    'งบเพิ่มเติม/สถานี (บาท)',
+    'งบประมาณรวม (บาท)'
+  ];
   const rows = stations.map(s => {
-    const siteAdd = Number(siteBudgets[s.id]) || 0;
-    const total = baseCost + addCost + siteAdd;
+    const sBase = siteBaseBudgets[s.id] !== undefined && siteBaseBudgets[s.id] !== '' ? Number(siteBaseBudgets[s.id]) : baseCost;
+    const sAdd = siteBudgets[s.id] !== undefined && siteBudgets[s.id] !== '' ? Number(siteBudgets[s.id]) : addCost;
+    const total = sBase + sAdd;
     return [
       s.id,
       `"${(s.village || '').replace(/"/g, '""')}"`,
@@ -26,9 +45,8 @@ export function exportBracketSitesCsv(bracketKey, bracketName, stations, siteBud
       `"${(s.district || '').replace(/"/g, '""')}"`,
       `"${(s.province || '').replace(/"/g, '""')}"`,
       `"${(s.term || '').replace(/"/g, '""')}"`,
-      baseCost,
-      addCost,
-      siteAdd,
+      sBase,
+      sAdd,
       total
     ].join(',');
   });

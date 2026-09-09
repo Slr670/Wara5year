@@ -9,11 +9,11 @@ export function BudgetSection({
   metrics,
   stations,
   siteBudgets,
+  siteBaseBudgets,
   budgetMap,
   additionalBudgetMap,
-  onUpdateBaseBudget,
-  onUpdateAdditionalBudget,
   onUpdateSiteBudget,
+  onUpdateSiteBaseBudget,
   onResetBracketSites
 }) {
   const [activeBracketModal, setActiveBracketModal] = useState(null);
@@ -21,6 +21,8 @@ export function BudgetSection({
   const {
     rows = [],
     totalStations = 0,
+    grandBaseTotal = 0,
+    grandAddTotal = 0,
     grandBudgetSum = 0,
     priorityStationsSum = 0,
     priorityBudgetSum = 0
@@ -71,15 +73,14 @@ export function BudgetSection({
                 <th className="py-3 px-4 text-left font-semibold sticky left-0 z-10 bg-slate-800">ช่วงวาระ</th>
                 <th className="py-3 px-2 text-center font-semibold">จำนวนสถานี</th>
                 <th className="py-3 px-2 text-center font-semibold">สัดส่วน</th>
-                <th className="py-3 px-3 text-right font-semibold">งบพื้นฐาน/สถานี (บาท)</th>
+                <th className="py-3 px-3 text-right font-semibold">งบพื้นฐาน (บาท)</th>
                 <th className="py-3 px-3 text-right font-semibold">ปรับเพิ่มส่วนกลาง (บาท)</th>
-                <th className="py-3 px-3 text-right font-semibold">ปรับเฉพาะไซต์ (บาท)</th>
                 <th className="py-3 px-4 text-right font-semibold">งบประมาณรวม (บาท)</th>
                 <th className="py-3 px-3 text-center font-semibold">จัดการไซต์</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
-              {rows.map(({ bracket, count, sharePct, basePerStation, addPerStation, siteAddSum, bracketGrandTotal }) => (
+              {rows.map(({ bracket, count, sharePct, baseTotal, addTotal, bracketGrandTotal }) => (
                 <tr key={bracket.key} className="hover:bg-slate-800/40 transition-colors">
                   <td className="py-3 px-4 sticky left-0 z-10 bg-slate-900/95 font-medium">
                     <div className="flex items-center gap-2">
@@ -89,28 +90,11 @@ export function BudgetSection({
                   </td>
                   <td className="py-3 px-2 text-center font-bold text-slate-100">{formatNumber(count)}</td>
                   <td className="py-3 px-2 text-center text-slate-400 font-mono text-xs">{sharePct}%</td>
-                  <td className="py-3 px-3 text-right">
-                    <input
-                      type="number"
-                      min="0"
-                      step="1000"
-                      value={basePerStation}
-                      onChange={(e) => onUpdateBaseBudget(bracket.key, e.target.value)}
-                      className="w-28 text-right px-2 py-1 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-100 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    />
+                  <td className="py-3 px-3 text-right font-mono text-slate-200">
+                    {formatThb(baseTotal)}
                   </td>
-                  <td className="py-3 px-3 text-right">
-                    <input
-                      type="number"
-                      min="0"
-                      step="1000"
-                      value={addPerStation}
-                      onChange={(e) => onUpdateAdditionalBudget(bracket.key, e.target.value)}
-                      className="w-24 text-right px-2 py-1 bg-slate-950 border border-slate-700 rounded-lg text-xs text-slate-100 font-mono focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </td>
-                  <td className="py-3 px-3 text-right text-slate-300 font-mono text-xs">
-                    {formatThb(siteAddSum)}
+                  <td className="py-3 px-3 text-right font-mono text-slate-200">
+                    {formatThb(addTotal)}
                   </td>
                   <td className="py-3 px-4 text-right font-bold text-blue-400 font-mono">
                     {formatThb(bracketGrandTotal)}
@@ -136,8 +120,11 @@ export function BudgetSection({
                 </td>
                 <td className="py-3 px-2 text-center text-blue-400 font-extrabold">{formatNumber(totalStations)}</td>
                 <td className="py-3 px-2 text-center font-mono text-xs text-slate-300">100%</td>
-                <td colSpan={3} className="py-3 px-3 text-right text-xs text-slate-400 font-normal">
-                  รวมงบพื้นฐาน + งบส่วนกลาง + งบเฉพาะไซต์
+                <td className="py-3 px-3 text-right text-blue-400 font-mono">
+                  {formatThb(grandBaseTotal)}
+                </td>
+                <td className="py-3 px-3 text-right text-blue-400 font-mono">
+                  {formatThb(grandAddTotal)}
                 </td>
                 <td className="py-3 px-4 text-right font-extrabold text-emerald-400 font-mono text-base">
                   {formatThb(grandBudgetSum)}
@@ -157,9 +144,11 @@ export function BudgetSection({
           bracket={activeBracketModal}
           stations={stations}
           siteBudgets={siteBudgets}
+          siteBaseBudgets={siteBaseBudgets}
           baseBudget={budgetMap[activeBracketModal.key] !== undefined ? budgetMap[activeBracketModal.key] : 20000}
           additionalBudget={additionalBudgetMap[activeBracketModal.key] !== undefined ? additionalBudgetMap[activeBracketModal.key] : 0}
           onUpdateSiteBudget={onUpdateSiteBudget}
+          onUpdateSiteBaseBudget={onUpdateSiteBaseBudget}
           onResetBracketSites={onResetBracketSites}
         />
       )}

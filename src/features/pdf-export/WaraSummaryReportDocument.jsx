@@ -61,7 +61,7 @@ export const WaraSummaryReportDocument = ({
             <Text style={{ ...styles.thText, ...colB2 }}>ระดับความเร่งด่วน</Text>
             <Text style={{ ...styles.thText, ...colB3 }}>จำนวนสถานี</Text>
             <Text style={{ ...styles.thText, ...colB4 }}>สัดส่วน</Text>
-            <Text style={{ ...styles.thText, ...colB5 }}>งบพื้นฐาน/แห่ง</Text>
+            <Text style={{ ...styles.thText, ...colB5 }}>งบพื้นฐานรวม</Text>
             <Text style={{ ...styles.thText, ...colB6 }}>ปรับเพิ่มส่วนกลาง</Text>
             <Text style={{ ...styles.thText, ...colB7 }}>งบประมาณรวม</Text>
           </View>
@@ -74,8 +74,8 @@ export const WaraSummaryReportDocument = ({
               </Text>
               <Text style={{ ...styles.cellTextRight, ...colB3 }}>{Number(row.count).toLocaleString('th-TH')}</Text>
               <Text style={{ ...styles.cellTextRight, ...colB4 }}>{row.sharePct}%</Text>
-              <Text style={{ ...styles.cellTextRight, ...colB5 }}>{formatThb(row.basePerStation)}</Text>
-              <Text style={{ ...styles.cellTextRight, ...colB6 }}>{formatThb(row.addPerStation)}</Text>
+              <Text style={{ ...styles.cellTextRight, ...colB5 }}>{formatThb(row.baseTotal)}</Text>
+              <Text style={{ ...styles.cellTextRight, ...colB6 }}>{formatThb(row.addTotal)}</Text>
               <Text style={{ ...styles.cellTextRight, ...colB7, fontWeight: 'bold', color: '#1e40af' }}>
                 {formatThb(row.bracketGrandTotal)}
               </Text>
