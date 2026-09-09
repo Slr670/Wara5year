@@ -15,7 +15,7 @@ export function VillageCard({ station, onSelect }) {
         {/* Header */}
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="flex items-center gap-1.5 font-mono text-[11px] text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded-md">
-            <span>ID</span>
+            <span>ลำดับ TOR</span>
             <span className="font-bold text-slate-200">{station.id}</span>
           </div>
 

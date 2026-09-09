@@ -107,13 +107,13 @@ export function SiteBudgetModal({
           <table className="w-full text-xs text-left border-collapse">
             <thead className="bg-slate-800/90 text-slate-300 sticky top-0 z-10">
               <tr>
-                <th className="p-2.5 text-center w-12">ID</th>
+                <th className="p-2.5 text-center w-12">ลำดับ TOR</th>
                 <th className="p-2.5">หมู่บ้าน / สถานที่</th>
                 <th className="p-2.5">ตำบล / อำเภอ / จังหวัด</th>
                 <th className="p-2.5 text-center">วาระคงเหลือ</th>
-                <th className="p-2.5 text-right">งบพื้นฐาน</th>
-                <th className="p-2.5 text-right">ปรับเพิ่มเฉพาะไซต์ (บาท)</th>
-                <th className="p-2.5 text-right">งบรวมสุทธิ</th>
+                <th className="p-2.5 text-right">งบตั้งต้น/สถานี</th>
+                <th className="p-2.5 text-right">งบเพิ่มเติม/สถานี</th>
+                <th className="p-2.5 text-right">งบประมาณรวม</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
