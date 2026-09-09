@@ -132,7 +132,7 @@ export function DashboardPage() {
         <div className="mt-8">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-base font-bold text-slate-100">
-              ทำเนียบสถานีและหมู่บ้านในพื้นที่ USO ({filteredStations.length} สถานี)
+              รายชื่อสถานีและหมู่บ้านในพื้นที่ USO ({filteredStations.length} สถานี)
             </h3>
           </div>
           <VillageFilters
