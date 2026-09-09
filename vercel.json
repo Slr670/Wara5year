@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!api/.*).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/monthly-alert-cron",
+      "schedule": "0 9 1 * *"
+    }
+  ]
+}

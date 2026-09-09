@@ -1,5 +1,5 @@
 // Vercel Serverless Function: /api/send-email (Addressed to USO Project Team)
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const SMTP_CONFIG = {
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -15,7 +15,28 @@ const SENDER_NAME = process.env.EMAIL_FROM_NAME || 'wara noreply';
 const SENDER_EMAIL = process.env.EMAIL_FROM || SMTP_CONFIG.auth.user;
 const DEFAULT_FROM = `"${SENDER_NAME}" <${SENDER_EMAIL}>`;
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
+  // Support Netlify handler call signature if used as Netlify function
+  if (req && !res && req.httpMethod) {
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+
+    if (req.httpMethod === 'OPTIONS') {
+      return { statusCode: 200, headers, body: '' };
+    }
+
+    if (req.httpMethod !== 'POST') {
+      return {
+        statusCode: 405,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Method Not Allowed. Use POST.' })
+      };
+    }
+  }
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -208,4 +229,6 @@ module.exports = async (req, res) => {
       message: 'Failed to send email notification: ' + (err.message || err.toString())
     });
   }
-};
+}
+
+export { handler };
