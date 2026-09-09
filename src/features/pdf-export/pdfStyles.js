@@ -61,31 +61,42 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#1e3a8a',
     paddingBottom: 6
   },
+  logoContainer: {
+    width: 95,
+    height: 38,
+    marginRight: 12,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   logo: {
-    width: 44,
-    height: 44,
-    marginRight: 10
+    width: 95,
+    height: 38,
+    objectFit: 'contain'
   },
   companyDetails: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center'
   },
   companyTh: {
-    fontSize: 12,
+    fontSize: 12.5,
     fontFamily: 'THSarabunNew',
     fontWeight: 'bold',
-    color: '#1e3a8a',
+    color: '#0f172a',
+    marginBottom: 1,
     lineHeight: 1.2
   },
   companyEn: {
-    fontSize: 8,
+    fontSize: 9,
     fontFamily: 'THSarabunNew',
-    color: '#475569',
+    fontWeight: 'bold',
+    color: '#0284c7',
     lineHeight: 1.1
   },
   companyAddress: {
     fontSize: 7.5,
     fontFamily: 'THSarabunNew',
     color: '#64748b',
+    marginTop: 1,
     lineHeight: 1.1
   },
   headerBanner: {

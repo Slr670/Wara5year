@@ -29,7 +29,9 @@ export const WaraSummaryReportDocument = ({
       <Page size="A4" orientation="portrait" style={styles.pagePortrait}>
         {/* Header Section */}
         <View style={styles.headerSection}>
-          <Image src="/images/logo.png" style={styles.logo} />
+          <View style={styles.logoContainer}>
+            <Image src="/images/logo.png" style={styles.logo} />
+          </View>
           <View style={styles.companyDetails}>
             <Text style={styles.companyTh}>บริษัท ฟอร์ท คอร์ปอเรชั่น จำกัด (มหาชน)</Text>
             <Text style={styles.companyEn}>FORTH CORPORATION PUBLIC COMPANY LIMITED</Text>
