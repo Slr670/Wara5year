@@ -81,6 +81,7 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
     let typeA = 0;
     let typeB = 0;
     let typeC = 0;
+    let typeOther = 0;
 
     matched.forEach(s => {
       const hStr = String(s.towerHeight || '').trim();
@@ -89,11 +90,11 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
       else if (hStr.includes('30')) h30++;
       else h9++; // default fallback
 
-      const tStr = String(s.typicalType || '').toLowerCase();
+      const tStr = String(s.typicalType || '').toLowerCase().trim();
       if (tStr.includes('type a') || tStr.includes('แบบ a')) typeA++;
       else if (tStr.includes('type b') || tStr.includes('แบบ b')) typeB++;
       else if (tStr.includes('type c') || tStr.includes('แบบ c')) typeC++;
-      else typeC++; // default fallback
+      else typeOther++; // unassigned / empty / special (e.g. 18m, 30m)
     });
 
     const baseCost = budgetMap[bucket.termKey] !== undefined ? budgetMap[bucket.termKey] : 20000;
@@ -105,7 +106,7 @@ export function aggregateDataByIntervals(stations = [], budgetMap = DEFAULT_BUDG
       pct,
       provCount: provs.size,
       heights: { h9, h18, h30 },
-      types: { typeA, typeB, typeC },
+      types: { typeA, typeB, typeC, typeOther, other: typeOther },
       estBudget
     };
   });

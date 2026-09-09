@@ -70,6 +70,8 @@ export interface IntervalAggregationItem {
     typeA: number;
     typeB: number;
     typeC: number;
+    typeOther: number;
+    other?: number;
   };
   estBudget: number;
 }

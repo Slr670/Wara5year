@@ -51,6 +51,7 @@ export function exportAllIntervalsCsv(intervalsData, totalStations, grandTotalBu
     'Type A',
     'Type B',
     'Type C',
+    'อื่นๆ (Others / Special)',
     'ประมาณการงบรวม (บาท)'
   ];
 
@@ -66,6 +67,7 @@ export function exportAllIntervalsCsv(intervalsData, totalStations, grandTotalBu
     item.types.typeA,
     item.types.typeB,
     item.types.typeC,
+    item.types.typeOther || item.types.other || 0,
     item.estBudget
   ].join(','));
 
@@ -75,6 +77,7 @@ export function exportAllIntervalsCsv(intervalsData, totalStations, grandTotalBu
     '"ทั้งหมด"',
     totalStations,
     '100.0',
+    '-',
     '-',
     '-',
     '-',

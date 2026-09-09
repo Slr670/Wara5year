@@ -13,18 +13,19 @@ export const TenureIntervalAnalysisDocument = ({
 }) => {
   const printDate = dateFormatted || new Date().toLocaleDateString('th-TH');
 
-  const colT1 = { width: '15%' };
+  const colT1 = { width: '14%' };
   const colT2 = { width: '11%', textAlign: 'center' };
-  const colT3 = { width: '8%', textAlign: 'right' };
-  const colT4 = { width: '6%', textAlign: 'right' };
-  const colT5 = { width: '8%', textAlign: 'center' };
-  const colT6 = { width: '7%', textAlign: 'right' };
-  const colT7 = { width: '7%', textAlign: 'right' };
-  const colT8 = { width: '7%', textAlign: 'right' };
+  const colT3 = { width: '7%', textAlign: 'right' };
+  const colT4 = { width: '5%', textAlign: 'right' };
+  const colT5 = { width: '6%', textAlign: 'center' };
+  const colT6 = { width: '6%', textAlign: 'right' };
+  const colT7 = { width: '6%', textAlign: 'right' };
+  const colT8 = { width: '6%', textAlign: 'right' };
   const colT9 = { width: '6%', textAlign: 'right' };
   const colT10 = { width: '6%', textAlign: 'right' };
   const colT11 = { width: '6%', textAlign: 'right' };
-  const colT12 = { width: '13%', textAlign: 'right' };
+  const colT12 = { width: '6%', textAlign: 'right' };
+  const colT13 = { width: '15%', textAlign: 'right' };
 
   return (
     <Document title={`รายงานวิเคราะห์วาระคงเหลือและความสูงเสาอากาศ_${scopeName}`}>
@@ -69,7 +70,8 @@ export const TenureIntervalAnalysisDocument = ({
             <Text style={{ ...styles.thText, ...colT9 }}>Type A</Text>
             <Text style={{ ...styles.thText, ...colT10 }}>Type B</Text>
             <Text style={{ ...styles.thText, ...colT11 }}>Type C</Text>
-            <Text style={{ ...styles.thText, ...colT12 }}>ประมาณการงบรวม</Text>
+            <Text style={{ ...styles.thText, ...colT12 }}>อื่นๆ</Text>
+            <Text style={{ ...styles.thText, ...colT13 }}>ประมาณการงบรวม</Text>
           </View>
 
           {intervalsData.map((item, idx) => (
@@ -85,7 +87,8 @@ export const TenureIntervalAnalysisDocument = ({
               <Text style={{ ...styles.cellTextRight, ...colT9 }}>{Number(item.types.typeA)}</Text>
               <Text style={{ ...styles.cellTextRight, ...colT10 }}>{Number(item.types.typeB)}</Text>
               <Text style={{ ...styles.cellTextRight, ...colT11 }}>{Number(item.types.typeC)}</Text>
-              <Text style={{ ...styles.cellTextRight, ...colT12, fontWeight: 'bold', color: '#1e40af' }}>
+              <Text style={{ ...styles.cellTextRight, ...colT12 }}>{Number(item.types.typeOther || item.types.other || 0)}</Text>
+              <Text style={{ ...styles.cellTextRight, ...colT13, fontWeight: 'bold', color: '#1e40af' }}>
                 {formatThb(item.estBudget)}
               </Text>
             </View>
@@ -93,17 +96,17 @@ export const TenureIntervalAnalysisDocument = ({
 
           {/* Grand Total Row */}
           <View style={styles.grandTotalRow} wrap={false}>
-            <Text style={{ ...styles.cellText, width: '26%', fontWeight: 'bold', color: '#1e3a8a' }}>
+            <Text style={{ ...styles.cellText, width: '25%', fontWeight: 'bold', color: '#1e3a8a' }}>
               รวมทุกช่วงเวลาที่ประมวลผล
             </Text>
             <Text style={{ ...styles.cellTextRight, ...colT3, fontWeight: 'bold', color: '#1e3a8a' }}>
               {Number(totalStations).toLocaleString('th-TH')} สถานี
             </Text>
             <Text style={{ ...styles.cellTextRight, ...colT4, fontWeight: 'bold', color: '#1e3a8a' }}>100%</Text>
-            <Text style={{ ...styles.cellText, width: '47%', fontSize: 7, color: '#475569', paddingLeft: 8 }}>
-              วิเคราะห์ครอบคลุมเสาทุกความสูง (9m, 18m, 30m) และ Typical Type A, B, C
+            <Text style={{ ...styles.cellText, width: '48%', fontSize: 7, color: '#475569', paddingLeft: 8 }}>
+              วิเคราะห์ครอบคลุมเสาทุกความสูง (9m, 18m, 30m) และโครงสร้าง Typical Type A, B, C และ อื่นๆ/พิเศษ
             </Text>
-            <Text style={{ ...styles.cellTextRight, ...colT12, fontWeight: 'bold', color: '#1d4ed8' }}>
+            <Text style={{ ...styles.cellTextRight, ...colT13, fontWeight: 'bold', color: '#1d4ed8' }}>
               {formatThb(totalBudget)}
             </Text>
           </View>

@@ -20,12 +20,13 @@ export function IntervalSection({
   const sumTypeA = intervalsData.reduce((acc, i) => acc + i.types.typeA, 0);
   const sumTypeB = intervalsData.reduce((acc, i) => acc + i.types.typeB, 0);
   const sumTypeC = intervalsData.reduce((acc, i) => acc + i.types.typeC, 0);
+  const sumTypeOther = intervalsData.reduce((acc, i) => acc + (i.types.typeOther || i.types.other || 0), 0);
 
   const handleCopySummary = () => {
     let text = `รายงานวิเคราะห์วาระคงเหลือและความสูงเสาอากาศ USO (รวม ${totalStations} สถานี)\n`;
     text += `ประมาณการงบรวม: ${formatThb(totalIntervalBudget)}\n\n`;
     intervalsData.forEach(item => {
-      text += `• ${item.bucket.label} (${item.bucket.priority}): ${item.count} สถานี (${item.pct}%) | 9m: ${item.heights.h9}, 18m: ${item.heights.h18}, 30m: ${item.heights.h30} | งบ: ${formatThb(item.estBudget)}\n`;
+      text += `• ${item.bucket.label} (${item.bucket.priority}): ${item.count} สถานี (${item.pct}%) | 9m: ${item.heights.h9}, 18m: ${item.heights.h18}, 30m: ${item.heights.h30} | Type A: ${item.types.typeA}, B: ${item.types.typeB}, C: ${item.types.typeC}, อื่นๆ: ${item.types.typeOther || 0} | งบ: ${formatThb(item.estBudget)}\n`;
     });
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
@@ -47,7 +48,7 @@ export function IntervalSection({
               <span>ตารางวิเคราะห์วาระคงเหลือและความสูงเสาอากาศ (Tenure & Tower Analysis)</span>
             </CardTitle>
             <p className="text-xs text-slate-400 mt-0.5">
-              วิเคราะห์จำแนกตามความสูงเสา (9ม., 18ม., 30ม.) และประเภทโครงสร้างเสาอากาศ (Typical Type A, B, C)
+              วิเคราะห์จำแนกตามความสูงเสา (9ม., 18ม., 30ม.) และประเภทโครงสร้างเสาอากาศ (Typical Type A, B, C และ อื่นๆ/พิเศษ)
             </p>
           </div>
 
@@ -76,7 +77,7 @@ export function IntervalSection({
 
       <CardContent className="p-0">
         <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-xs text-left border-collapse min-w-[820px]">
+          <table className="w-full text-xs text-left border-collapse min-w-[880px]">
             <thead className="bg-slate-800/90 text-slate-300 uppercase border-b border-slate-700">
               <tr>
                 <th className="py-3 px-3 text-left font-semibold sticky left-0 z-10 bg-slate-800">ช่วงเวลา (Interval)</th>
@@ -90,6 +91,7 @@ export function IntervalSection({
                 <th className="py-3 px-2 text-right font-semibold text-indigo-300">Type A</th>
                 <th className="py-3 px-2 text-right font-semibold text-indigo-300">Type B</th>
                 <th className="py-3 px-2 text-right font-semibold text-indigo-300">Type C</th>
+                <th className="py-3 px-2 text-right font-semibold text-amber-300">อื่นๆ</th>
                 <th className="py-3 px-3 text-right font-semibold">ประมาณการงบรวม</th>
               </tr>
             </thead>
@@ -135,6 +137,9 @@ export function IntervalSection({
                   <td className="py-2.5 px-2 text-right text-slate-300 font-mono">
                     {item.types.typeC}
                   </td>
+                  <td className="py-2.5 px-2 text-right text-amber-300 font-mono">
+                    {item.types.typeOther || item.types.other || 0}
+                  </td>
                   <td className="py-2.5 px-3 text-right font-bold text-blue-400 font-mono">
                     {formatThb(item.estBudget)}
                   </td>
@@ -156,6 +161,7 @@ export function IntervalSection({
                 <td className="py-3 px-2 text-right text-indigo-400 font-mono">{sumTypeA}</td>
                 <td className="py-3 px-2 text-right text-indigo-400 font-mono">{sumTypeB}</td>
                 <td className="py-3 px-2 text-right text-indigo-400 font-mono">{sumTypeC}</td>
+                <td className="py-3 px-2 text-right text-amber-400 font-mono">{sumTypeOther}</td>
                 <td className="py-3 px-3 text-right font-extrabold text-emerald-400 font-mono">
                   {formatThb(totalIntervalBudget)}
                 </td>
