@@ -40,7 +40,7 @@ export function PdfExportDialog({
     setLoadingType('summary');
     try {
       const scopeName = selectedProvince === 'ทั้งหมด'
-        ? 'ภาพรวมทั้งสิ้น 14 จังหวัด (181 สถานี)'
+        ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
         : `เฉพาะจังหวัด ${selectedProvince}`;
 
       const doc = (
@@ -110,7 +110,7 @@ export function PdfExportDialog({
                 1. รายงานสรุปภาพรวมวาระและงบประมาณ
               </div>
               <div className="text-xs text-slate-400 mt-0.5">
-                ขนาด A4 แนวตั้ง (Portrait) • รวมตารางงบประมาณและสรุป 14 จังหวัด
+                ขนาด A4 แนวตั้ง (Portrait) • รวมตารางงบประมาณและสรุป 10 จังหวัด
               </div>
             </div>
             <Button

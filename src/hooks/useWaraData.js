@@ -102,7 +102,7 @@ export function useWaraData() {
     });
 
     const totalRow = {
-      province: 'รวมทุกจังหวัด (14 จังหวัด)',
+      province: 'รวมทุกจังหวัด (10 จังหวัด)',
       total: stations.length,
       lt1: 0,
       y1: 0,

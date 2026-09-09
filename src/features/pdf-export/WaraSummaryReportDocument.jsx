@@ -6,7 +6,7 @@ import { normalizeThai } from '../../utils/thaiFontHelper.js';
 import { APP_VERSION } from '../../config/app.config.js';
 
 export const WaraSummaryReportDocument = ({
-  scopeName = 'ภาพรวมทั้งสิ้น 14 จังหวัด (181 สถานี)',
+  scopeName = 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)',
   budgetMetrics = { rows: [], grandBudgetSum: 0, totalStations: 181, priorityStationsSum: 0, priorityBudgetSum: 0 },
   provincesData = [],
   dateFormatted = ''

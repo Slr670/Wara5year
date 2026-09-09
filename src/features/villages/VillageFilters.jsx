@@ -36,7 +36,7 @@ export function VillageFilters({
           >
             {PROVINCES_ORDER.map(prov => (
               <option key={prov} value={prov} className="bg-slate-900 text-slate-100">
-                {prov === 'ทั้งหมด' ? 'ทุกจังหวัด (14 จว.)' : `จ. ${prov}`}
+                {prov === 'ทั้งหมด' ? 'ทุกจังหวัด (10 จว.)' : `จ. ${prov}`}
               </option>
             ))}
           </Select>
