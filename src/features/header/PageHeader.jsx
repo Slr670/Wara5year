@@ -1,15 +1,19 @@
 import React from 'react';
-import { Landmark, ShieldCheck, MapPin } from 'lucide-react';
+import { ShieldCheck, MapPin } from 'lucide-react';
 import { APP_CONFIG } from '../../config/app.config.js';
 
 export function PageHeader({ totalStations = 181, totalProvinces = 10 }) {
   return (
     <header className="mb-6 pb-5 border-b border-slate-800/80">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Left: Icon & Exact Title & Subtitle */}
+        {/* Left: Official Logo & Exact Title & Subtitle */}
         <div className="flex items-start sm:items-center gap-3.5">
-          <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/30 text-blue-400 shadow-lg shadow-blue-500/5">
-            <Landmark className="w-6 h-6 text-blue-400" />
+          <div className="shrink-0 flex items-center justify-center w-12 h-12 p-1.5 rounded-2xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/30 shadow-lg shadow-blue-500/5 overflow-hidden">
+            <img
+              src="/images/NBTC1.png"
+              alt="ตราสัญลักษณ์ทางการ"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-3xl font-bold tracking-tight text-white font-sans">
