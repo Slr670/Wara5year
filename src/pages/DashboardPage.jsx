@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuroraBackground } from '../components/react-bits/AuroraBackground.jsx';
+import { PageHeader } from '../features/header/PageHeader.jsx';
 import { Topbar } from '../features/header/Topbar.jsx';
 import { KpiGrid } from '../features/kpi/KpiGrid.jsx';
 import { ChartSection } from '../features/charts/ChartSection.jsx';
@@ -66,6 +67,12 @@ export function DashboardPage() {
   return (
     <AuroraBackground className="min-h-screen bg-slate-950 text-slate-100">
       <main className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 py-6">
+        {/* Top Page Header */}
+        <PageHeader
+          totalStations={stations.length || 181}
+          totalProvinces={provinceSummary?.length || 10}
+        />
+
         {/* Topbar */}
         <Topbar
           isSyncing={isSyncing}

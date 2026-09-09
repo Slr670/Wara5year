@@ -14,7 +14,7 @@ export function Topbar({
   onOpenAlertModal
 }) {
   return (
-    <header className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl shadow-lg mb-6">
+    <nav aria-label="Dashboard Controls" className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl shadow-lg mb-6">
       {/* Left: Branding & Sync Chip */}
       <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
         <div className="flex items-center gap-2.5">
@@ -83,6 +83,6 @@ export function Topbar({
           {APP_VERSION}
         </span>
       </div>
-    </header>
+    </nav>
   );
 }
