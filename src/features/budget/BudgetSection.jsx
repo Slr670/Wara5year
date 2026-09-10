@@ -51,7 +51,7 @@ export function BudgetSection({
               </div>
             </div>
 
-            <div className="bg-rose-950/40 border border-rose-800/50 px-3.5 py-1.5 rounded-xl text-right">
+            <div className="bg-slate-800/90 border border-slate-700/80 px-3.5 py-1.5 rounded-xl text-right">
               <div className="text-[10px] text-rose-300 font-medium flex items-center gap-1">
                 <AlertTriangle className="w-3 h-3 text-rose-400" />
                 <span>งบกลุ่มเร่งด่วน (วาระ ≤ 5 ปี)</span>
