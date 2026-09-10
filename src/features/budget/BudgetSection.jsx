@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Coins, Sliders, AlertTriangle } from 'lucide-react';
+import { Banknote, Sliders, AlertTriangle } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card.jsx';
 import { Button } from '../../components/ui/button.jsx';
 import { formatThb, formatNumber } from '../../utils/formatters.js';
@@ -33,8 +33,8 @@ export function BudgetSection({
       <CardHeader className="pb-3 border-b border-slate-800">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <CardTitle className="text-base flex items-center">
-              <Coins className="w-5 h-5 text-emerald-400 mr-2 shrink-0" />
+            <CardTitle className="text-base flex items-center gap-2.5">
+              <Banknote className="w-5 h-5 text-emerald-400 shrink-0" />
               <span>ประมาณการงบประมาณรายวาระ (Budget Matrix & Estimates)</span>
             </CardTitle>
             <p className="text-xs text-slate-400 mt-0.5">
