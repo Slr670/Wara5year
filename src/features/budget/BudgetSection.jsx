@@ -73,8 +73,8 @@ export function BudgetSection({
                 <th className="py-3 px-4 text-left font-semibold sticky left-0 z-10 bg-slate-800">ช่วงวาระ</th>
                 <th className="py-3 px-2 text-center font-semibold">จำนวนสถานี</th>
                 <th className="py-3 px-2 text-center font-semibold">สัดส่วน</th>
-                <th className="py-3 px-3 text-right font-semibold">งบพื้นฐาน (บาท)</th>
-                <th className="py-3 px-3 text-right font-semibold">ปรับเพิ่มส่วนกลาง (บาท)</th>
+                <th className="py-3 px-3 text-right font-semibold">งบตั้งต้นรวม (บาท)</th>
+                <th className="py-3 px-3 text-right font-semibold">งบเพิ่มเติมรวม (บาท)</th>
                 <th className="py-3 px-4 text-right font-semibold">งบประมาณรวม (บาท)</th>
                 <th className="py-3 px-3 text-center font-semibold">จัดการไซต์</th>
               </tr>
