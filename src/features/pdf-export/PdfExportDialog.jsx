@@ -48,6 +48,9 @@ export function PdfExportDialog({
           scopeName={scopeName}
           budgetMetrics={budgetMetrics}
           provincesData={provinceSummary.rows}
+          intervalsData={intervalsData}
+          totalStations={totalStations}
+          totalIntervalBudget={totalIntervalBudget}
         />
       );
 
