@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Download, Copy, Check } from 'lucide-react';
+import { RadioTower, Download, Copy, Check } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card.jsx';
 import { Button } from '../../components/ui/button.jsx';
 import { formatThb, formatNumber } from '../../utils/formatters.js';
@@ -43,8 +43,8 @@ export function IntervalSection({
       <CardHeader className="pb-3 border-b border-slate-800">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Radio className="w-5 h-5 text-indigo-400" />
+            <CardTitle className="text-base flex items-center">
+              <RadioTower className="w-5 h-5 text-blue-400 mr-2 shrink-0" />
               <span>ตารางวิเคราะห์วาระคงเหลือและความสูงเสาอากาศ (Tenure & Tower Analysis)</span>
             </CardTitle>
             <p className="text-xs text-slate-400 mt-0.5">
