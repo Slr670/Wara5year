@@ -12,6 +12,7 @@ import {
 import { Button } from '../../components/ui/button.jsx';
 import { WaraSummaryReportDocument } from './WaraSummaryReportDocument.jsx';
 import { TenureIntervalAnalysisDocument } from './TenureIntervalAnalysisDocument.jsx';
+import { ExecutiveAllInOneDocument } from './ExecutiveAllInOneDocument.jsx';
 
 export function PdfExportDialog({
   isOpen,
@@ -21,9 +22,14 @@ export function PdfExportDialog({
   intervalsData,
   totalStations = 181,
   totalIntervalBudget = 0,
-  selectedProvince = 'ทั้งหมด'
+  selectedProvince = 'ทั้งหมด',
+  stations = [],
+  siteBudgets = {},
+  siteBaseBudgets = {},
+  budgetMap = {},
+  additionalBudgetMap = {}
 }) {
-  const [loadingType, setLoadingType] = useState(null); // null | 'summary' | 'interval'
+  const [loadingType, setLoadingType] = useState(null); // null | 'summary' | 'interval' | 'allInOne'
 
   const downloadBlob = (blob, filename) => {
     const url = URL.createObjectURL(blob);
@@ -90,9 +96,43 @@ export function PdfExportDialog({
     }
   };
 
+  const handleExportAllInOneReport = async () => {
+    setLoadingType('allInOne');
+    try {
+      const scopeName = selectedProvince === 'ทั้งหมด'
+        ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
+        : `เฉพาะจังหวัด ${selectedProvince}`;
+
+      const doc = (
+        <ExecutiveAllInOneDocument
+          scopeName={scopeName}
+          budgetMetrics={budgetMetrics}
+          provincesData={provinceSummary.rows}
+          intervalsData={intervalsData}
+          stations={stations}
+          siteBudgets={siteBudgets}
+          siteBaseBudgets={siteBaseBudgets}
+          budgetMap={budgetMap}
+          totalStations={totalStations}
+          totalIntervalBudget={totalIntervalBudget}
+        />
+      );
+
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      downloadBlob(blob, `รายงานรวมผู้บริหารหน้าเดียว_${selectedProvince}_${dateStr}.pdf`);
+    } catch (err) {
+      console.error('Error generating all-in-one PDF:', err);
+      alert('เกิดข้อผิดพลาดในการสร้างไฟล์ PDF รายงานรวมผู้บริหารแบบหน้าเดียว');
+    } finally {
+      setLoadingType(null);
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md p-6">
+      <DialogContent className="max-w-md sm:max-w-lg p-6">
         <DialogHeader>
           <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mx-auto mb-2">
             <FileText className="w-6 h-6" />
@@ -117,7 +157,7 @@ export function PdfExportDialog({
               </div>
             </div>
             <Button
-              variant="primary"
+              variant="secondary"
               size="sm"
               onClick={handleExportSummaryReport}
               disabled={loadingType !== null}
@@ -155,6 +195,32 @@ export function PdfExportDialog({
                 <Download className="w-3.5 h-3.5 mr-1" />
               )}
               <span>{loadingType === 'interval' ? 'กำลังสร้าง...' : 'ดาวน์โหลด'}</span>
+            </Button>
+          </div>
+
+          {/* Report 3: Executive All-in-One Report */}
+          <div className="p-4 rounded-xl border border-blue-500/40 bg-gradient-to-r from-blue-950/30 to-slate-850/80 hover:border-blue-400/60 transition-colors flex items-center justify-between gap-3">
+            <div>
+              <div className="font-bold text-sm text-slate-100 flex items-center gap-1.5">
+                <span>3. รายงานรวมผู้บริหารแบบหน้าเดียว (Executive All-in-One Report)</span>
+              </div>
+              <div className="text-xs text-slate-400 mt-0.5">
+                รวมงบเฉพาะไซต์รายวาระ + งบประมาณรายวาระ + วิเคราะห์ประเภทเสา + ข้อมูลแยกรายจังหวัด ครบในหน้าเดียว (Single Page)
+              </div>
+            </div>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleExportAllInOneReport}
+              disabled={loadingType !== null}
+              className="shrink-0 text-xs"
+            >
+              {loadingType === 'allInOne' ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Download className="w-3.5 h-3.5 mr-1" />
+              )}
+              <span>{loadingType === 'allInOne' ? 'กำลังสร้าง...' : 'ดาวน์โหลด'}</span>
             </Button>
           </div>
         </div>

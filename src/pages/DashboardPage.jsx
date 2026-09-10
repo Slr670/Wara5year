@@ -193,6 +193,11 @@ export function DashboardPage() {
         totalStations={provinceStations.length}
         totalIntervalBudget={totalIntervalBudget}
         selectedProvince={selectedProvince}
+        stations={provinceStations}
+        siteBudgets={siteBudgets}
+        siteBaseBudgets={siteBaseBudgets}
+        budgetMap={budgetMap}
+        additionalBudgetMap={additionalBudgetMap}
       />
     </AuroraBackground>
   );
