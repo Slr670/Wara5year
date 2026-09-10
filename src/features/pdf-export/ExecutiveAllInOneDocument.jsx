@@ -1,37 +1,38 @@
 import React from 'react';
 import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import { formatThb } from '../../utils/formatters.js';
+import { BRACKET_CONFIG } from '../../config/brackets.config.js';
 import './pdfStyles.js'; // Ensure Thai fonts are registered
 
-// Dedicated single-page optimized styles for Executive All-in-One Report (1 / 1 Page)
+// Ultra-compact single-page optimized styles for Executive All-in-One Report (1 / 1 Page)
 const allInOneStyles = StyleSheet.create({
   pagePortrait: {
-    paddingTop: 14,
-    paddingBottom: 16,
-    paddingHorizontal: 18,
+    paddingTop: 10,
+    paddingBottom: 12,
+    paddingHorizontal: 16,
     fontFamily: 'THSarabunNew',
-    fontSize: 7,
+    fontSize: 6.5,
     color: '#0f172a',
     backgroundColor: '#ffffff'
   },
   headerSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 3,
-    borderBottomWidth: 1,
+    marginBottom: 2,
+    borderBottomWidth: 0.8,
     borderBottomColor: '#1e3a8a',
-    paddingBottom: 2
+    paddingBottom: 1.5
   },
   logoContainer: {
-    width: 68,
-    height: 24,
-    marginRight: 8,
+    width: 60,
+    height: 20,
+    marginRight: 6,
     justifyContent: 'center',
     alignItems: 'center'
   },
   logo: {
-    width: 68,
-    height: 24,
+    width: 60,
+    height: 20,
     objectFit: 'contain'
   },
   companyDetails: {
@@ -39,22 +40,22 @@ const allInOneStyles = StyleSheet.create({
     justifyContent: 'center'
   },
   companyTh: {
-    fontSize: 9.5,
+    fontSize: 8.5,
     fontFamily: 'THSarabunNew',
     fontWeight: 'bold',
     color: '#0f172a',
     marginBottom: 0.5,
-    lineHeight: 1.1
+    lineHeight: 1.05
   },
   companyEn: {
-    fontSize: 7,
+    fontSize: 6.2,
     fontFamily: 'THSarabunNew',
     fontWeight: 'bold',
     color: '#0284c7',
     lineHeight: 1.05
   },
   companyAddress: {
-    fontSize: 5.5,
+    fontSize: 5,
     fontFamily: 'THSarabunNew',
     color: '#64748b',
     marginTop: 0.5,
@@ -65,24 +66,24 @@ const allInOneStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#f8fafc',
-    borderWidth: 0.6,
+    borderWidth: 0.5,
     borderColor: '#cbd5e1',
     borderRadius: 2,
-    paddingVertical: 2,
+    paddingVertical: 1.5,
     paddingHorizontal: 4,
-    marginBottom: 3
+    marginBottom: 2
   },
   headerLeft: {
     flex: 1
   },
   title: {
-    fontSize: 9.5,
+    fontSize: 8.5,
     fontFamily: 'THSarabunNew',
     fontWeight: 'bold',
     color: '#1e3a8a'
   },
   subTitle: {
-    fontSize: 7,
+    fontSize: 6,
     color: '#475569',
     marginTop: 0.5
   },
@@ -90,106 +91,107 @@ const allInOneStyles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   docBadge: {
-    paddingHorizontal: 4,
-    paddingVertical: 1,
+    paddingHorizontal: 3.5,
+    paddingVertical: 0.8,
     borderRadius: 2,
-    borderWidth: 0.6,
+    borderWidth: 0.5,
     borderColor: '#93c5fd',
     backgroundColor: '#eff6ff',
-    marginBottom: 1
+    marginBottom: 0.5
   },
   docBadgeText: {
-    fontSize: 6,
+    fontSize: 5.2,
     fontWeight: 'bold',
     color: '#1d4ed8'
   },
   metaText: {
-    fontSize: 6,
+    fontSize: 5.2,
     color: '#64748b'
   },
   sectionTitle: {
-    fontSize: 7.5,
+    fontSize: 6.8,
     fontFamily: 'THSarabunNew',
     fontWeight: 'bold',
     color: '#1e3a8a',
-    marginTop: 2.5,
-    marginBottom: 1.5
+    marginTop: 1.8,
+    marginBottom: 1.0
   },
   table: {
     width: '100%',
-    borderWidth: 0.6,
+    borderWidth: 0.5,
     borderColor: '#cbd5e1',
-    marginBottom: 2.5
+    marginBottom: 1.8
   },
   tableHead: {
     flexDirection: 'row',
     backgroundColor: '#1e3a8a',
-    borderBottomWidth: 0.6,
+    borderBottomWidth: 0.5,
     borderBottomColor: '#1e3a8a'
   },
   thText: {
-    paddingVertical: 1.2,
-    paddingHorizontal: 1.5,
-    fontSize: 5.8,
+    paddingVertical: 0.9,
+    paddingHorizontal: 1.2,
+    fontSize: 5.2,
     fontWeight: 'bold',
     color: '#ffffff',
     fontFamily: 'THSarabunNew'
   },
   tableRow: {
     flexDirection: 'row',
-    borderBottomWidth: 0.4,
+    borderBottomWidth: 0.3,
     borderBottomColor: '#e2e8f0',
     backgroundColor: '#ffffff'
   },
   tableRowAlt: {
     flexDirection: 'row',
-    borderBottomWidth: 0.4,
+    borderBottomWidth: 0.3,
     borderBottomColor: '#e2e8f0',
     backgroundColor: '#f8fafc'
   },
   grandTotalRow: {
     flexDirection: 'row',
     backgroundColor: '#eff6ff',
-    borderTopWidth: 0.6,
+    borderTopWidth: 0.5,
     borderTopColor: '#93c5fd'
   },
   cellText: {
-    paddingVertical: 1,
-    paddingHorizontal: 1.5,
-    fontSize: 5.8,
+    paddingVertical: 0.7,
+    paddingHorizontal: 1.2,
+    fontSize: 5.0,
     color: '#1e293b'
   },
   cellTextCenter: {
-    paddingVertical: 1,
-    paddingHorizontal: 1,
-    fontSize: 5.8,
+    paddingVertical: 0.7,
+    paddingHorizontal: 0.8,
+    fontSize: 5.0,
     textAlign: 'center',
     color: '#1e293b'
   },
   cellTextRight: {
-    paddingVertical: 1,
-    paddingHorizontal: 1.5,
-    fontSize: 5.8,
+    paddingVertical: 0.7,
+    paddingHorizontal: 1.2,
+    fontSize: 5.0,
     textAlign: 'right',
     color: '#1e293b'
   },
   footer: {
     position: 'absolute',
-    bottom: 6,
-    left: 18,
-    right: 18,
+    bottom: 4,
+    left: 16,
+    right: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontSize: 6,
+    fontSize: 5.2,
     color: '#94a3b8',
-    borderTopWidth: 0.4,
+    borderTopWidth: 0.3,
     borderTopColor: '#e2e8f0',
-    paddingTop: 1.5
+    paddingTop: 1.2
   }
 });
 
 export const ExecutiveAllInOneDocument = ({
   scopeName = 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)',
+  selectedIntervalKey = 'lt1',
   budgetMetrics = { rows: [], grandBudgetSum: 0, totalStations: 181, priorityStationsSum: 0, priorityBudgetSum: 0, grandBaseTotal: 0, grandAddTotal: 0 },
   provincesData = [],
   intervalsData = [],
@@ -197,19 +199,63 @@ export const ExecutiveAllInOneDocument = ({
   siteBudgets = {},
   siteBaseBudgets = {},
   budgetMap = {},
+  additionalBudgetMap = {},
   totalStations = 181,
   totalIntervalBudget = 0,
   dateFormatted = ''
 }) => {
   const printDate = dateFormatted || new Date().toLocaleDateString('th-TH');
 
-  // Column layout for Section 1: Site-Level Customized Budget Breakdown (100%)
-  const colS1 = { width: '18%' };
-  const colS2 = { width: '12%', textAlign: 'right' };
-  const colS3 = { width: '14%', textAlign: 'center' };
-  const colS4 = { width: '18%', textAlign: 'right' };
-  const colS5 = { width: '18%', textAlign: 'right' };
-  const colS6 = { width: '20%', textAlign: 'right' };
+  // Find target bracket configuration
+  const bracketConfig = BRACKET_CONFIG.find(b => b.key === selectedIntervalKey) || BRACKET_CONFIG[0];
+  const bracketKey = bracketConfig.key;
+  const bracketName = bracketConfig.name;
+  const bracketPriority = bracketConfig.priority === 'เร่งด่วนระดับ 1 (วิกฤต)' ? 'เร่งด่วนระดับ 1' : bracketConfig.priority;
+  const bracketColor = bracketConfig.priColor || bracketConfig.color || '#dc2626';
+
+  // Default base & additional budgets for this bracket
+  const defaultBase = budgetMap[bracketKey] !== undefined ? Number(budgetMap[bracketKey]) : 20000;
+  const defaultAdd = additionalBudgetMap[bracketKey] !== undefined ? Number(additionalBudgetMap[bracketKey]) : 0;
+
+  // Filter stations specifically for this tenure bracket
+  const bracketStations = (stations || []).filter(s => (s.termKey || '') === bracketKey);
+
+  // Map each individual station with customized or default budget figures
+  const detailedStationRows = bracketStations.map(station => {
+    const stationBase = siteBaseBudgets[station.id] !== undefined && siteBaseBudgets[station.id] !== ''
+      ? Number(siteBaseBudgets[station.id])
+      : defaultBase;
+    const stationAdd = siteBudgets[station.id] !== undefined && siteBudgets[station.id] !== ''
+      ? Number(siteBudgets[station.id])
+      : defaultAdd;
+    const totalBudget = (Number(stationBase) || 0) + (Number(stationAdd) || 0);
+
+    return {
+      ...station,
+      base: stationBase,
+      add: stationAdd,
+      total: totalBudget
+    };
+  });
+
+  const totalBracketBase = detailedStationRows.reduce((sum, s) => sum + s.base, 0);
+  const totalBracketAdd = detailedStationRows.reduce((sum, s) => sum + s.add, 0);
+  const totalBracketNet = detailedStationRows.reduce((sum, s) => sum + s.total, 0);
+
+  // Layout protection: if bracket has many stations (e.g. > 5 ปี with 112 stations),
+  // show top 35 rows with a note to strictly guarantee 1-page fit
+  const maxDisplayRows = 35;
+  const isTruncated = detailedStationRows.length > maxDisplayRows;
+  const displayedStations = isTruncated ? detailedStationRows.slice(0, maxDisplayRows) : detailedStationRows;
+
+  // Column layout for Section 1: Detailed Site-Level Station Table (Image 2 - 100%)
+  const colD1 = { width: '8%', textAlign: 'center' };   // ลำดับ TOR
+  const colD2 = { width: '24%' };                        // หมู่บ้าน / สถานที่
+  const colD3 = { width: '27%' };                        // ตำบล / อำเภอ / จังหวัด
+  const colD4 = { width: '11%', textAlign: 'center' };   // วาระคงเหลือ
+  const colD5 = { width: '10%', textAlign: 'right' };    // งบตั้งต้น/สถานี
+  const colD6 = { width: '10%', textAlign: 'right' };    // งบเพิ่มเติม/สถานี
+  const colD7 = { width: '10%', textAlign: 'right' };    // งบประมาณรวม
 
   // Column layout for Section 2: Budget Matrix (100%)
   const colB1 = { width: '20%' };
@@ -238,26 +284,6 @@ export const ExecutiveAllInOneDocument = ({
   // Column layout for Section 4: Province Summary (100%)
   const colPProv = { width: '23%' };
   const colPStat = { width: '11%' };
-
-  // Calculate customized sites per bracket
-  const rowsWithCustomCount = (budgetMetrics.rows || []).map(r => {
-    let customCount = 0;
-    if (stations && stations.length > 0) {
-      const bStations = stations.filter(s => (s.termKey || '') === r.bracket.key);
-      customCount = bStations.filter(s => {
-        const hasAdd = siteBudgets[s.id] !== undefined && siteBudgets[s.id] !== '' && Number(siteBudgets[s.id]) > 0;
-        const defaultB = budgetMap[r.bracket.key] !== undefined ? Number(budgetMap[r.bracket.key]) : 20000;
-        const hasBaseMod = siteBaseBudgets[s.id] !== undefined && siteBaseBudgets[s.id] !== '' && Number(siteBaseBudgets[s.id]) !== defaultB;
-        return hasAdd || hasBaseMod;
-      }).length;
-    }
-    return {
-      ...r,
-      customSites: customCount
-    };
-  });
-
-  const totalCustomSites = rowsWithCustomCount.reduce((sum, r) => sum + r.customSites, 0);
 
   // Safe intervals data fallback if empty
   const safeIntervals = (intervalsData && intervalsData.length > 0)
@@ -289,7 +315,7 @@ export const ExecutiveAllInOneDocument = ({
   const sumStationCount = totalStations || budgetMetrics.totalStations || safeIntervals.reduce((acc, i) => acc + (i.count || 0), 0);
 
   return (
-    <Document title={`รายงานรวมผู้บริหารแบบหน้าเดียว_${scopeName}`}>
+    <Document title={`รายงานรวมผู้บริหารแบบหน้าเดียว_${bracketName}_${scopeName}`}>
       <Page size="A4" orientation="portrait" style={allInOneStyles.pagePortrait}>
         {/* Header Section */}
         <View style={allInOneStyles.headerSection}>
@@ -307,7 +333,9 @@ export const ExecutiveAllInOneDocument = ({
         <View style={allInOneStyles.headerBanner}>
           <View style={allInOneStyles.headerLeft}>
             <Text style={allInOneStyles.title}>รายงานรวมผู้บริหารแบบหน้าเดียว (Executive All-in-One Report)</Text>
-            <Text style={allInOneStyles.subTitle}>{scopeName}</Text>
+            <Text style={allInOneStyles.subTitle}>
+              {scopeName} • ข้อมูลสถานีช่วงวาระ: {bracketName} ({bracketStations.length} สถานี) • {bracketPriority}
+            </Text>
           </View>
           <View style={allInOneStyles.headerRight}>
             <View style={allInOneStyles.docBadge}>
@@ -317,46 +345,62 @@ export const ExecutiveAllInOneDocument = ({
           </View>
         </View>
 
-        {/* 1. Site-level customized budget breakdown by tenure interval */}
-        <Text style={allInOneStyles.sectionTitle}>• 1. งบประมาณเฉพาะไซต์แต่ละช่วงปี (Site-Level Customized Budget Breakdown)</Text>
+        {/* 1. Detailed Site-level Station Table (Image 2) */}
+        <Text style={allInOneStyles.sectionTitle}>
+          • 1. รายละเอียดสถานีและงบประมาณเฉพาะไซต์ — ช่วงวาระ {bracketName} ({bracketStations.length} สถานี)
+        </Text>
         <View style={allInOneStyles.table} wrap={false}>
           <View style={allInOneStyles.tableHead}>
-            <Text style={{ ...allInOneStyles.thText, ...colS1 }}>ช่วงวาระ</Text>
-            <Text style={{ ...allInOneStyles.thText, ...colS2 }}>จำนวนสถานี</Text>
-            <Text style={{ ...allInOneStyles.thText, ...colS3 }}>ไซต์ที่ปรับงบ</Text>
-            <Text style={{ ...allInOneStyles.thText, ...colS4 }}>งบตั้งต้นเฉลี่ย/ไซต์</Text>
-            <Text style={{ ...allInOneStyles.thText, ...colS5 }}>งบเพิ่มเติมเฉลี่ย/ไซต์</Text>
-            <Text style={{ ...allInOneStyles.thText, ...colS6 }}>รวมงบปรับเพิ่มเฉพาะไซต์</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD1 }}>ลำดับ TOR</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD2 }}>หมู่บ้าน / สถานที่</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD3 }}>ตำบล / อำเภอ / จังหวัด</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD4 }}>วาระคงเหลือ</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD5 }}>งบตั้งต้น/สถานี</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD6 }}>งบเพิ่มเติม/สถานี</Text>
+            <Text style={{ ...allInOneStyles.thText, ...colD7 }}>งบประมาณรวม</Text>
           </View>
 
-          {rowsWithCustomCount.map((row, idx) => (
-            <View key={`s_row_${row.bracket.key}`} style={idx % 2 === 0 ? allInOneStyles.tableRow : allInOneStyles.tableRowAlt}>
-              <Text style={{ ...allInOneStyles.cellText, ...colS1, fontWeight: 'bold' }}>{row.bracket.name}</Text>
-              <Text style={{ ...allInOneStyles.cellTextRight, ...colS2 }}>{Number(row.count).toLocaleString('th-TH')}</Text>
-              <Text style={{ ...allInOneStyles.cellTextCenter, ...colS3 }}>{row.customSites > 0 ? `${row.customSites} ไซต์` : '-'}</Text>
-              <Text style={{ ...allInOneStyles.cellTextRight, ...colS4 }}>{formatThb(row.basePerStation)}</Text>
-              <Text style={{ ...allInOneStyles.cellTextRight, ...colS5 }}>{formatThb(row.addPerStation)}</Text>
-              <Text style={{ ...allInOneStyles.cellTextRight, ...colS6, fontWeight: 'bold', color: row.addTotal > 0 ? '#1e40af' : '#64748b' }}>
-                {formatThb(row.addTotal)}
+          {displayedStations.length === 0 ? (
+            <View style={allInOneStyles.tableRow}>
+              <Text style={{ ...allInOneStyles.cellTextCenter, width: '100%', color: '#94a3b8', paddingVertical: 3 }}>
+                ไม่พบข้อมูลสถานีในช่วงวาระนี้
               </Text>
             </View>
-          ))}
+          ) : (
+            displayedStations.map((station, idx) => (
+              <View key={`st_${station.id}_${idx}`} style={idx % 2 === 0 ? allInOneStyles.tableRow : allInOneStyles.tableRowAlt}>
+                <Text style={{ ...allInOneStyles.cellTextCenter, ...colD1 }}>{station.id}</Text>
+                <Text style={{ ...allInOneStyles.cellText, ...colD2, fontWeight: 'bold' }}>{station.village || '-'}</Text>
+                <Text style={{ ...allInOneStyles.cellText, ...colD3 }}>
+                  {`ต.${station.subdistrict || '-'} อ.${station.district || '-'} จ.${station.province || '-'}`}
+                </Text>
+                <Text style={{ ...allInOneStyles.cellTextCenter, ...colD4, fontWeight: 'bold', color: bracketColor }}>
+                  {station.term || '-'}
+                </Text>
+                <Text style={{ ...allInOneStyles.cellTextRight, ...colD5 }}>{formatThb(station.base)}</Text>
+                <Text style={{ ...allInOneStyles.cellTextRight, ...colD6 }}>{formatThb(station.add)}</Text>
+                <Text style={{ ...allInOneStyles.cellTextRight, ...colD7, fontWeight: 'bold', color: '#1e40af' }}>
+                  {formatThb(station.total)}
+                </Text>
+              </View>
+            ))
+          )}
 
-          {/* Grand Total Row */}
+          {/* Grand Total Row for Table 1 */}
           <View style={allInOneStyles.grandTotalRow}>
-            <Text style={{ ...allInOneStyles.cellText, ...colS1, fontWeight: 'bold', color: '#1e3a8a' }}>
-              รวมทุกช่วงวาระ
+            <Text style={{ ...allInOneStyles.cellText, width: '70%', fontWeight: 'bold', color: '#1e3a8a' }}>
+              {isTruncated
+                ? `รวมงบประมาณช่วง ${bracketName} (${bracketStations.length} สถานี, แสดง 35 รายการแรก)`
+                : `รวมงบประมาณช่วง ${bracketName} (${bracketStations.length} สถานี)`}
             </Text>
-            <Text style={{ ...allInOneStyles.cellTextRight, ...colS2, fontWeight: 'bold', color: '#1e3a8a' }}>
-              {Number(budgetMetrics.totalStations).toLocaleString('th-TH')}
+            <Text style={{ ...allInOneStyles.cellTextRight, ...colD5, fontWeight: 'bold', color: '#1e3a8a' }}>
+              {formatThb(totalBracketBase)}
             </Text>
-            <Text style={{ ...allInOneStyles.cellTextCenter, ...colS3, fontWeight: 'bold', color: '#1e3a8a' }}>
-              {totalCustomSites > 0 ? `${totalCustomSites} ไซต์` : '-'}
+            <Text style={{ ...allInOneStyles.cellTextRight, ...colD6, fontWeight: 'bold', color: '#1e3a8a' }}>
+              {formatThb(totalBracketAdd)}
             </Text>
-            <Text style={{ ...allInOneStyles.cellTextRight, ...colS4, color: '#64748b' }}>-</Text>
-            <Text style={{ ...allInOneStyles.cellTextRight, ...colS5, color: '#64748b' }}>-</Text>
-            <Text style={{ ...allInOneStyles.cellTextRight, ...colS6, fontWeight: 'bold', color: '#1d4ed8' }}>
-              {formatThb(budgetMetrics.grandAddTotal || 0)}
+            <Text style={{ ...allInOneStyles.cellTextRight, ...colD7, fontWeight: 'bold', color: '#1d4ed8' }}>
+              {formatThb(totalBracketNet)}
             </Text>
           </View>
         </View>
@@ -377,7 +421,7 @@ export const ExecutiveAllInOneDocument = ({
           {budgetMetrics.rows.map((row, idx) => (
             <View key={`b_row_${row.bracket.key}`} style={idx % 2 === 0 ? allInOneStyles.tableRow : allInOneStyles.tableRowAlt}>
               <Text style={{ ...allInOneStyles.cellText, ...colB1, fontWeight: 'bold' }}>{row.bracket.name}</Text>
-              <Text style={{ ...allInOneStyles.cellText, ...colB2, fontSize: 5.8, color: row.bracket.priColor || '#dc2626' }}>
+              <Text style={{ ...allInOneStyles.cellText, ...colB2, fontSize: 5.0, color: row.bracket.priColor || '#dc2626' }}>
                 {row.bracket.priority === 'เร่งด่วนระดับ 1 (วิกฤต)' ? 'เร่งด่วนระดับ 1' : row.bracket.priority}
               </Text>
               <Text style={{ ...allInOneStyles.cellTextRight, ...colB3 }}>{Number(row.count).toLocaleString('th-TH')}</Text>
@@ -399,7 +443,7 @@ export const ExecutiveAllInOneDocument = ({
               {Number(budgetMetrics.totalStations).toLocaleString('th-TH')}
             </Text>
             <Text style={{ ...allInOneStyles.cellTextRight, ...colB4, fontWeight: 'bold', color: '#1e3a8a' }}>100%</Text>
-            <Text style={{ ...allInOneStyles.cellTextRight, width: '29%', fontSize: 5.5, color: '#475569' }}>
+            <Text style={{ ...allInOneStyles.cellTextRight, width: '29%', fontSize: 4.8, color: '#475569' }}>
               รวมเฉพาะกลุ่มเร่งด่วน (&lt; 1 ถึง 5 ปี): {formatThb(budgetMetrics.priorityBudgetSum)}
             </Text>
             <Text style={{ ...allInOneStyles.cellTextRight, ...colB7, fontWeight: 'bold', color: '#1d4ed8' }}>
@@ -430,7 +474,7 @@ export const ExecutiveAllInOneDocument = ({
           {safeIntervals.map((item, idx) => (
             <View key={`int_row_${item.bucket.id || idx}`} style={idx % 2 === 0 ? allInOneStyles.tableRow : allInOneStyles.tableRowAlt}>
               <Text style={{ ...allInOneStyles.cellText, ...colT1, fontWeight: 'bold' }}>{item.bucket.label}</Text>
-              <Text style={{ ...allInOneStyles.cellTextCenter, ...colT2, fontSize: 5.8, color: item.bucket.priColor || '#b91c1c' }}>
+              <Text style={{ ...allInOneStyles.cellTextCenter, ...colT2, fontSize: 5.0, color: item.bucket.priColor || '#b91c1c' }}>
                 {item.bucket.priority}
               </Text>
               <Text style={{ ...allInOneStyles.cellTextRight, ...colT3 }}>{Number(item.count).toLocaleString('th-TH')}</Text>

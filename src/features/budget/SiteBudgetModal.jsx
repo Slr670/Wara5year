@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Download, RotateCcw, Building2 } from 'lucide-react';
+import { Download, RotateCcw, Building2, FileText, Loader2 } from 'lucide-react';
+import { pdf } from '@react-pdf/renderer';
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,7 @@ import { Button } from '../../components/ui/button.jsx';
 import { Input } from '../../components/ui/input.jsx';
 import { formatThb } from '../../utils/formatters.js';
 import { exportBracketSitesCsv } from '../../utils/exportCsv.js';
+import { ExecutiveAllInOneDocument } from '../pdf-export/ExecutiveAllInOneDocument.jsx';
 
 export function SiteBudgetModal({
   isOpen,
@@ -24,9 +26,15 @@ export function SiteBudgetModal({
   additionalBudget = 0,
   onUpdateSiteBudget,
   onUpdateSiteBaseBudget,
-  onResetBracketSites
+  onResetBracketSites,
+  budgetMetrics,
+  provinceSummary,
+  intervalsData,
+  totalIntervalBudget = 0,
+  selectedProvince = 'ทั้งหมด'
 }) {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
 
   if (!bracket) return null;
 
@@ -61,6 +69,50 @@ export function SiteBudgetModal({
     );
   };
 
+  const handleExportPdf = async () => {
+    setIsExportingPdf(true);
+    try {
+      const scopeName = selectedProvince === 'ทั้งหมด'
+        ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
+        : `เฉพาะจังหวัด ${selectedProvince}`;
+
+      const doc = (
+        <ExecutiveAllInOneDocument
+          scopeName={scopeName}
+          selectedIntervalKey={bracket.key}
+          budgetMetrics={budgetMetrics || { rows: [] }}
+          provincesData={provinceSummary?.rows || []}
+          intervalsData={intervalsData || []}
+          stations={stations}
+          siteBudgets={siteBudgets}
+          siteBaseBudgets={siteBaseBudgets}
+          budgetMap={{ [bracket.key]: baseBudget }}
+          additionalBudgetMap={{ [bracket.key]: additionalBudget }}
+          totalStations={stations.length}
+          totalIntervalBudget={totalIntervalBudget}
+        />
+      );
+
+      const asPdf = pdf(doc);
+      const blob = await asPdf.toBlob();
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const cleanBracketName = bracket.name.replace(/[^a-zA-Z0-9ก-๙]/g, '');
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `รายงานรวมผู้บริหารหน้าเดียว_${cleanBracketName}_${selectedProvince}_${dateStr}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Error exporting PDF from SiteBudgetModal:', err);
+      alert('เกิดข้อผิดพลาดในการสร้างไฟล์ PDF');
+    } finally {
+      setIsExportingPdf(false);
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-6">
@@ -84,7 +136,7 @@ export function SiteBudgetModal({
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full sm:max-w-sm h-9 text-xs"
           />
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end flex-wrap">
             <Button
               variant="outline"
               size="sm"
@@ -102,6 +154,20 @@ export function SiteBudgetModal({
             >
               <Download className="w-3.5 h-3.5" />
               <span>ส่งออก CSV</span>
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleExportPdf}
+              disabled={isExportingPdf}
+              className="text-xs font-semibold"
+            >
+              {isExportingPdf ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <FileText className="w-3.5 h-3.5 mr-1" />
+              )}
+              <span>{isExportingPdf ? 'กำลังสร้าง PDF...' : 'ส่งออก PDF หน้าเดียว'}</span>
             </Button>
           </div>
         </div>

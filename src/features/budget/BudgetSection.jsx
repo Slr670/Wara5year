@@ -14,7 +14,11 @@ export function BudgetSection({
   additionalBudgetMap,
   onUpdateSiteBudget,
   onUpdateSiteBaseBudget,
-  onResetBracketSites
+  onResetBracketSites,
+  provinceSummary,
+  intervalsData,
+  totalIntervalBudget,
+  selectedProvince
 }) {
   const [activeBracketModal, setActiveBracketModal] = useState(null);
 
@@ -150,6 +154,11 @@ export function BudgetSection({
           onUpdateSiteBudget={onUpdateSiteBudget}
           onUpdateSiteBaseBudget={onUpdateSiteBaseBudget}
           onResetBracketSites={onResetBracketSites}
+          budgetMetrics={metrics}
+          provinceSummary={provinceSummary}
+          intervalsData={intervalsData}
+          totalIntervalBudget={totalIntervalBudget}
+          selectedProvince={selectedProvince}
         />
       )}
     </Card>

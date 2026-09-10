@@ -120,6 +120,10 @@ export function DashboardPage() {
           onUpdateSiteBudget={updateSiteBudget}
           onUpdateSiteBaseBudget={updateSiteBaseBudget}
           onResetBracketSites={resetBracketSiteBudgets}
+          provinceSummary={provinceSummary}
+          intervalsData={intervalsData}
+          totalIntervalBudget={totalIntervalBudget}
+          selectedProvince={selectedProvince}
         />
 
         {/* 6. Tenure & Tower Height Intervals Breakdown */}
