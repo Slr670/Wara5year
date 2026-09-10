@@ -7,7 +7,7 @@ export const BRACKET_CONFIG = [
   {
     key: 'lt1',
     name: '< 1 ปี',
-    priority: 'เร่งด่วนระดับ 1 (วิกฤต)',
+    priority: 'เร่งด่วนระดับ 1',
     kpiBadge: 'เร่งด่วนระดับ 1',
     priColor: '#dc2626',
     priBg: '#fef2f2',

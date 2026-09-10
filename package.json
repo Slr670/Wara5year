@@ -1,6 +1,6 @@
 {
   "name": "wara-dashboard",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Enterprise Government Official Tenure Tracking Dashboard with React 18.3, Vite 5.4, Tailwind CSS 4.0, Radix UI, Lucide React, and Automated Alerts",
   "type": "module",
   "scripts": {

@@ -42,7 +42,7 @@ try {
 // 2. Project Constants & Default Configurations
 // ==============================================================================
 export const BRACKET_CONFIG = [
-  { key: 'lt1', name: '< 1 ปี', priority: 'เร่งด่วนระดับ 1 (วิกฤต)', priColor: '#dc2626', priBg: '#fef2f2', minYears: 0, maxYears: 1 },
+  { key: 'lt1', name: '< 1 ปี', priority: 'เร่งด่วนระดับ 1', priColor: '#dc2626', priBg: '#fef2f2', minYears: 0, maxYears: 1 },
   { key: 'y1', name: '1 - 2 ปี', priority: 'เร่งด่วนระดับ 2', priColor: '#ea580c', priBg: '#fff7ed', minYears: 1, maxYears: 2 },
   { key: 'y2', name: '2 - 3 ปี', priority: 'เร่งด่วนระดับ 3', priColor: '#d97706', priBg: '#fffbeb', minYears: 2, maxYears: 3 },
   { key: 'y3', name: '3 - 4 ปี', priority: 'เฝ้าระวังระดับ 1', priColor: '#16a34a', priBg: '#f0fdf4', minYears: 3, maxYears: 4 },

@@ -43,7 +43,7 @@ export const WaraSummaryReportDocument = ({
         <View style={styles.headerBanner}>
           <View style={styles.headerLeft}>
             <Text style={styles.title}>รายงานสรุปภาพรวมวาระเจ้าหน้าที่รัฐ กรมการปกครอง</Text>
-            <Text style={styles.subTitle}>ขอบเขตการประมวลผล: {scopeName}</Text>
+            <Text style={styles.subTitle}>{scopeName}</Text>
           </View>
           <View style={styles.headerRight}>
             <View style={styles.docBadge}>
@@ -61,8 +61,8 @@ export const WaraSummaryReportDocument = ({
             <Text style={{ ...styles.thText, ...colB2 }}>ระดับความเร่งด่วน</Text>
             <Text style={{ ...styles.thText, ...colB3 }}>จำนวนสถานี</Text>
             <Text style={{ ...styles.thText, ...colB4 }}>สัดส่วน</Text>
-            <Text style={{ ...styles.thText, ...colB5 }}>งบพื้นฐานรวม</Text>
-            <Text style={{ ...styles.thText, ...colB6 }}>ปรับเพิ่มส่วนกลาง</Text>
+            <Text style={{ ...styles.thText, ...colB5 }}>งบตั้งต้นรวม</Text>
+            <Text style={{ ...styles.thText, ...colB6 }}>งบเพิ่มเติมรวม</Text>
             <Text style={{ ...styles.thText, ...colB7 }}>งบประมาณรวม</Text>
           </View>
 
@@ -70,7 +70,7 @@ export const WaraSummaryReportDocument = ({
             <View key={`b_row_${row.bracket.key}`} style={idx % 2 === 0 ? styles.tableRow : styles.tableRowAlt}>
               <Text style={{ ...styles.cellText, ...colB1, fontWeight: 'bold' }}>{row.bracket.name}</Text>
               <Text style={{ ...styles.cellText, ...colB2, fontSize: 7, color: row.bracket.priColor || '#dc2626' }}>
-                {row.bracket.priority}
+                {row.bracket.priority === 'เร่งด่วนระดับ 1 (วิกฤต)' ? 'เร่งด่วนระดับ 1' : row.bracket.priority}
               </Text>
               <Text style={{ ...styles.cellTextRight, ...colB3 }}>{Number(row.count).toLocaleString('th-TH')}</Text>
               <Text style={{ ...styles.cellTextRight, ...colB4 }}>{row.sharePct}%</Text>
