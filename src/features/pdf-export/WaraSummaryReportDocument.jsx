@@ -3,7 +3,6 @@ import { Document, Page, Text, View, Image } from '@react-pdf/renderer';
 import { styles } from './pdfStyles.js';
 import { formatThb } from '../../utils/formatters.js';
 import { normalizeThai } from '../../utils/thaiFontHelper.js';
-import { APP_VERSION } from '../../config/app.config.js';
 
 export const WaraSummaryReportDocument = ({
   scopeName = 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)',
@@ -130,7 +129,7 @@ export const WaraSummaryReportDocument = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard {APP_VERSION} — Forth Corporation Public Company Limited</Text>
+          <Text>Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>

@@ -616,7 +616,7 @@ export const WaraSummaryReportPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.15.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -783,7 +783,7 @@ export const StationBudgetDetailPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.15.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -899,7 +899,7 @@ export const TenureIntervalAnalysisPDF = ({
 
         {/* Footer */}
         <View style={styles.footer} fixed>
-          <Text>Wara Dashboard v1.15.0 — Forth Corporation Public Company Limited</Text>
+          <Text>Forth Corporation Public Company Limited</Text>
           <Text render={({ pageNumber, totalPages }) => `หน้า ${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
