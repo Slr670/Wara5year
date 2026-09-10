@@ -10,7 +10,7 @@ export function KpiGrid({
   const total = kpiStats.total || 0;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 mb-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 sm:gap-3 mb-6">
       {/* 1. All Stations Card */}
       <KpiCard
         title="สถานีทั้งหมด"
@@ -32,7 +32,7 @@ export function KpiGrid({
             subtitle="สัดส่วน"
             count={count}
             totalStations={total}
-            priority={bracket.priority.split(' ')[0]} // Short priority label
+            priority={bracket.kpiBadge || bracket.priority}
             color={bracket.color}
             isSelected={selectedTermKey === bracket.key}
             onClick={() => onSelectTermKey(bracket.key === selectedTermKey ? 'all' : bracket.key)}
