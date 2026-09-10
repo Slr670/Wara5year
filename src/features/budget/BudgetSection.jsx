@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Banknote, Sliders, AlertTriangle } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card.jsx';
 import { Button } from '../../components/ui/button.jsx';
 import { formatThb, formatNumber } from '../../utils/formatters.js';
-import { SiteBudgetModal } from './SiteBudgetModal.jsx';
+
+const SiteBudgetModal = React.lazy(() =>
+  import('./SiteBudgetModal.jsx').then(m => ({ default: m.SiteBudgetModal }))
+);
 
 export function BudgetSection({
   metrics,
@@ -109,6 +112,7 @@ export function BudgetSection({
                       size="sm"
                       onClick={() => setActiveBracketModal(bracket)}
                       className="h-7 px-2 text-xs text-blue-400 hover:text-blue-300 hover:bg-blue-950/40"
+                      aria-label={`ปรับแต่งงบประมาณเฉพาะไซต์ช่วง ${bracket.name}`}
                     >
                       <Sliders className="w-3.5 h-3.5 mr-1" />
                       <span>ปรับไซต์</span>
@@ -142,24 +146,26 @@ export function BudgetSection({
 
       {/* Site Budget Dialog */}
       {activeBracketModal && (
-        <SiteBudgetModal
-          isOpen={!!activeBracketModal}
-          onClose={() => setActiveBracketModal(null)}
-          bracket={activeBracketModal}
-          stations={stations}
-          siteBudgets={siteBudgets}
-          siteBaseBudgets={siteBaseBudgets}
-          baseBudget={budgetMap[activeBracketModal.key] !== undefined ? budgetMap[activeBracketModal.key] : 20000}
-          additionalBudget={additionalBudgetMap[activeBracketModal.key] !== undefined ? additionalBudgetMap[activeBracketModal.key] : 0}
-          onUpdateSiteBudget={onUpdateSiteBudget}
-          onUpdateSiteBaseBudget={onUpdateSiteBaseBudget}
-          onResetBracketSites={onResetBracketSites}
-          budgetMetrics={metrics}
-          provinceSummary={provinceSummary}
-          intervalsData={intervalsData}
-          totalIntervalBudget={totalIntervalBudget}
-          selectedProvince={selectedProvince}
-        />
+        <Suspense fallback={null}>
+          <SiteBudgetModal
+            isOpen={!!activeBracketModal}
+            onClose={() => setActiveBracketModal(null)}
+            bracket={activeBracketModal}
+            stations={stations}
+            siteBudgets={siteBudgets}
+            siteBaseBudgets={siteBaseBudgets}
+            baseBudget={budgetMap[activeBracketModal.key] !== undefined ? budgetMap[activeBracketModal.key] : 20000}
+            additionalBudget={additionalBudgetMap[activeBracketModal.key] !== undefined ? additionalBudgetMap[activeBracketModal.key] : 0}
+            onUpdateSiteBudget={onUpdateSiteBudget}
+            onUpdateSiteBaseBudget={onUpdateSiteBaseBudget}
+            onResetBracketSites={onResetBracketSites}
+            budgetMetrics={metrics}
+            provinceSummary={provinceSummary}
+            intervalsData={intervalsData}
+            totalIntervalBudget={totalIntervalBudget}
+            selectedProvince={selectedProvince}
+          />
+        </Suspense>
       )}
     </Card>
   );

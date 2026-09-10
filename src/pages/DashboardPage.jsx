@@ -1,24 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { AuroraBackground } from '../components/react-bits/AuroraBackground.jsx';
 import { PageHeader } from '../features/header/PageHeader.jsx';
 import { Topbar } from '../features/header/Topbar.jsx';
 import { KpiGrid } from '../features/kpi/KpiGrid.jsx';
-import { ChartSection } from '../features/charts/ChartSection.jsx';
-import { AntennaMap } from '../features/map/AntennaMap.jsx';
 import { SummaryTable } from '../features/summary-table/SummaryTable.jsx';
 import { BudgetSection } from '../features/budget/BudgetSection.jsx';
 import { IntervalSection } from '../features/intervals/IntervalSection.jsx';
 import { VillageFilters } from '../features/villages/VillageFilters.jsx';
 import { VillageGrid } from '../features/villages/VillageGrid.jsx';
-import { PasswordAuthModal } from '../features/alerts/PasswordAuthModal.jsx';
-import { EmailAlertModal } from '../features/alerts/EmailAlertModal.jsx';
-import { PdfExportDialog } from '../features/pdf-export/PdfExportDialog.jsx';
 
 import { useWaraData } from '../hooks/useWaraData.js';
 import { useGoogleSheetSync } from '../hooks/useGoogleSheetSync.js';
 import { useBudgetMetrics } from '../hooks/useBudgetMetrics.js';
 import { useIntervalMetrics } from '../hooks/useIntervalMetrics.js';
 import { APP_CONFIG, APP_VERSION } from '../config/app.config.js';
+
+// Lazy-loaded heavy modules for optimal Lighthouse Performance & TBT
+const ChartSection = React.lazy(() =>
+  import('../features/charts/ChartSection.jsx').then(m => ({ default: m.ChartSection }))
+);
+const AntennaMap = React.lazy(() =>
+  import('../features/map/AntennaMap.jsx').then(m => ({ default: m.AntennaMap }))
+);
+const PasswordAuthModal = React.lazy(() =>
+  import('../features/alerts/PasswordAuthModal.jsx').then(m => ({ default: m.PasswordAuthModal }))
+);
+const EmailAlertModal = React.lazy(() =>
+  import('../features/alerts/EmailAlertModal.jsx').then(m => ({ default: m.EmailAlertModal }))
+);
+const PdfExportDialog = React.lazy(() =>
+  import('../features/pdf-export/PdfExportDialog.jsx').then(m => ({ default: m.PdfExportDialog }))
+);
+
+function ChartSkeleton() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-6 animate-pulse" aria-hidden="true">
+      <div className="lg:col-span-5 h-[340px] rounded-2xl bg-slate-900/60 border border-slate-800/80" />
+      <div className="lg:col-span-7 h-[340px] rounded-2xl bg-slate-900/60 border border-slate-800/80" />
+    </div>
+  );
+}
+
+function MapSkeleton() {
+  return (
+    <div className="w-full h-[460px] rounded-2xl bg-slate-900/60 border border-slate-800/80 mb-6 flex flex-col items-center justify-center gap-2 animate-pulse" aria-hidden="true">
+      <div className="w-8 h-8 rounded-full border-2 border-blue-500/40 border-t-blue-500 animate-spin" />
+      <span className="text-xs text-slate-400 font-medium">กำลังโหลดแผนที่ตำแหน่งสถานี...</span>
+    </div>
+  );
+}
 
 export function DashboardPage() {
   const {
@@ -93,14 +123,18 @@ export function DashboardPage() {
         />
 
         {/* 2. Charts Section */}
-        <ChartSection kpiStats={kpiStats} />
+        <Suspense fallback={<ChartSkeleton />}>
+          <ChartSection kpiStats={kpiStats} />
+        </Suspense>
 
         {/* 3. Interactive Antenna Map */}
-        <AntennaMap
-          stations={filteredStations}
-          selectedStation={selectedMapStation}
-          onSelectStation={(s) => setSelectedMapStation(s)}
-        />
+        <Suspense fallback={<MapSkeleton />}>
+          <AntennaMap
+            stations={filteredStations}
+            selectedStation={selectedMapStation}
+            onSelectStation={(s) => setSelectedMapStation(s)}
+          />
+        </Suspense>
 
         {/* 4. Province Summary Table with Sticky Column */}
         <SummaryTable
@@ -174,35 +208,47 @@ export function DashboardPage() {
       </main>
 
       {/* Password Authentication Modal */}
-      <PasswordAuthModal
-        isOpen={isPasswordModalOpen}
-        onClose={() => setIsPasswordModalOpen(false)}
-        onSuccess={() => setIsAlertModalOpen(true)}
-      />
+      {isPasswordModalOpen && (
+        <Suspense fallback={null}>
+          <PasswordAuthModal
+            isOpen={isPasswordModalOpen}
+            onClose={() => setIsPasswordModalOpen(false)}
+            onSuccess={() => setIsAlertModalOpen(true)}
+          />
+        </Suspense>
+      )}
 
       {/* Email Alert & Settings Modal */}
-      <EmailAlertModal
-        isOpen={isAlertModalOpen}
-        onClose={() => setIsAlertModalOpen(false)}
-        stations={stations}
-      />
+      {isAlertModalOpen && (
+        <Suspense fallback={null}>
+          <EmailAlertModal
+            isOpen={isAlertModalOpen}
+            onClose={() => setIsAlertModalOpen(false)}
+            stations={stations}
+          />
+        </Suspense>
+      )}
 
       {/* PDF Export Dialog */}
-      <PdfExportDialog
-        isOpen={isPdfModalOpen}
-        onClose={() => setIsPdfModalOpen(false)}
-        budgetMetrics={budgetMetrics}
-        provinceSummary={provinceSummary}
-        intervalsData={intervalsData}
-        totalStations={provinceStations.length}
-        totalIntervalBudget={totalIntervalBudget}
-        selectedProvince={selectedProvince}
-        stations={provinceStations}
-        siteBudgets={siteBudgets}
-        siteBaseBudgets={siteBaseBudgets}
-        budgetMap={budgetMap}
-        additionalBudgetMap={additionalBudgetMap}
-      />
+      {isPdfModalOpen && (
+        <Suspense fallback={null}>
+          <PdfExportDialog
+            isOpen={isPdfModalOpen}
+            onClose={() => setIsPdfModalOpen(false)}
+            budgetMetrics={budgetMetrics}
+            provinceSummary={provinceSummary}
+            intervalsData={intervalsData}
+            totalStations={provinceStations.length}
+            totalIntervalBudget={totalIntervalBudget}
+            selectedProvince={selectedProvince}
+            stations={provinceStations}
+            siteBudgets={siteBudgets}
+            siteBaseBudgets={siteBaseBudgets}
+            budgetMap={budgetMap}
+            additionalBudgetMap={additionalBudgetMap}
+          />
+        </Suspense>
+      )}
     </AuroraBackground>
   );
 }

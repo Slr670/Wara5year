@@ -35,6 +35,7 @@ export function Topbar({
           disabled={isSyncing}
           className="text-xs text-slate-400 hover:text-white"
           title="ซิงค์ข้อมูล Google Sheet ตอนนี้"
+          aria-label="ซิงค์ข้อมูล Google Sheet"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-blue-400' : ''}`} />
           <span className="hidden sm:inline">ซิงค์ชีต</span>
@@ -48,6 +49,7 @@ export function Topbar({
           size="sm"
           onClick={onOpenPdfDialog}
           className="shadow-blue-500/20"
+          aria-label="ส่งออกรายงาน PDF ระดับองค์กร"
         >
           <FileDown className="w-4 h-4" />
           <span>ส่งออก PDF</span>
@@ -59,6 +61,7 @@ export function Topbar({
           onClick={onOpenAlertModal}
           className="border-slate-700/80"
           title="ระบบแจ้งเตือนทาง Email"
+          aria-label="เปิดหน้าต่างระบบแจ้งเตือนทาง Email"
         >
           <Bell className="w-4 h-4 text-amber-400" />
           <span className="hidden sm:inline">การแจ้งเตือน</span>
@@ -70,6 +73,7 @@ export function Topbar({
           onClick={onOpenSettings}
           className="border-slate-700/80"
           title="ตั้งค่า Google Sheet"
+          aria-label="เปิดหน้าต่างตั้งค่า Google Sheet"
         >
           <Settings className="w-4 h-4 text-slate-300" />
           <span className="hidden sm:inline">ตั้งค่าชีต</span>

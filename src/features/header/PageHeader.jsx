@@ -11,7 +11,11 @@ export function PageHeader({ totalStations = 181, totalProvinces = 10 }) {
           <div className="shrink-0 flex items-center justify-center w-12 h-12 p-1.5 rounded-2xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/30 shadow-lg shadow-blue-500/5 overflow-hidden">
             <img
               src="/images/NBTC1.png"
-              alt="ตราสัญลักษณ์ทางการ"
+              alt="ตราสัญลักษณ์ทางการ กรมการปกครอง"
+              width="48"
+              height="48"
+              loading="eager"
+              decoding="async"
               className="w-full h-full object-contain"
             />
           </div>

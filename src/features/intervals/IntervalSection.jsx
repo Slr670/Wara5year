@@ -58,6 +58,7 @@ export function IntervalSection({
               size="sm"
               onClick={handleCopySummary}
               className="text-xs"
+              aria-label="คัดลอกข้อมูลสรุปวาระและความสูงเสาอากาศ"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'คัดลอกแล้ว' : 'คัดลอกสรุป'}</span>
@@ -67,6 +68,7 @@ export function IntervalSection({
               size="sm"
               onClick={handleExportCsv}
               className="text-xs"
+              aria-label="ส่งออกข้อมูลเสาอากาศเป็นไฟล์ CSV"
             >
               <Download className="w-3.5 h-3.5" />
               <span>ส่งออก CSV</span>

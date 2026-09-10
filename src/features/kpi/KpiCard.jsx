@@ -16,8 +16,18 @@ export function KpiCard({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      aria-label={`ตัวกรองช่วง ${title}: ${count} สถานี`}
       onClick={onClick}
-      className={`cursor-pointer transition-all duration-200 transform hover:-translate-y-1 ${
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      className={`cursor-pointer transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl ${
         isSelected ? 'ring-2 ring-blue-500 shadow-lg shadow-blue-500/20' : ''
       }`}
     >

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FileText, Download, Loader2 } from 'lucide-react';
-import { pdf } from '@react-pdf/renderer';
 import {
   Dialog,
   DialogContent,
@@ -10,9 +9,6 @@ import {
   DialogFooter
 } from '../../components/ui/dialog.jsx';
 import { Button } from '../../components/ui/button.jsx';
-import { WaraSummaryReportDocument } from './WaraSummaryReportDocument.jsx';
-import { TenureIntervalAnalysisDocument } from './TenureIntervalAnalysisDocument.jsx';
-import { ExecutiveAllInOneDocument } from './ExecutiveAllInOneDocument.jsx';
 import { BRACKET_CONFIG } from '../../config/brackets.config.js';
 
 export function PdfExportDialog({
@@ -47,6 +43,11 @@ export function PdfExportDialog({
   const handleExportSummaryReport = async () => {
     setLoadingType('summary');
     try {
+      const [{ pdf }, { WaraSummaryReportDocument }] = await Promise.all([
+        import('@react-pdf/renderer'),
+        import('./WaraSummaryReportDocument.jsx')
+      ]);
+
       const scopeName = selectedProvince === 'ทั้งหมด'
         ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
         : `เฉพาะจังหวัด ${selectedProvince}`;
@@ -77,6 +78,11 @@ export function PdfExportDialog({
   const handleExportIntervalReport = async () => {
     setLoadingType('interval');
     try {
+      const [{ pdf }, { TenureIntervalAnalysisDocument }] = await Promise.all([
+        import('@react-pdf/renderer'),
+        import('./TenureIntervalAnalysisDocument.jsx')
+      ]);
+
       const doc = (
         <TenureIntervalAnalysisDocument
           scopeName="ภาพรวมทุกช่วงเวลา (181 สถานี)"
@@ -101,6 +107,11 @@ export function PdfExportDialog({
   const handleExportAllInOneReport = async () => {
     setLoadingType('allInOne');
     try {
+      const [{ pdf }, { ExecutiveAllInOneDocument }] = await Promise.all([
+        import('@react-pdf/renderer'),
+        import('./ExecutiveAllInOneDocument.jsx')
+      ]);
+
       const scopeName = selectedProvince === 'ทั้งหมด'
         ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
         : `เฉพาะจังหวัด ${selectedProvince}`;

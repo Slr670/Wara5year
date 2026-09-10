@@ -23,6 +23,7 @@ export function VillageFilters({
             placeholder="ค้นหาชื่อหมู่บ้าน, ตำบล, อำเภอ, จังหวัด, รหัส หรือเบอร์โทร..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
+            aria-label="ค้นหาชื่อหมู่บ้าน ตำบล อำเภอ หรือจังหวัด"
             className="pl-9 text-xs sm:text-sm h-10"
           />
         </div>
@@ -32,6 +33,7 @@ export function VillageFilters({
           <Select
             value={selectedProvince}
             onChange={(e) => onSelectProvince(e.target.value)}
+            aria-label="เลือกกรองข้อมูลรายจังหวัด"
             className="text-xs sm:text-sm h-10"
           >
             {PROVINCES_ORDER.map(prov => (
@@ -47,6 +49,7 @@ export function VillageFilters({
           <Select
             value={selectedTermKey}
             onChange={(e) => onSelectTermKey(e.target.value)}
+            aria-label="เลือกกรองข้อมูลตามช่วงวาระคงเหลือ"
             className="text-xs sm:text-sm h-10"
           >
             <option value="all" className="bg-slate-900 text-slate-100">ทุกช่วงวาระ</option>

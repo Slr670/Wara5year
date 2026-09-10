@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Download, RotateCcw, Building2, FileText, Loader2 } from 'lucide-react';
-import { pdf } from '@react-pdf/renderer';
 import {
   Dialog,
   DialogContent,
@@ -13,7 +12,6 @@ import { Button } from '../../components/ui/button.jsx';
 import { Input } from '../../components/ui/input.jsx';
 import { formatThb } from '../../utils/formatters.js';
 import { exportBracketSitesCsv } from '../../utils/exportCsv.js';
-import { ExecutiveAllInOneDocument } from '../pdf-export/ExecutiveAllInOneDocument.jsx';
 
 export function SiteBudgetModal({
   isOpen,
@@ -72,6 +70,11 @@ export function SiteBudgetModal({
   const handleExportPdf = async () => {
     setIsExportingPdf(true);
     try {
+      const [{ pdf }, { ExecutiveAllInOneDocument }] = await Promise.all([
+        import('@react-pdf/renderer'),
+        import('../pdf-export/ExecutiveAllInOneDocument.jsx')
+      ]);
+
       const scopeName = selectedProvince === 'ทั้งหมด'
         ? 'ภาพรวมทั้งสิ้น 10 จังหวัด (181 สถานี)'
         : `เฉพาะจังหวัด ${selectedProvince}`;

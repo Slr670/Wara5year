@@ -24,6 +24,8 @@ export function SummaryTable({
         </div>
         {selectedProvince !== 'ทั้งหมด' && (
           <button
+            type="button"
+            aria-label="แสดงข้อมูลทุกจังหวัด"
             onClick={() => onSelectProvince('ทั้งหมด')}
             className="text-xs text-blue-400 hover:text-blue-300 underline font-medium self-start sm:self-auto"
           >
@@ -37,16 +39,16 @@ export function SummaryTable({
           <table className="w-full text-sm border-collapse min-w-[680px]">
             <thead>
               <tr className="bg-slate-800/90 text-slate-300 text-xs uppercase border-b border-slate-700">
-                <th className="py-3 px-4 text-left font-semibold sticky left-0 z-10 bg-slate-800 w-[23%]">
+                <th scope="col" className="py-3 px-4 text-left font-semibold sticky left-0 z-10 bg-slate-800 w-[23%]">
                   จังหวัด
                 </th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%]">ทั้งหมด</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-red-400">&lt; 1 ปี</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-orange-400">1 - 2 ปี</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-amber-400">2 - 3 ปี</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-emerald-400">3 - 4 ปี</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-blue-400">4 - 5 ปี</th>
-                <th className="py-3 px-2 text-center font-semibold w-[11%] text-purple-400">&gt; 5 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%]">ทั้งหมด</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-red-400">&lt; 1 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-orange-400">1 - 2 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-amber-400">2 - 3 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-emerald-400">3 - 4 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-blue-400">4 - 5 ปี</th>
+                <th scope="col" className="py-3 px-2 text-center font-semibold w-[11%] text-purple-400">&gt; 5 ปี</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60">
@@ -55,8 +57,17 @@ export function SummaryTable({
                 return (
                   <tr
                     key={row.province}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`เลือกกรองจังหวัด ${row.province}`}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onSelectProvince(isSelected ? 'ทั้งหมด' : row.province);
+                      }
+                    }}
                     onClick={() => onSelectProvince(isSelected ? 'ทั้งหมด' : row.province)}
-                    className={`cursor-pointer transition-colors ${
+                    className={`cursor-pointer transition-colors focus:outline-none focus:bg-slate-800/60 ${
                       isSelected
                         ? 'bg-blue-900/30 text-blue-100 font-semibold'
                         : 'hover:bg-slate-800/40 text-slate-200'

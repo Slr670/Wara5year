@@ -36,6 +36,7 @@ export function VillageGrid({ stations = [], onSelectStation }) {
           <Button
             variant="secondary"
             onClick={() => setDisplayLimit(prev => prev + 24)}
+            aria-label={`แสดงสถานีเพิ่มเติม อีก ${stations.length - displayLimit} สถานี`}
             className="px-6 text-xs text-slate-300 hover:text-white"
           >
             แสดงสถานีเพิ่มเติม ({stations.length - displayLimit} สถานีที่เหลือ)
