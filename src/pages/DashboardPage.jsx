@@ -198,11 +198,11 @@ export function DashboardPage() {
           <div className="font-semibold text-slate-300">
             {APP_CONFIG.companyTh} — {APP_CONFIG.companyEn}
           </div>
-          <div>
-            {APP_CONFIG.fullName} • เวอร์ชัน <span className="font-mono text-blue-400 font-bold">{APP_VERSION}</span>
-          </div>
           <div className="text-[11px] text-slate-400">
             {APP_CONFIG.companyAddress}
+          </div>
+          <div>
+            {APP_CONFIG.fullName} • เวอร์ชัน <span className="font-mono text-blue-400 font-bold">{APP_VERSION}</span>
           </div>
         </footer>
       </main>
