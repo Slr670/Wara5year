@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshCw, FileDown, Settings, Bell } from 'lucide-react';
+import { RefreshCw, FileDown, Settings } from 'lucide-react';
 import { Button } from '../../components/ui/button.jsx';
 import { BorderBeam } from '../../components/react-bits/BorderBeam.jsx';
 import { LiveClock } from './LiveClock.jsx';
@@ -10,8 +10,7 @@ export function Topbar({
   syncMessage,
   onManualSync,
   onOpenPdfDialog,
-  onOpenSettings,
-  onOpenAlertModal
+  onOpenSettings
 }) {
   return (
     <nav aria-label="Dashboard Controls" className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-xl shadow-lg mb-6">
@@ -53,18 +52,6 @@ export function Topbar({
         >
           <FileDown className="w-4 h-4" />
           <span>ส่งออก PDF</span>
-        </Button>
-
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={onOpenAlertModal}
-          className="border-slate-700/80"
-          title="ระบบแจ้งเตือนทาง Email"
-          aria-label="เปิดหน้าต่างระบบแจ้งเตือนทาง Email"
-        >
-          <Bell className="w-4 h-4 text-amber-400" />
-          <span className="hidden sm:inline">การแจ้งเตือน</span>
         </Button>
 
         <Button

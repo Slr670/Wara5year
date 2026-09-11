@@ -25,9 +25,6 @@ const AntennaMap = React.lazy(() =>
 const PasswordAuthModal = React.lazy(() =>
   import('../features/alerts/PasswordAuthModal.jsx').then(m => ({ default: m.PasswordAuthModal }))
 );
-const EmailAlertModal = React.lazy(() =>
-  import('../features/alerts/EmailAlertModal.jsx').then(m => ({ default: m.EmailAlertModal }))
-);
 const PdfExportDialog = React.lazy(() =>
   import('../features/pdf-export/PdfExportDialog.jsx').then(m => ({ default: m.PdfExportDialog }))
 );
@@ -96,7 +93,6 @@ export function DashboardPage() {
   // Modals state
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [selectedMapStation, setSelectedMapStation] = useState(null);
 
@@ -116,7 +112,6 @@ export function DashboardPage() {
           onManualSync={syncData}
           onOpenPdfDialog={() => setIsPdfModalOpen(true)}
           onOpenSettings={() => setIsPasswordModalOpen(true)}
-          onOpenAlertModal={() => setIsAlertModalOpen(true)}
         />
 
         {/* 1. KPI Metric Cards */}
@@ -222,22 +217,12 @@ export function DashboardPage() {
         </Suspense>
       )}
 
-      {/* Settings & SMTP Modal */}
+      {/* System Settings & Notification Modal */}
       {isSettingsModalOpen && (
         <Suspense fallback={null}>
           <SettingsModal
             isOpen={isSettingsModalOpen}
             onClose={() => setIsSettingsModalOpen(false)}
-          />
-        </Suspense>
-      )}
-
-      {/* Email Alert Modal */}
-      {isAlertModalOpen && (
-        <Suspense fallback={null}>
-          <EmailAlertModal
-            isOpen={isAlertModalOpen}
-            onClose={() => setIsAlertModalOpen(false)}
             stations={stations}
           />
         </Suspense>

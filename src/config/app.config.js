@@ -1,7 +1,7 @@
 /**
  * Centralized Application Configuration (Single Source of Truth)
  */
-export const APP_VERSION = 'v2.6.0';
+export const APP_VERSION = 'v2.6.1';
 
 export const APP_CONFIG = {
   version: APP_VERSION,
