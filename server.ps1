@@ -104,11 +104,12 @@ while ($listener.IsListening) {
                 }
             }
 
-            $smtpServer = if ($env:SMTP_HOST) { $env:SMTP_HOST } else { "smtp.gmail.com" }
-            $smtpPort = if ($env:SMTP_PORT) { [int]$env:SMTP_PORT } else { 587 }
-            $smtpUser = if ($env:SMTP_USER) { $env:SMTP_USER } else { "wara.noreply.app@gmail.com" }
-            $smtpPass = if ($env:SMTP_PASS) { $env:SMTP_PASS } else { "" }
-            $fromName = if ($env:EMAIL_FROM_NAME) { $env:EMAIL_FROM_NAME } else { "wara noreply" }
+            $customSmtp = $payload.customSmtp
+            $smtpServer = if ($customSmtp -and $customSmtp.smtp_host) { $customSmtp.smtp_host.ToString().Trim() } elseif ($env:SMTP_HOST) { $env:SMTP_HOST } else { "smtp.gmail.com" }
+            $smtpPort = if ($customSmtp -and $customSmtp.smtp_port) { [int]$customSmtp.smtp_port } elseif ($env:SMTP_PORT) { [int]$env:SMTP_PORT } else { 587 }
+            $smtpUser = if ($customSmtp -and $customSmtp.smtp_user) { $customSmtp.smtp_user.ToString().Trim() } elseif ($env:SMTP_USER) { $env:SMTP_USER } else { "wara.noreply.app@gmail.com" }
+            $smtpPass = if ($customSmtp -and $customSmtp.smtp_pw) { $customSmtp.smtp_pw.ToString().Trim() } elseif ($env:SMTP_PASS) { $env:SMTP_PASS } else { "" }
+            $fromName = if ($customSmtp -and $customSmtp.sender_name) { $customSmtp.sender_name.ToString().Trim() } elseif ($env:EMAIL_FROM_NAME) { $env:EMAIL_FROM_NAME } else { "wara noreply" }
 
             $response.ContentType = "application/json; charset=utf-8"
 

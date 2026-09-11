@@ -10,7 +10,7 @@ import {
 } from '../../components/ui/dialog.jsx';
 import { Button } from '../../components/ui/button.jsx';
 import { Input } from '../../components/ui/input.jsx';
-import { sendEmailAlert, runMonthlyCronAlert } from '../../services/api/emailService.js';
+import { sendEmailAlert, runMonthlyCronAlert, getSavedSmtpConfig } from '../../services/api/emailService.js';
 import { isZeroYearOneMonth } from '../../utils/calculations.js';
 
 export function EmailAlertModal({
@@ -52,7 +52,7 @@ export function EmailAlertModal({
     setStatusMessage({ type: 'info', text: 'กำลังส่ง Email Alert ไปยัง USO Project Team...' });
 
     try {
-      await sendEmailAlert(targetStations, false, destEmail.trim());
+      await sendEmailAlert(targetStations, false, destEmail.trim(), getSavedSmtpConfig());
       setStatusMessage({
         type: 'success',
         text: `ส่ง Live Alert สำเร็จ! ไปยัง ${destEmail} (พบ ${targetStations.length} สถานีวิกฤต)`

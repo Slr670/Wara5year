@@ -72,11 +72,11 @@ export function Topbar({
           size="sm"
           onClick={onOpenSettings}
           className="border-slate-700/80"
-          title="ตั้งค่า Google Sheet"
-          aria-label="เปิดหน้าต่างตั้งค่า Google Sheet"
+          title="ตั้งค่าระบบ & เซิร์ฟเวอร์ SMTP"
+          aria-label="เปิดหน้าต่างตั้งค่าระบบและเซิร์ฟเวอร์ SMTP"
         >
           <Settings className="w-4 h-4 text-slate-300" />
-          <span className="hidden sm:inline">ตั้งค่าชีต</span>
+          <span className="hidden sm:inline">ตั้งค่าระบบ</span>
         </Button>
 
         <div className="hidden lg:block pl-2 border-l border-slate-800">

@@ -43,6 +43,7 @@ exports.handler = async (event, context) => {
     const destinationEmail = (payload.to || process.env.ALERT_TO_EMAIL || 'wara.noreply.app@gmail.com').toString().trim();
     const villages = Array.isArray(payload.villages) ? payload.villages : [];
     const isTest = Boolean(payload.isTest);
+    const customSmtp = payload.customSmtp || null;
 
     if (!destinationEmail || !destinationEmail.includes('@')) {
       return {
@@ -52,8 +53,38 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Dynamic transporter config if customSmtp provided
+    let activeSmtp = { ...SMTP_CONFIG };
+    let activeFrom = DEFAULT_FROM;
+
+    if (customSmtp && typeof customSmtp === 'object') {
+      const host = (customSmtp.smtp_host || '').trim() || SMTP_CONFIG.host;
+      const port = parseInt(customSmtp.smtp_port, 10) || SMTP_CONFIG.port;
+      const user = (customSmtp.smtp_user || '').trim() || SMTP_CONFIG.auth.user;
+      const pass = (customSmtp.smtp_pw || '').trim() || SMTP_CONFIG.auth.pass;
+      const secure = customSmtp.smtp_secure !== undefined ? Boolean(customSmtp.smtp_secure) : (port === 465);
+      const rejectUnauthorized = customSmtp.reject_unauthorized !== undefined ? Boolean(customSmtp.reject_unauthorized) : true;
+
+      activeSmtp = {
+        host,
+        port,
+        secure,
+        auth: {
+          user,
+          pass
+        },
+        tls: {
+          rejectUnauthorized
+        }
+      };
+
+      const senderName = (customSmtp.sender_name || '').trim() || SENDER_NAME;
+      const senderEmail = (customSmtp.sender_email || '').trim() || user;
+      activeFrom = `"${senderName}" <${senderEmail}>`;
+    }
+
     // Create Nodemailer Transporter
-    const transporter = nodemailer.createTransport(SMTP_CONFIG);
+    const transporter = nodemailer.createTransport(activeSmtp);
     const nowStr = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
 
     let emailSubject = '';
@@ -439,7 +470,7 @@ exports.handler = async (event, context) => {
     }
 
     const mailOptions = {
-      from: DEFAULT_FROM,
+      from: activeFrom,
       to: destinationEmail,
       subject: emailSubject,
       html: emailHtml

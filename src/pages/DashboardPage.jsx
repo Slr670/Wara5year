@@ -31,6 +31,9 @@ const EmailAlertModal = React.lazy(() =>
 const PdfExportDialog = React.lazy(() =>
   import('../features/pdf-export/PdfExportDialog.jsx').then(m => ({ default: m.PdfExportDialog }))
 );
+const SettingsModal = React.lazy(() =>
+  import('../features/settings/SettingsModal.jsx').then(m => ({ default: m.SettingsModal }))
+);
 
 function ChartSkeleton() {
   return (
@@ -92,6 +95,7 @@ export function DashboardPage() {
 
   // Modals state
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [selectedMapStation, setSelectedMapStation] = useState(null);
@@ -213,12 +217,22 @@ export function DashboardPage() {
           <PasswordAuthModal
             isOpen={isPasswordModalOpen}
             onClose={() => setIsPasswordModalOpen(false)}
-            onSuccess={() => setIsAlertModalOpen(true)}
+            onSuccess={() => setIsSettingsModalOpen(true)}
           />
         </Suspense>
       )}
 
-      {/* Email Alert & Settings Modal */}
+      {/* Settings & SMTP Modal */}
+      {isSettingsModalOpen && (
+        <Suspense fallback={null}>
+          <SettingsModal
+            isOpen={isSettingsModalOpen}
+            onClose={() => setIsSettingsModalOpen(false)}
+          />
+        </Suspense>
+      )}
+
+      {/* Email Alert Modal */}
       {isAlertModalOpen && (
         <Suspense fallback={null}>
           <EmailAlertModal
