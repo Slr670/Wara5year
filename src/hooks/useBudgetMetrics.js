@@ -74,10 +74,14 @@ export function useBudgetMetrics(stations = []) {
   }, []);
 
   const resetBracketSiteBudgets = useCallback((bracketKey, bracketStations) => {
+    const list = (bracketStations && bracketStations.length > 0)
+      ? bracketStations
+      : stations.filter(s => (s.termKey || s.key) === bracketKey);
+
     setSiteBudgetsState(prev => {
       const next = { ...prev };
-      bracketStations.forEach(s => {
-        delete next[s.id];
+      list.forEach(s => {
+        next[s.id] = 0;
       });
       localStorage.setItem('WARA_SITE_BUDGET_MAP', JSON.stringify(next));
       return next;
@@ -85,13 +89,13 @@ export function useBudgetMetrics(stations = []) {
 
     setSiteBaseBudgetsState(prev => {
       const next = { ...prev };
-      bracketStations.forEach(s => {
-        delete next[s.id];
+      list.forEach(s => {
+        next[s.id] = 0;
       });
       localStorage.setItem('WARA_SITE_BASE_BUDGET_MAP', JSON.stringify(next));
       return next;
     });
-  }, []);
+  }, [stations]);
 
   const metrics = useMemo(() => {
     return calculateBudgetMetrics(stations, siteBudgets, budgetMap, additionalBudgetMap, siteBaseBudgets);

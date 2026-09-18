@@ -55,6 +55,17 @@ export function SiteBudgetModal({
     return sum + sBase + sAdd;
   }, 0);
 
+  const handleResetBracket = () => {
+    if (onResetBracketSites) {
+      onResetBracketSites(bracket.key, bracketStations);
+    } else {
+      bracketStations.forEach(s => {
+        if (onUpdateSiteBaseBudget) onUpdateSiteBaseBudget(s.id, 0);
+        if (onUpdateSiteBudget) onUpdateSiteBudget(s.id, 0);
+      });
+    }
+  };
+
   const handleExportCsv = () => {
     exportBracketSitesCsv(
       bracket.key,
@@ -143,7 +154,7 @@ export function SiteBudgetModal({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onResetBracketSites(bracket.key, bracketStations)}
+              onClick={handleResetBracket}
               className="text-xs text-rose-400 hover:text-rose-300 border-rose-900/50"
             >
               <RotateCcw className="w-3.5 h-3.5" />
