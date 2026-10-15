@@ -117,6 +117,7 @@ export function AntennaMap({ stations = [], selectedStation = null, onSelectStat
             <span style="background:#eff6ff; color:#1d4ed8; padding: 2px 6px; border-radius: 4px; border: 1px solid #bfdbfe;">เสา ${station.towerHeight || '9'} ม.</span>
             <span style="background:#f1f5f9; color:#475569; padding: 2px 6px; border-radius: 4px; border: 1px solid #cbd5e1;">${station.typicalType || (['18', '30'].includes(String(station.towerHeight)) ? 'อื่นๆ' : 'Type C')}</span>
           </div>
+          ${(station.remark || station.update) ? `<div style="margin-top: 6px;"><span style="display: inline-block; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">• ${(station.remark || station.update)}</span></div>` : ''}
           ${station.phone ? `<div style="font-size: 11px; color: #475569; margin-top: 6px;">โทร: ${station.phone}</div>` : ''}
         </div>
       `;

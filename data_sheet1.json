@@ -1,4 +1,4 @@
-﻿[
+[
     {
         "id":  1,
         "village":  "หมู่ 13 หนองจิกน้ำดำ",
@@ -1076,7 +1076,9 @@
         "lat":  13.036558,
         "lng":  102.024155,
         "towerHeight":  "9",
-        "typicalType":  "Typical Type C"
+        "typicalType":  "Typical Type C",
+        "remark":  "New",
+        "update":  "New"
     },
     {
         "id":  84,
@@ -2038,7 +2040,9 @@
         "lat":  16.030031,
         "lng":  100.666606,
         "towerHeight":  "9",
-        "typicalType":  "Typical Type C"
+        "typicalType":  "Typical Type C",
+        "remark":  "New",
+        "update":  "New"
     },
     {
         "id":  158,

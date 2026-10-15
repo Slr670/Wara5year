@@ -3,7 +3,7 @@ import { VillageCard } from './VillageCard.jsx';
 import { Button } from '../../components/ui/button.jsx';
 import { Radio } from 'lucide-react';
 
-export function VillageGrid({ stations = [], onSelectStation }) {
+export function VillageGrid({ stations = [], onSelectStation, remarksMap = null }) {
   const [displayLimit, setDisplayLimit] = useState(24);
 
   const displayedStations = stations.slice(0, displayLimit);
@@ -27,6 +27,7 @@ export function VillageGrid({ stations = [], onSelectStation }) {
             key={station.id}
             station={station}
             onSelect={onSelectStation}
+            remarksMap={remarksMap}
           />
         ))}
       </div>

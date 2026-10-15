@@ -7,7 +7,9 @@ export function useWaraData() {
   const [stations, setStations] = useState(() => {
     return defaultStations.map(s => ({
       ...s,
-      termKey: getTermKey(s.term)
+      termKey: getTermKey(s.term),
+      remark: (s.remark || s.update || '').trim(),
+      update: (s.remark || s.update || '').trim()
     }));
   });
 
@@ -18,7 +20,9 @@ export function useWaraData() {
   const updateStations = useCallback((newStations) => {
     setStations(newStations.map(s => ({
       ...s,
-      termKey: s.termKey || getTermKey(s.term)
+      termKey: s.termKey || getTermKey(s.term),
+      remark: (s.remark || s.update || '').trim(),
+      update: (s.remark || s.update || '').trim()
     })));
   }, []);
 
@@ -42,7 +46,8 @@ export function useWaraData() {
         const prov = (station.province || '').toLowerCase();
         const phone = (station.phone || '').toLowerCase();
         const id = String(station.id);
-        if (!v.includes(q) && !sub.includes(q) && !dist.includes(q) && !prov.includes(q) && !phone.includes(q) && !id.includes(q)) {
+        const remark = (station.remark || station.update || '').toLowerCase();
+        if (!v.includes(q) && !sub.includes(q) && !dist.includes(q) && !prov.includes(q) && !phone.includes(q) && !id.includes(q) && !remark.includes(q)) {
           return false;
         }
       }

@@ -1,10 +1,15 @@
 import React from 'react';
-import { MapPin, Phone, Radio, Compass } from 'lucide-react';
+import { MapPin, Phone, Radio, Compass, Sparkles, Tag } from 'lucide-react';
 import { BRACKET_CONFIG } from '../../config/brackets.config.js';
 import { Card } from '../../components/ui/card.jsx';
+import { getStationRemark } from '../../services/sheet/googleSheetService.js';
 
-export function VillageCard({ station, onSelect }) {
+export function VillageCard({ station, onSelect, remarksMap = null }) {
   const bracket = BRACKET_CONFIG.find(b => b.key === station.termKey) || BRACKET_CONFIG[5];
+
+  // Map each record by matching village name (หมู่บ้าน) or TOR index, or direct station property
+  const remark = getStationRemark(station, remarksMap);
+  const isNew = remark && remark.toLowerCase().includes('new');
 
   return (
     <Card
@@ -36,15 +41,37 @@ export function VillageCard({ station, onSelect }) {
           {station.village}
         </h4>
 
-        <div className="flex items-center gap-1 text-xs text-slate-400 mb-3">
+        <div className={`flex items-center gap-1 text-xs text-slate-400 ${remark ? 'mb-2' : 'mb-3'}`}>
           <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
           <span className="truncate">
             ต.{station.subdistrict} อ.{station.district} จ.{station.province}
           </span>
         </div>
+
+        {/* Update Tag / Remark Badge (Google Sheets Sheet1 Column L) */}
+        {remark ? (
+          <div className="mb-2.5 flex items-center">
+            <span
+              className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold border transition-all ${
+                isNew
+                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                  : 'bg-amber-500/15 text-amber-300 border-amber-500/30 shadow-[0_0_8px_rgba(245,158,11,0.12)]'
+              }`}
+              title={`ข้อมูลอัปเดต / หมายเหตุ: ${remark}`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${isNew ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+              {isNew ? (
+                <Sparkles className="w-3 h-3 text-emerald-400 shrink-0" />
+              ) : (
+                <Tag className="w-3 h-3 text-amber-400 shrink-0" />
+              )}
+              <span className="truncate max-w-[200px]">{remark}</span>
+            </span>
+          </div>
+        ) : null}
       </div>
 
-      {/* Footer Specs & Action */}
+      {/* Footer Specs & Action (Tower tags & Contact info) */}
       <div className="pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
         <div className="flex items-center gap-2">
           <span className="bg-slate-800/80 text-blue-300 border border-slate-700/60 px-2 py-0.5 rounded text-[11px]">

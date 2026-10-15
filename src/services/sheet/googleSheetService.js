@@ -5,7 +5,7 @@ import { getTermKey } from '../../utils/calculations.js';
 import { APP_CONFIG } from '../../config/app.config.js';
 
 export function parseCSV(text) {
-  const lines = text.trim().split('\n');
+  const lines = text.replace(/\r/g, '').trim().split('\n');
   return lines.map(line => {
     const row = [];
     let inQuotes = false;
@@ -36,6 +36,94 @@ export function normalizeSheetUrl(url) {
     return `https://docs.google.com/spreadsheets/d/${match[1]}/export?format=csv&gid=${gid}`;
   }
   return url;
+}
+
+/**
+ * Builds lookup maps for Column L remarks/updates
+ * matching by TOR index (ลำดับ TOR) and village name (หมู่บ้าน)
+ * @param {Array} records - Array of raw CSV rows or station objects
+ * @returns {Object} { byTorIndex: Record<string, string>, byVillage: Record<string, string> }
+ */
+export function buildRemarksMap(records = []) {
+  const map = {
+    byTorIndex: {},
+    byVillage: {}
+  };
+
+  if (!Array.isArray(records)) return map;
+
+  for (const item of records) {
+    if (!item) continue;
+
+    if (Array.isArray(item)) {
+      const torId = String(item[0] || '').trim();
+      const village = String(item[1] || '').trim();
+      const remark = String(item[11] || '').trim();
+
+      if (remark) {
+        if (torId) map.byTorIndex[torId] = remark;
+        if (village) map.byVillage[village] = remark;
+      }
+    } else {
+      const torId = String(item.id || item.torIndex || '').trim();
+      const village = String(item.village || item.villageName || '').trim();
+      const remark = String(item.remark || item.update || item.notes || item.columnL || '').trim();
+
+      if (remark) {
+        if (torId) map.byTorIndex[torId] = remark;
+        if (village) map.byVillage[village] = remark;
+      }
+    }
+  }
+
+  return map;
+}
+
+/**
+ * Resolves remark/update text for a station by matching village name or TOR index
+ * @param {Object} station
+ * @param {Object|null} remarksMap
+ * @returns {string} remark text or empty string if blank
+ */
+export function getStationRemark(station, remarksMap = null) {
+  if (!station) return '';
+
+  // 1. Direct property already ingested on station
+  const direct = (station.remark || station.update || station.notes || station.columnL || '').trim();
+  if (direct) return direct;
+
+  // 2. Lookup via remarksMap by TOR index or village name
+  if (remarksMap) {
+    const torId = String(station.id ?? '').trim();
+    const village = String(station.village ?? '').trim();
+
+    if (torId) {
+      if (remarksMap.byTorIndex && remarksMap.byTorIndex[torId]) {
+        return String(remarksMap.byTorIndex[torId]).trim();
+      }
+      if (remarksMap[torId] !== undefined) {
+        return String(remarksMap[torId]).trim();
+      }
+    }
+
+    if (village) {
+      if (remarksMap.byVillage && remarksMap.byVillage[village]) {
+        return String(remarksMap.byVillage[village]).trim();
+      }
+      if (remarksMap[village] !== undefined) {
+        return String(remarksMap[village]).trim();
+      }
+      const norm = village.replace(/\s+/g, ' ');
+      if (remarksMap.byVillage && remarksMap.byVillage[norm]) {
+        return String(remarksMap.byVillage[norm]).trim();
+      }
+      if (remarksMap[norm] !== undefined) {
+        return String(remarksMap[norm]).trim();
+      }
+    }
+  }
+
+  return '';
 }
 
 export async function fetchGoogleSheetStations(customUrl = null) {
@@ -91,6 +179,9 @@ export async function fetchGoogleSheetStations(customUrl = null) {
         const rawType = (row[10] || '').trim() || towerInfo.typicalType;
         const typicalType = isSpecialTower ? 'อื่นๆ' : (rawType || 'Typical Type C');
 
+        // Column L (index 11): Remarks / Updates from Sheet1
+        const remark = (row[11] || '').trim();
+
         stations.push({
           id,
           village,
@@ -103,7 +194,9 @@ export async function fetchGoogleSheetStations(customUrl = null) {
           lng,
           towerHeight,
           typicalType,
-          termKey: getTermKey(term)
+          termKey: getTermKey(term),
+          remark,
+          update: remark
         });
       }
 
@@ -118,10 +211,13 @@ export async function fetchGoogleSheetStations(customUrl = null) {
   // Fallback to default bundled stations
   return defaultStations.map(s => {
     const isSpecialTower = String(s.towerHeight).includes('18') || String(s.towerHeight).includes('30');
+    const remark = (s.remark || s.update || '').trim();
     return {
       ...s,
       typicalType: isSpecialTower ? 'อื่นๆ' : (s.typicalType || 'Typical Type C'),
-      termKey: getTermKey(s.term)
+      termKey: getTermKey(s.term),
+      remark,
+      update: remark
     };
   });
 }

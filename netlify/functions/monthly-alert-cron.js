@@ -106,7 +106,9 @@ async function loadDataset() {
             lat: row[7] ? parseFloat(row[7]) : null,
             lng: row[8] ? parseFloat(row[8]) : null,
             towerHeight: (row[9] || '').trim(),
-            typicalType: (row[10] || '').trim()
+            typicalType: (row[10] || '').trim(),
+            remark: (row[11] || '').trim(),
+            update: (row[11] || '').trim()
           });
         }
       }
